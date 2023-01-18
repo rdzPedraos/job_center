@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('document_types', function (Blueprint $table) {
-            $table->tinyIncrements('id');
+            $table->unsignedTinyInteger('id', true);
             $table->string('name', 35)->unique();
             $table->string('acronym', 3)->unique();
             $table->timestamps();
