@@ -8,6 +8,7 @@ use Database\Seeders\EpsSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\BloodTypeSeeder;
 use Database\Seeders\DocumentTypeSeeder;
+use Database\Seeders\MaritalStatusSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +20,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // * When the db is seeded, all the default seeders are executed in the order they are called.
-        $this->call([DocumentTypeSeeder::class, ArlSeeder::class, EpsSeeder::class, BloodTypeSeeder::class]);
+        $this->call([
+            DocumentTypeSeeder::class,
+            ArlSeeder::class,
+            EpsSeeder::class,
+            BloodTypeSeeder::class,
+            MaritalStatusSeeder::class
+        ]);
     }
 }
