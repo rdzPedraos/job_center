@@ -29,13 +29,11 @@ class PensionFundSeeder extends Seeder
             ["RES004", "FONDO DE PRESTACIONES SOCIALES DEL MAGISTERIO"]
         ];
 
-        PensionFund::withoutEvents(function () use ($funds) {
-            foreach ($funds as $fund) {
-                PensionFund::create([
-                    'code' => $fund[0],
-                    'name' => $fund[1]
-                ]);
-            }
-        });
+        PensionFund::insert(
+            array_map(
+                fn ($fund) => ['code' => $fund[0], 'name' => $fund[1]],
+                $funds
+            )
+        );
     }
 }

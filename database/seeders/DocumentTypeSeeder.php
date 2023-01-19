@@ -19,34 +19,39 @@ class DocumentTypeSeeder extends Seeder
         // * These are the default document types, don't add or remove any of them.
         // * ----------------------------------------------------------------------
 
-        DocumentType::create([
-            'name' => 'CÉDULA DE CIUDADANÍA',
-            'acronym' => 'CC',
-        ]);
+        $documentTypes = [
+            [
+                'CÉDULA DE CIUDADANÍA',
+                'CC',
+            ],
+            [
+                'TARJETA DE IDENTIDAD',
+                'TI',
+            ],
+            [
+                'DOCUMENTO DE IDENTIDAD EXTRANJERÍA',
+                'DE',
+            ],
+            [
+                'CÉDULA DE EXTRANJERÍA',
+                'CE',
+            ],
+            [
+                'PASAPORTE',
+                'PS',
+            ],
+            [
+                'CERTIFICADO CABILDO',
+                'CA',
+            ]
+        ];
 
-        DocumentType::create([
-            'name' => 'TARJETA DE IDENTIDAD',
-            'acronym' => 'TI',
-        ]);
-
-        DocumentType::create([
-            'name' => 'DOCUMENTO DE IDENTIDAD EXTRANJERÍA',
-            'acronym' => 'DE',
-        ]);
-
-        DocumentType::create([
-            'name' => 'CÉDULA DE EXTRANJERÍA',
-            'acronym' => 'CE',
-        ]);
-
-        DocumentType::create([
-            'name' => 'PASAPORTE',
-            'acronym' => 'PS',
-        ]);
-
-        DocumentType::create([
-            'name' => 'CERTIFICADO CABILDO',
-            'acronym' => 'CA',
-        ]);
+        DocumentType::insert(array_map(
+            fn ($documentType) => [
+                'name' => $documentType[0],
+                'acronym' => $documentType[1],
+            ],
+            $documentTypes
+        ));
     }
 }

@@ -15,13 +15,6 @@ class EpsSeeder extends Seeder
      */
     public function run()
     {
-        Eps::withoutEvents(function () {
-            $this->createEps();
-        });
-    }
-
-    private function createEps()
-    {
         $data = [
             ["COOSALUD EPS-S", "900226715"],
             ["NUEVA EPS", "900156264"],
@@ -55,11 +48,13 @@ class EpsSeeder extends Seeder
             ["PIJAOS SALUD EPSI", "809008362"]
         ];
 
-        foreach ($data as $eps) {
-            Eps::create([
+        Eps::insert(array_map(
+            fn ($eps) =>
+            [
                 'name' => $eps[0],
-                'nit' => $eps[1]
-            ]);
-        }
+                'nit' => $eps[1],
+            ],
+            $data
+        ));
     }
 }

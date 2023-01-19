@@ -19,54 +19,67 @@ class ArlSeeder extends Seeder
         // * These are the default document types, don't add or remove any of them.
         // * ----------------------------------------------------------------------
 
-        Arl::create([
-            'name' => 'SEGUROS DE VIDA ALFA SA',
-            'code' => '14-17',
-        ]);
+        $arls = [
+            [
+                'SEGUROS DE VIDA ALFA SA',
+                '14-17',
+            ],
 
-        Arl::create([
-            'name' => 'LIBERTY SEGUROS DE VIDA',
-            'code' => '14-18',
-        ]);
+            [
+                'LIBERTY SEGUROS DE VIDA',
+                '14-18',
+            ],
 
-        Arl::create([
-            'name' => 'POSITIVA COMPAÑIA DE SEGUROS',
-            'code' => '14-23',
-        ]);
+            [
+                'POSITIVA COMPAÑIA DE SEGUROS',
+                '14-23',
+            ],
 
-        Arl::create([
-            'name' => 'RIESGOS PROFESIONALES COLMENA SA COMPAÑIA DE SEGUROS DE VIDA',
-            'code' => '14-25',
-        ]);
+            [
+                'RIESGOS PROFESIONALES COLMENA SA COMPAÑIA DE SEGUROS DE VIDA',
+                '14-25',
+            ],
 
-        Arl::create([
-            'name' => 'ARP SURA',
-            'code' => '14-28',
-        ]);
+            [
+                'ARP SURA',
+                '14-28',
+            ],
 
-        Arl::create([
-            'name' => 'LA EQUIDAD SEGUROS DE VIDA ORGANISMO COOPERATIVO LA EQUIDAD VIDA',
-            'code' => '14-29',
-        ]);
+            [
+                'LA EQUIDAD SEGUROS DE VIDA ORGANISMO COOPERATIVO LA EQUIDAD VIDA',
+                '14-29',
+            ],
 
-        Arl::create([
-            'name' => 'MAPFRE COLOMBIA VIDA SEGUROS SA',
-            'code' => '14-30',
-        ]);
+            [
+                'MAPFRE COLOMBIA VIDA SEGUROS SA',
+                '14-30',
+            ],
 
-        Arl::create([
-            'name' => 'SEGUROS DE VIDA COLPATRIA SA',
-            'code' => '14-4',
-        ]);
+            [
+                'SEGUROS DE VIDA COLPATRIA SA',
+                '14-4',
+            ],
 
-        Arl::create([
-            'name' => 'CIA DE SEGUROS BOLIVAR SA',
-            'code' => '14-7',
-        ]);
+            [
+                'CIA DE SEGUROS BOLIVAR SA',
+                '14-7',
+            ],
 
-        Arl::create([
-            'name' => 'COMPAÑIA DE SEGUROS DE VIDA AURORA',
-            'code' => '14-8',
-        ]);
+            [
+                'COMPAÑIA DE SEGUROS DE VIDA AURORA',
+                '14-8',
+            ],
+        ];
+
+        Arl::insert(
+            array_map(
+                fn ($arl) =>
+                [
+                    'name' => $arl[0],
+                    'code' => $arl[1],
+                ],
+                $arls
+            )
+        );
     }
 }

@@ -15,13 +15,6 @@ class MaritalStatusSeeder extends Seeder
      */
     public function run()
     {
-        MaritalStatus::withoutEvents(function () {
-            $this->createMaritalStatuses();
-        });
-    }
-
-    private function createMaritalStatuses()
-    {
         $maritalStatuses = [
             "Soltero/a",
             "Casado/a",
@@ -31,10 +24,11 @@ class MaritalStatusSeeder extends Seeder
             "Viudo/a"
         ];
 
-        foreach ($maritalStatuses as $maritalStatus) {
-            MaritalStatus::create([
-                'name' => $maritalStatus
-            ]);
-        }
+        MaritalStatus::insert(
+            array_map(
+                fn ($maritalStatus) => ['name' => $maritalStatus],
+                $maritalStatuses
+            )
+        );
     }
 }

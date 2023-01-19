@@ -15,13 +15,6 @@ class BloodTypeSeeder extends Seeder
      */
     public function run()
     {
-        BloodType::withoutEvents(function () {
-            $this->createBloodTypes();
-        });
-    }
-
-    private function createBloodTypes()
-    {
         $bloodTypes = [
             'A+',
             'A-',
@@ -33,8 +26,11 @@ class BloodTypeSeeder extends Seeder
             'O-',
         ];
 
-        foreach ($bloodTypes as $bloodType) {
-            BloodType::create(['name' => $bloodType]);
-        }
+        BloodType::insert(
+            array_map(
+                fn ($bloodType) => ['name' => $bloodType],
+                $bloodTypes
+            )
+        );
     }
 }
