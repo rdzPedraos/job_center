@@ -14,6 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('vinculation_types', function (Blueprint $table) {
+            $table->comment('Esta tabla contiene todos los tipos de vinculación que existen ej: Contratista, Por planta');
+
             $table->unsignedTinyInteger('id', true);
             $table->string('name', 50)->unique();
             $table->string('acronym', 10)->unique();
