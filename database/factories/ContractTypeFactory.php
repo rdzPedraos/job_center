@@ -21,9 +21,7 @@ class ContractTypeFactory extends Factory
         return [
             'name' => fake()->unique()->word,
             'dedication_time_id' => DedicationTime::all()->random()->id,
-            'vinculation_type_id' => VinculationType::all()->random()->id,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'vinculation_type_id' => VinculationType::all()->random()->id
         ];
     }
 }
