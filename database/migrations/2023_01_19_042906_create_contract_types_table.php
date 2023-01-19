@@ -14,11 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('contract_types', function (Blueprint $table) {
+            $table->comment('Contiene la plantilla que tiene un tipo de contrato, considerando el tipo de vinculación y el tiempo laborado.');
+
             $table->unsignedSmallInteger('id', true);
             $table->string('name', 100)->unique();
             $table->unsignedTinyInteger('dedication_time_id');
             $table->unsignedTinyInteger('vinculation_type_id');
-            $table->timestamps();
 
             $table->foreign('vinculation_type_id')->references('id')->on('vinculation_types');
             $table->foreign('dedication_time_id')->references('id')->on('dedication_times');
