@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('eps', function (Blueprint $table) {
             $table->unsignedTinyInteger('id', true);
-            $table->string('name', 150);
-            $table->string('nit', 10);
+            $table->string('name', 150)->unique();
+            $table->string('nit', 10)->unique();
             $table->timestamps();
         });
     }
