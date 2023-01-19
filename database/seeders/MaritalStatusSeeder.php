@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Illuminate\Support\Str;
 use App\Models\MaritalStatus;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -26,7 +27,7 @@ class MaritalStatusSeeder extends Seeder
 
         MaritalStatus::insert(
             array_map(
-                fn ($maritalStatus) => ['name' => $maritalStatus],
+                fn ($maritalStatus) => ['name' => Str::upper($maritalStatus)],
                 $maritalStatuses
             )
         );
