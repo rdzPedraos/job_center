@@ -38,6 +38,7 @@ return new class extends Migration
             $table->dropColumn('first_surname');
             $table->dropColumn('middle_surname');
             $table->dropColumn('phone_number');
+            $table->dropColumn('is_active');
         });
     }
 };
