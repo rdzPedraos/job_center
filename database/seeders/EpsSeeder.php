@@ -15,130 +15,51 @@ class EpsSeeder extends Seeder
      */
     public function run()
     {
+        Eps::withoutEvents(function () {
+            $this->createEps();
+        });
+    }
 
+    private function createEps()
+    {
         $data = [
-            [
-                "name" => "COOSALUD EPS-S",
-                "nit" => "900226715"
-            ],
-            [
-                "name" => "NUEVA EPS",
-                "nit" => "900156264"
-            ],
-            [
-                "name" => "MUTUAL SER",
-                "nit" => "806008394"
-            ],
-            [
-                "name" => "ALIANSALUD EPS",
-                "nit" => "830113831"
-            ],
-            [
-                "name" => "SALUD TOTAL EPS S.A.",
-                "nit" => "800130907"
-            ],
-            [
-                "name" => "EPS SANITAS",
-                "nit" => "800251440"
-            ],
-            [
-                "name" => "EPS SURA",
-                "nit" => "800088702"
-            ],
-            [
-                "name" => "FAMISANAR",
-                "nit" => "830003564"
-            ],
-            [
-                "name" => "SERVICIO OCCIDENTAL DE SALUD EPS SOS",
-                "nit" => "805001157"
-            ],
-            [
-                "name" => "SALUD MIA",
-                "nit" => "900914254"
-            ],
-            [
-                "name" => "COMFENALCO VALLE",
-                "nit" => "890303093"
-            ],
-            [
-                "name" => "COMPENSAR EPS",
-                "nit" => "860066942"
-            ],
-            [
-                "name" => "EPM - EMPRESAS PUBLICAS DE MEDELLIN",
-                "nit" => "890904996"
-            ],
-            [
-                "name" => "FONDO DE PASIVO SOCIAL DE FERROCARRILES NACIONALES DE COLOMBIA",
-                "nit" => "800112806"
-            ],
-            [
-                "name" => "CAJACOPI ATLANTICO",
-                "nit" => "890102044"
-            ],
-            [
-                "name" => "CAPRESOCA",
-                "nit" => "891856000"
-            ],
-            [
-                "name" => "COMFACHOCO",
-                "nit" => "891600091"
-            ],
-            [
-                "name" => "COMFAMILIAR DE LA  GUAJIRA",
-                "nit" => "892115006"
-            ],
-            [
-                "name" => "COMFAORIENTE",
-                "nit" => "890500675"
-            ],
-            [
-                "name" => "EPS FAMILIAR DE COLOMBIA (Antes ComfaSucre)",
-                "nit" => "901543761"
-            ],
-            [
-                "name" => "ASMET  SALUD",
-                "nit" => "900935126"
-            ],
-            [
-                "name" => "ECOOPSOS ESS EPS-S",
-                "nit" => "901093846"
-            ],
-            [
-                "name" => "EMSSANAR E.S.S.",
-                "nit" => "901021565"
-            ],
-            [
-                "name" => "CAPITAL SALUD EPS-S",
-                "nit" => "900298372"
-            ],
-            [
-                "name" => "SAVIA SALUD EPS",
-                "nit" => "900604350"
-            ],
-            [
-                "name" => "DUSAKAWI EPSI",
-                "nit" => "824001398"
-            ],
-            [
-                "name" => "ASOCIACION INDIGENA DEL CAUCA EPSI",
-                "nit" => "817001773"
-            ],
-            [
-                "name" => "ANAS WAYUU EPSI",
-                "nit" => "839000495"
-            ],
-            [
-                "name" => "MALLAMAS EPSI",
-                "nit" => "837000084"
-            ],
-            [
-                "name" => "PIJAOS SALUD EPSI",
-                "nit" => "809008362"
-            ]
+            ["COOSALUD EPS-S", "900226715"],
+            ["NUEVA EPS", "900156264"],
+            ["MUTUAL SER", "806008394"],
+            ["ALIANSALUD EPS", "830113831"],
+            ["SALUD TOTAL EPS S.A.", "800130907"],
+            ["EPS SANITAS", "800251440"],
+            ["EPS SURA", "800088702"],
+            ["FAMISANAR", "830003564"],
+            ["SERVICIO OCCIDENTAL DE SALUD EPS SOS", "805001157"],
+            ["SALUD MIA", "900914254"],
+            ["COMFENALCO VALLE", "890303093"],
+            ["COMPENSAR EPS", "860066942"],
+            ["EPM - EMPRESAS PUBLICAS DE MEDELLIN", "890904996"],
+            ["FONDO DE PASIVO SOCIAL DE FERROCARRILES NACIONALES DE COLOMBIA", "800112806"],
+            ["CAJACOPI ATLANTICO", "890102044"],
+            ["CAPRESOCA", "891856000"],
+            ["COMFACHOCO", "891600091"],
+            ["COMFAMILIAR DE LA  GUAJIRA", "892115006"],
+            ["COMFAORIENTE", "890500675"],
+            ["EPS FAMILIAR DE COLOMBIA (Antes ComfaSucre)", "901543761"],
+            ["ASMET  SALUD", "900935126"],
+            ["ECOOPSOS ESS EPS-S", "901093846"],
+            ["EMSSANAR E.S.S.", "901021565"],
+            ["CAPITAL SALUD EPS-S", "900298372"],
+            ["SAVIA SALUD EPS", "900604350"],
+            ["DUSAKAWI EPSI", "824001398"],
+            ["ASOCIACION INDIGENA DEL CAUCA EPSI", "817001773"],
+            ["ANAS WAYUU EPSI", "839000495"],
+            ["MALLAMAS EPSI", "837000084"],
+            ["PIJAOS SALUD EPSI", "809008362"]
         ];
 
-        Eps::insert($data);
+        foreach ($data as $eps) {
+            Eps::create([
+                'name' => $eps[0],
+                'nit' => $eps[1]
+            ]);
+        }
     }
 }
