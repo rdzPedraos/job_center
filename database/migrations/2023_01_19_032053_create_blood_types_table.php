@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('blood_types', function (Blueprint $table) {
             $table->unsignedTinyInteger('id', true);
             $table->string('name', 3)->unique();
-            $table->timestamps();
         });
     }
 

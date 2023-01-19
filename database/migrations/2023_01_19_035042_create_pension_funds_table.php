@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedTinyInteger('id', true);
             $table->string('name', 100)->unique();
             $table->string('code', 10)->unique();
-            $table->timestamps();
         });
     }
 

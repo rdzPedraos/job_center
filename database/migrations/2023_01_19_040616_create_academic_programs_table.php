@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('name', 50)->unique();
             $table->string('description')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->timestamps();
 
             $table->foreign('faculty_id')->references('id')->on('academic_faculties');
         });

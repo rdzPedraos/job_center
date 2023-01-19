@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('marital_statuses', function (Blueprint $table) {
             $table->unsignedTinyInteger('id', true);
             $table->string('name', 50)->unique();
-            $table->timestamps();
         });
     }
 
