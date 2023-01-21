@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\AcademicFaculty;
 use Database\Seeders\ArlSeeder;
 use Database\Seeders\EpsSeeder;
 use Illuminate\Database\Seeder;
@@ -13,6 +15,8 @@ use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\PensionFundSeeder;
 use Database\Seeders\DocumentTypeSeeder;
 use Database\Seeders\MaritalStatusSeeder;
+use Database\Seeders\AcademicFacultySeeder;
+use Database\Seeders\AcademicProgramSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -34,6 +38,8 @@ class DatabaseSeeder extends Seeder
             CountrySeeder::class,
             DepartmentSeeder::class,
             CitySeeder::class,
+            AcademicFacultySeeder::class,
+            AcademicProgramSeeder::class,
         ]);
     }
 }
