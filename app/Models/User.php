@@ -18,9 +18,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'middle_name',
+        'first_surname',
+        'middle_surname',
         'email',
         'password',
+        'document_type_id',
+        'document_number',
+        'phone',
     ];
 
     /**
@@ -41,4 +47,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the document type associated with the user.
+     */
+    public function documentType()
+    {
+        return $this->belongsTo(DocumentType::class);
+    }
 }
