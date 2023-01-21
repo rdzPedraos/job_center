@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('contract_type_id')->comment('Tipo de contrato que tomará de base (dedicación y vinculación que hay)');;
             $table->text('description')->comment('Descripción de la oferta laboral.');
 
-            $table->unsignedInteger('monthly_salary')->nullable()->comment('Salario a devengar mensualmente (si hay)');
+            $table->unsignedDecimal('monthly_salary', 10)->nullable()->comment('Salario a devengar mensualmente (si hay)');
 
             $table->date('job_start_date')->nullable()->comment(('Inicio del contrato'));
             $table->date('job_end_date')->nullable()->comment('Finalización del contrato (si la hay)');
@@ -32,7 +32,6 @@ return new class extends Migration
             $table->unsignedTinyInteger('job_offer_status_id')->comment('Estado de la oferta');
             $table->unsignedBigInteger('approver_user_id')->nullable()->comment('Usuario que aprueba la oferta');
             $table->timestamp('approved_at')->nullable()->comment('Fecha de aprobación de la oferta');
-
             $table->timestamps();
 
             $table->foreign('academic_program_id')->references('id')->on('academic_programs');
