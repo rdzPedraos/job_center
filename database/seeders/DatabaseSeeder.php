@@ -40,6 +40,10 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             AcademicFacultySeeder::class,
             AcademicProgramSeeder::class,
+            VinculationTypeSeeder::class,
+            DedicationTimeSeeder::class,
+            ContractTypeSeeder::class,
+            TemplateContractDetailSeeder::class,
         ]);
     }
 }
