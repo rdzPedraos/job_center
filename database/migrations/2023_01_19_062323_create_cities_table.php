@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedSmallInteger('id', true);
             $table->unsignedSmallInteger('department_id');
             $table->string('name', 50)->unique();
-            $table->string('zip_code', 5)->unique();
+            $table->string('zip_code', 10)->unique();
 
             $table->foreign('department_id')->references('id')->on('departments');
         });
