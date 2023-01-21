@@ -49,7 +49,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the document type associated with the user.
+     * Retrieve the document type associated with the user.
      */
     public function documentType()
     {
@@ -57,10 +57,18 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the applicant associated with the user.
+     * Retrieve the applicant associated with the user.
      */
     public function applicant()
     {
         return $this->hasOne(Applicant::class);
+    }
+
+    /**
+     * Retrieve the observations made by the user.
+     */
+    public function observations()
+    {
+        return $this->hasMany(Observation::class);
     }
 }

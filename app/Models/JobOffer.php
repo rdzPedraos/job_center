@@ -8,4 +8,44 @@ use Illuminate\Database\Eloquent\Model;
 class JobOffer extends Model
 {
     use HasFactory;
+
+    /**
+     * Retrieve the details associated wit the offer
+     */
+    public function offerDetails()
+    {
+        return $this->hasMany(OfferDetail::class);
+    }
+
+    /**
+     * Retrieve the status of the offer
+     */
+    public function offerStatus()
+    {
+        return $this->belongsTo(JobOfferStatus::class);
+    }
+
+    /**
+     * Retrieve the observations associated with the offer
+     */
+    public function observations()
+    {
+        return $this->hasMany(Observation::class);
+    }
+
+    /**
+     * Retrieve the user that has created the offer
+     */
+    public function hostUser()
+    {
+        return $this->belongsTo(User::class, 'host_user_id');
+    }
+
+    /**
+     * Retrieve the user that has approved the offer
+     */
+    public function approverUser()
+    {
+        return $this->belongsTo(User::class, 'approver_user_id');
+    }
 }
