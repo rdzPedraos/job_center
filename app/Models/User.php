@@ -55,4 +55,12 @@ class User extends Authenticatable
     {
         return $this->belongsTo(DocumentType::class);
     }
+
+    /**
+     * Get the applicant associated with the user.
+     */
+    public function applicant()
+    {
+        return $this->hasOne(Applicant::class);
+    }
 }
