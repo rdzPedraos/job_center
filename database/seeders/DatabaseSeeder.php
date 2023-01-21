@@ -6,7 +6,10 @@ namespace Database\Seeders;
 use Database\Seeders\ArlSeeder;
 use Database\Seeders\EpsSeeder;
 use Illuminate\Database\Seeder;
+use Database\Seeders\CitySeeder;
+use Database\Seeders\CountrySeeder;
 use Database\Seeders\BloodTypeSeeder;
+use Database\Seeders\DepartmentSeeder;
 use Database\Seeders\PensionFundSeeder;
 use Database\Seeders\DocumentTypeSeeder;
 use Database\Seeders\MaritalStatusSeeder;
@@ -28,6 +31,9 @@ class DatabaseSeeder extends Seeder
             BloodTypeSeeder::class,
             MaritalStatusSeeder::class,
             PensionFundSeeder::class,
+            CountrySeeder::class,
+            DepartmentSeeder::class,
+            CitySeeder::class,
         ]);
     }
 }
