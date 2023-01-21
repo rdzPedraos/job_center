@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     use HasFactory;
+
+    public $timestamps = false;
+
+    /**
+     * Retrieve the departments associated with the country.
+     */
+    public function departments()
+    {
+        return $this->hasMany(Department::class);
+    }
 }
