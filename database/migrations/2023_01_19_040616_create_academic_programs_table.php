@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('academic_programs', function (Blueprint $table) {
             $table->unsignedTinyInteger('id', true);
-            $table->unsignedTinyInteger('faculty_id');
+            $table->unsignedTinyInteger('academic_faculty_id');
             $table->string('name', 50)->unique();
             $table->string('description')->nullable();
             $table->boolean('is_active')->default(true);
 
-            $table->foreign('faculty_id')->references('id')->on('academic_faculties');
+            $table->foreign('academic_faculty_id')->references('id')->on('academic_faculties');
         });
     }
 
