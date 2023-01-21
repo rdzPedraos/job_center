@@ -19,7 +19,7 @@ class ContractTypeFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->unique()->word,
+            'name' => fake()->unique()->jobTitle(),
             'dedication_time_id' => DedicationTime::all()->random()->id,
             'vinculation_type_id' => VinculationType::all()->random()->id
         ];
