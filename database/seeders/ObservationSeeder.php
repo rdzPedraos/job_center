@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\OfferDetail;
+use App\Models\Observation;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class OfferDetailSeeder extends Seeder
+class ObservationSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class OfferDetailSeeder extends Seeder
      */
     public function run()
     {
-        OfferDetail::factory(5)->create();
+        Observation::factory(10)->create();
     }
 }

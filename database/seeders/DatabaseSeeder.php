@@ -4,11 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\AcademicFaculty;
 use Database\Seeders\ArlSeeder;
 use Database\Seeders\EpsSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\CitySeeder;
+use Database\Seeders\UserSeeder;
 use Database\Seeders\CountrySeeder;
 use Database\Seeders\BloodTypeSeeder;
 use Database\Seeders\DepartmentSeeder;
@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         // * When the db is seeded, all the default seeders are executed in the order they are called.
         $this->call([
             DocumentTypeSeeder::class,
+            UserSeeder::class,
             ArlSeeder::class,
             EpsSeeder::class,
             BloodTypeSeeder::class,
@@ -44,6 +45,10 @@ class DatabaseSeeder extends Seeder
             DedicationTimeSeeder::class,
             ContractTypeSeeder::class,
             TemplateContractDetailSeeder::class,
+            JobOfferStatusSeeder::class,
+            JobOfferSeeder::class,
+            OfferDetailSeeder::class,
+            ObservationSeeder::class,
         ]);
     }
 }

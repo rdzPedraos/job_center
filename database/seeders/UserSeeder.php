@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\OfferDetail;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class OfferDetailSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class OfferDetailSeeder extends Seeder
      */
     public function run()
     {
-        OfferDetail::factory(5)->create();
+        User::factory(5)->create();
     }
 }
