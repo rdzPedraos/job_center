@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Casts\DatabaseString;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -26,7 +28,7 @@ class User extends Authenticatable
         'password',
         'document_type_id',
         'document_number',
-        'phone',
+        'phone_number',
     ];
 
     /**
@@ -46,7 +48,17 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_active' => 'boolean',
+        'fist_name' => DatabaseString::class,
+        'middle_name' => DatabaseString::class,
+        'first_surname' => DatabaseString::class,
+        'middle_surname' => DatabaseString::class,
     ];
+
+    public function getFullName(): string
+    {
+        return $this->first_name . ' ' . $this->first_surname;
+    }
 
     /**
      * Retrieve the document type associated with the user.
