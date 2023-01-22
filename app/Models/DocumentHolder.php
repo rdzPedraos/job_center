@@ -9,6 +9,8 @@ class DocumentHolder extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     /**
      * Defines the model as a result of a polymorphic relationship
      */
