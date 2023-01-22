@@ -12,7 +12,7 @@ class JobOffer extends Model
     /**
      * Retrieve the details associated wit the offer
      */
-    public function offerDetails()
+    public function details()
     {
         return $this->hasMany(OfferDetail::class);
     }
@@ -20,7 +20,7 @@ class JobOffer extends Model
     /**
      * Retrieve the status of the offer
      */
-    public function offerStatus()
+    public function status()
     {
         return $this->belongsTo(JobOfferStatus::class);
     }
@@ -36,7 +36,7 @@ class JobOffer extends Model
     /**
      * Retrieve the user that has created the offer
      */
-    public function hostUser()
+    public function host()
     {
         return $this->belongsTo(User::class, 'host_user_id');
     }
@@ -44,7 +44,7 @@ class JobOffer extends Model
     /**
      * Retrieve the user that has approved the offer
      */
-    public function approverUser()
+    public function approver()
     {
         return $this->belongsTo(User::class, 'approver_user_id');
     }
