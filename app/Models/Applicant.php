@@ -88,4 +88,12 @@ class Applicant extends Model
     {
         return $this->hasMany(ApplicantStudy::class);
     }
+
+    /**
+     * Retrieve the experiences associated with the applicant.
+     */
+    public function experiences()
+    {
+        return $this->hasMany(ApplicantExperience::class);
+    }
 }

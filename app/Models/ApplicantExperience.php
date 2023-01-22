@@ -16,4 +16,12 @@ class ApplicantExperience extends Model
     {
         return $this->morphMany(DocumentHolder::class, 'documentable');
     }
+
+    /**
+     * Retrieve the applicant associated with the experience.
+     */
+    public function applicant()
+    {
+        return $this->belongsTo(Applicant::class);
+    }
 }
