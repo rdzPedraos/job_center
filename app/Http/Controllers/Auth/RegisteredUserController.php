@@ -23,7 +23,8 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+        $documentTypes = DocumentType::all()->pluck('name', 'id');
+        return Inertia::render('Auth/Register', compact('documentTypes'));
     }
 
     /**
