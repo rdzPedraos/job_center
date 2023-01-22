@@ -12,6 +12,7 @@ use Database\Seeders\CitySeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\AddressSeeder;
 use Database\Seeders\CountrySeeder;
+use Database\Seeders\VaccineSeeder;
 use Database\Seeders\RoadTypeSeeder;
 use Database\Seeders\ApplicantSeeder;
 use Database\Seeders\BloodTypeSeeder;
@@ -23,6 +24,7 @@ use Database\Seeders\StreetPrefixSeeder;
 use Database\Seeders\MaritalStatusSeeder;
 use Database\Seeders\AcademicFacultySeeder;
 use Database\Seeders\AcademicProgramSeeder;
+use Database\Seeders\ApplicantVaccineSeeder;
 use Database\Seeders\JobRequestStatusSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -54,6 +56,8 @@ class DatabaseSeeder extends Seeder
             StreetPrefixSeeder::class,
             AddressSeeder::class,
             ApplicantSeeder::class,
+            VaccineSeeder::class,
+            ApplicantVaccineSeeder::class,
             ContractTypeSeeder::class,
             TemplateContractDetailSeeder::class,
             JobOfferStatusSeeder::class,
