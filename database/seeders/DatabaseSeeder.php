@@ -24,6 +24,7 @@ use Database\Seeders\StreetPrefixSeeder;
 use Database\Seeders\MaritalStatusSeeder;
 use Database\Seeders\ApplicantChildSeeder;
 use Database\Seeders\ApplicantStudySeeder;
+use Database\Seeders\DocumentHolderSeeder;
 use Database\Seeders\EducationLevelSeeder;
 use Database\Seeders\AcademicFacultySeeder;
 use Database\Seeders\AcademicProgramSeeder;
@@ -73,7 +74,8 @@ class DatabaseSeeder extends Seeder
             OfferDetailSeeder::class,
             ObservationSeeder::class,
             JobRequestStatusSeeder::class,
-            JobRequestSeeder::class
+            JobRequestSeeder::class,
+            DocumentHolderSeeder::class
         ]);
     }
 }
