@@ -23,6 +23,7 @@ use Database\Seeders\DocumentTypeSeeder;
 use Database\Seeders\StreetPrefixSeeder;
 use Database\Seeders\MaritalStatusSeeder;
 use Database\Seeders\ApplicantChildSeeder;
+use Database\Seeders\EducationLevelSeeder;
 use Database\Seeders\AcademicFacultySeeder;
 use Database\Seeders\AcademicProgramSeeder;
 use Database\Seeders\ApplicantVaccineSeeder;
@@ -56,6 +57,7 @@ class DatabaseSeeder extends Seeder
             RoadTypeSeeder::class,
             StreetPrefixSeeder::class,
             AddressSeeder::class,
+            EducationLevelSeeder::class,
             ApplicantSeeder::class,
             VaccineSeeder::class,
             ApplicantVaccineSeeder::class,
