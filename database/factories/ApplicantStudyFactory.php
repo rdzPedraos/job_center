@@ -24,7 +24,7 @@ class ApplicantStudyFactory extends Factory
             'degree' => fake()->jobTitle(),
             'record_number' => fake()->randomNumber(8),
             'professional_card_number' => fake()->randomNumber(8),
-            'institution' => fake()->company(),
+            'institution_name' => fake()->company(),
             'start_date' => fake()->date(),
             'end_date' => fake()->date(),
             'finished' => fake()->boolean()
