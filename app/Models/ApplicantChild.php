@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicantChild extends Model
 {
     use HasFactory;
+
+    /**
+     * Retrieve the applicant associated with the child.
+     */
+    public function applicant()
+    {
+        return $this->belongsTo(Applicant::class);
+    }
 }

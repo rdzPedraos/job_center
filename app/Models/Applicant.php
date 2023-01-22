@@ -72,4 +72,12 @@ class Applicant extends Model
     {
         return $this->belongsToMany(Vaccine::class)->withPivot('vaccine_id');
     }
+
+    /**
+     * Retrieve the children associated with the applicant.
+     */
+    public function children()
+    {
+        return $this->hasMany(ApplicantChild::class);
+    }
 }
