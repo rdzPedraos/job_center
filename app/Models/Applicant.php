@@ -80,4 +80,12 @@ class Applicant extends Model
     {
         return $this->hasMany(ApplicantChild::class);
     }
+
+    /**
+     * Retrieve the studies associated with the applicant.
+     */
+    public function studies()
+    {
+        return $this->hasMany(ApplicantStudy::class);
+    }
 }

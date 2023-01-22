@@ -16,4 +16,20 @@ class ApplicantStudy extends Model
     {
         return $this->morphMany(DocumentHolder::class, 'documentable');
     }
+
+    /**
+     * Retrieve the education level associated with the study.
+     */
+    public function educationLevel()
+    {
+        return $this->belongsTo(EducationLevel::class);
+    }
+
+    /**
+     * Retrieve the applicant associated with the study.
+     */
+    public function applicant()
+    {
+        return $this->belongsTo(Applicant::class);
+    }
 }
