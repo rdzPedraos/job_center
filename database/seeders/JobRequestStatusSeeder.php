@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\JobRequestStatus;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class JobRequestStatusSeeder extends Seeder
 {
@@ -14,6 +15,18 @@ class JobRequestStatusSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $statuses = [
+            'SIN REVISAR',
+            'SELECCIONADO',
+            'RECHAZADA',
+            'CANCELADA',
+        ];
+
+        JobRequestStatus::insert(
+            array_map(
+                fn ($status) => ['name' => $status],
+                $statuses
+            )
+        );
     }
 }

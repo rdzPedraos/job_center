@@ -4,19 +4,26 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\JobRequest;
 use Database\Seeders\ArlSeeder;
 use Database\Seeders\EpsSeeder;
 use Illuminate\Database\Seeder;
 use Database\Seeders\CitySeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\AddressSeeder;
 use Database\Seeders\CountrySeeder;
+use Database\Seeders\RoadTypeSeeder;
+use Database\Seeders\ApplicantSeeder;
 use Database\Seeders\BloodTypeSeeder;
 use Database\Seeders\DepartmentSeeder;
+use Database\Seeders\JobRequestSeeder;
 use Database\Seeders\PensionFundSeeder;
 use Database\Seeders\DocumentTypeSeeder;
+use Database\Seeders\StreetPrefixSeeder;
 use Database\Seeders\MaritalStatusSeeder;
 use Database\Seeders\AcademicFacultySeeder;
 use Database\Seeders\AcademicProgramSeeder;
+use Database\Seeders\JobRequestStatusSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -43,12 +50,18 @@ class DatabaseSeeder extends Seeder
             AcademicProgramSeeder::class,
             VinculationTypeSeeder::class,
             DedicationTimeSeeder::class,
+            RoadTypeSeeder::class,
+            StreetPrefixSeeder::class,
+            AddressSeeder::class,
+            ApplicantSeeder::class,
             ContractTypeSeeder::class,
             TemplateContractDetailSeeder::class,
             JobOfferStatusSeeder::class,
             JobOfferSeeder::class,
             OfferDetailSeeder::class,
             ObservationSeeder::class,
+            JobRequestStatusSeeder::class,
+            JobRequestSeeder::class
         ]);
     }
 }
