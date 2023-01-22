@@ -22,6 +22,7 @@ use Database\Seeders\PensionFundSeeder;
 use Database\Seeders\DocumentTypeSeeder;
 use Database\Seeders\StreetPrefixSeeder;
 use Database\Seeders\MaritalStatusSeeder;
+use Database\Seeders\ApplicantChildSeeder;
 use Database\Seeders\AcademicFacultySeeder;
 use Database\Seeders\AcademicProgramSeeder;
 use Database\Seeders\ApplicantVaccineSeeder;
@@ -58,6 +59,7 @@ class DatabaseSeeder extends Seeder
             ApplicantSeeder::class,
             VaccineSeeder::class,
             ApplicantVaccineSeeder::class,
+            ApplicantChildSeeder::class,
             ContractTypeSeeder::class,
             TemplateContractDetailSeeder::class,
             JobOfferStatusSeeder::class,
