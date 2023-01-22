@@ -29,6 +29,8 @@ return new class extends Migration
             $table->foreign('road_prefix_id')->references('id')->on('street_prefixes');
             $table->foreign('generator_road_prefix_id')->references('id')->on('street_prefixes');
             $table->foreign('city_id')->references('id')->on('cities');
+
+            $table->timestamps();
         });
     }
 
