@@ -42,7 +42,7 @@ class RegisteredUserController extends Controller
             'first_surname' => ['required', 'string', 'max:30'],
             'middle_surname' => ['string', 'max:30'],
             'document_type' => ['required', Rule::in($documentTypes)],
-            'document_number' => ['required', 'numeric'],
+            'document_number' => ['required', 'numeric', 'unique:' . User::class],
             'phone_number' => ['required', 'numeric', 'digits_between:10,15'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
