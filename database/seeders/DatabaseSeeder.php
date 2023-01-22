@@ -23,6 +23,7 @@ use Database\Seeders\DocumentTypeSeeder;
 use Database\Seeders\StreetPrefixSeeder;
 use Database\Seeders\MaritalStatusSeeder;
 use Database\Seeders\ApplicantChildSeeder;
+use Database\Seeders\ApplicantStudySeeder;
 use Database\Seeders\EducationLevelSeeder;
 use Database\Seeders\AcademicFacultySeeder;
 use Database\Seeders\AcademicProgramSeeder;
@@ -62,6 +63,7 @@ class DatabaseSeeder extends Seeder
             VaccineSeeder::class,
             ApplicantVaccineSeeder::class,
             ApplicantChildSeeder::class,
+            ApplicantStudySeeder::class,
             ContractTypeSeeder::class,
             TemplateContractDetailSeeder::class,
             JobOfferStatusSeeder::class,
