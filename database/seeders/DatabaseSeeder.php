@@ -29,6 +29,7 @@ use Database\Seeders\AcademicFacultySeeder;
 use Database\Seeders\AcademicProgramSeeder;
 use Database\Seeders\ApplicantVaccineSeeder;
 use Database\Seeders\JobRequestStatusSeeder;
+use Database\Seeders\ApplicantExperienceSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -64,6 +65,7 @@ class DatabaseSeeder extends Seeder
             ApplicantVaccineSeeder::class,
             ApplicantChildSeeder::class,
             ApplicantStudySeeder::class,
+            ApplicantExperienceSeeder::class,
             ContractTypeSeeder::class,
             TemplateContractDetailSeeder::class,
             JobOfferStatusSeeder::class,
