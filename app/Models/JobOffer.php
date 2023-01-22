@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class JobOffer extends Model
 {
@@ -22,7 +22,7 @@ class JobOffer extends Model
      */
     public function status()
     {
-        return $this->belongsTo(JobOfferStatus::class);
+        return $this->belongsTo(JobOfferStatus::class, 'job_offer_status_id');
     }
 
     /**
@@ -47,5 +47,29 @@ class JobOffer extends Model
     public function approver()
     {
         return $this->belongsTo(User::class, 'approver_user_id');
+    }
+
+    /**
+     * Retrieve the academic program associated with the offer
+     */
+    public function academicProgram()
+    {
+        return $this->belongsTo(AcademicProgram::class);
+    }
+
+    /**
+     * Retrieve the contract type associated with the offer
+     */
+    public function contractType()
+    {
+        return $this->belongsTo(ContractType::class);
+    }
+
+    /**
+     * Retrieve the requests uploaded to the offer
+     */
+    public function requests()
+    {
+        return $this->hasMany(JobRequest::class, 'job_offer_id');
     }
 }
