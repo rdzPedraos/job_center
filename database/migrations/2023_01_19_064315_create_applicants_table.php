@@ -16,7 +16,8 @@ return new class extends Migration
         Schema::create('applicants', function (Blueprint $table) {
             $table->comment('Contiene todos los usuarios que ingresen con el fin de postularse a un cargo');
 
-            $table->unsignedBigInteger('id')->primary()->comment('Es el mismo código que tiene su usuario asociado.');
+            $table->unsignedBigInteger('id', true);
+            $table->unsignedBigInteger('user_id')->unique()->comment('Llave foránea de la tabla users');
             $table->unsignedSmallInteger('birth_place_id')->nullable();
             $table->date('birth_date')->nullable();
             $table->unsignedSmallInteger('document_issue_city_id')->nullable();
@@ -34,7 +35,7 @@ return new class extends Migration
             $table->string('family_contact_relationship', 50)->nullable();
             $table->timestamps();
 
-            $table->foreign('id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('birth_place_id')->references('id')->on('cities');
             $table->foreign('document_issue_city_id')->references('id')->on('cities');
             $table->foreign('address_id')->references('id')->on('addresses');
