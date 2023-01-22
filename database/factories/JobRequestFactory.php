@@ -23,7 +23,10 @@ class JobRequestFactory extends Factory
             'applicant_id' => Applicant::all()->random()->id,
             'job_offer_id' => JobOffer::all()->random()->id,
             'job_request_status_id' => JobRequestStatus::all()->random()->id,
-            'applicant_history' => $this->faker->json(),
+            'applicant_history' => json_encode([
+                'test_history' => 'test_history',
+                'test_history_2' => 'test_history'
+            ]),
         ];
     }
 }
