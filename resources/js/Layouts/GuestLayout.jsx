@@ -1,18 +1,46 @@
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import { Link } from '@inertiajs/react';
+import React from "react";
+import ApplicationLogo from "@/Components/ApplicationLogo";
+import { Dialog } from "@headlessui/react";
+import {
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from "@mui/material";
 
 export default function Guest({ children }) {
-    return (
-        <div className="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div>
-                <Link href="/">
-                    <ApplicationLogo className="w-20 h-20 fill-current text-gray-500" />
-                </Link>
-            </div>
+    const [open, setOpen] = React.useState(false);
 
-            <div className="w-full sm:max-w-md mt-6 px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+    return (
+        <div className="min-h-screen bg-base_white flex items-center justify-center">
+            <div
+                className="
+                    block w-full sm:max-w-4xl 
+                    mx-5 p-10 
+                    bg-white shadow-md 
+                    overflow-hidden rounded-lg"
+            >
+                <ApplicationLogo handleClick={() => setOpen(true)} />
+
                 {children}
             </div>
+
+            <Dialog
+                open={open}
+                onClose={() => alert("cerré")}
+                aria-describedby="alert-dialog-slide-description"
+            >
+                <DialogTitle>This is an example</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                        This is a default text This is a default text This is a
+                        default text
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <button onClick={() => setOpen(false)}> Cerrar </button>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }

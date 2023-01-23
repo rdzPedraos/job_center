@@ -16,6 +16,9 @@
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
+        <!-- Para que el preprocesador de tailwind descargue algunos estilos en for o condicionales -->
+        <div class="w-10 text-xl text-2xl gap-3"> </div>
+        
         @inertia
     </body>
 </html>

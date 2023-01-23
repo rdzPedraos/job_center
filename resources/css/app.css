@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --base-white: 243 244 246;
+        --primary-color: 3 186 155;
+        --secondary-color: 77 87 101;
+        --info-color: 243 244 246;
+        --error-color: 255 88 90;
+        --success-color: 82 196 26;
+    }
+}
