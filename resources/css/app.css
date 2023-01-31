@@ -12,3 +12,7 @@
         --success-color: 82 196 26;
     }
 }
+
+input:focus {
+    box-shadow: none !important;
+}

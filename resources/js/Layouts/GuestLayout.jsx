@@ -1,16 +1,6 @@
-import React from "react";
 import ApplicationLogo from "@/Components/ApplicationLogo";
-import { Dialog } from "@headlessui/react";
-import {
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-} from "@mui/material";
 
 export default function Guest({ children }) {
-    const [open, setOpen] = React.useState(false);
-
     return (
         <div className="min-h-screen bg-base_white flex items-center justify-center">
             <div
@@ -20,27 +10,9 @@ export default function Guest({ children }) {
                     bg-white shadow-md 
                     overflow-hidden rounded-lg"
             >
-                <ApplicationLogo handleClick={() => setOpen(true)} />
-
+                <ApplicationLogo />
                 {children}
             </div>
-
-            <Dialog
-                open={open}
-                onClose={() => alert("cerré")}
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle>This is an example</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        This is a default text This is a default text This is a
-                        default text
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <button onClick={() => setOpen(false)}> Cerrar </button>
-                </DialogActions>
-            </Dialog>
         </div>
     );
 }

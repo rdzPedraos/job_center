@@ -23,7 +23,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        $documentTypes = DocumentType::all()->pluck('name', 'id');
+        $documentTypes = DocumentType::select('name', 'id')->get();
         return Inertia::render('Auth/Register', compact('documentTypes'));
     }
 
@@ -34,21 +34,19 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $documentTypes = DocumentType::all()->pluck('id')->toArray();
-
-        $request->validate([
-            'first_name' => ['required', 'string', 'max:30'],
-            'middle_name' => ['string', 'max:30'],
-            'first_surname' => ['required', 'string', 'max:30'],
-            'middle_surname' => ['string', 'max:30'],
-            'document_type' => ['required', Rule::in($documentTypes)],
-            'document_number' => ['required', 'numeric', 'unique:' . User::class],
-            'phone_number' => ['required', 'numeric', 'digits_between:10,15'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+        $validated = $request->validate([
+            'first_name' => ['required', 'alpha', 'min:3', 'max:25'],
+            'middle_name' => ['nullable', 'alpha', 'min:4', 'max:30'],
+            'first_surname' => ['required', 'alpha', 'min:3', 'max:25'],
+            'middle_surname' => ['nullable', 'alpha', 'min:4', 'max:30'],
+            'document_type_id' => ['required', 'exists:document_types,id'],
+            'document_number' => ['required', 'integer', 'min_digits:4', 'max_digits:10', 'unique:users'],
+            'phone_number' => ['required', 'integer', 'digits:10', 'starts_with:3'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
+        /* $user = User::create([
             'first_name' => $request->first_name,
             'middle_name' => $request->middle_name,
             'first_surname' => $request->first_surname,
@@ -58,12 +56,12 @@ class RegisteredUserController extends Controller
             'phone_number' => $request->phone_number,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
+        ]); */
 
+        $user = User::create($validated);
         event(new Registered($user));
 
         Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
     }
 }

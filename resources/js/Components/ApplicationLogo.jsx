@@ -1,23 +1,37 @@
+import React from "react";
 import PropTypes from "prop-types";
 import Logo from "../../img/logo.png";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Zoom,
+} from "@mui/material";
 import { Link } from "@inertiajs/react";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+    return <Zoom ref={ref} {...props} />;
+});
 
 export default function ApplicationLogo({
     justIcon = false,
     txtSize = "2xl",
     imgSize = "10",
     gapSize = "3",
-    title = "Ir al inicio",
-    handleClick = () => {
-        window.location = route("login");
-    },
 }) {
+    const [open, setOpen] = React.useState(false);
+
     return (
         <div className="flex justify-center">
+            {/* Logo */}
             <button
-                onClick={handleClick}
+                onClick={() => setOpen(true)}
                 className={`flex items-center gap-${gapSize} hover:opacity-80`}
-                title={title}
+                title="Ir al inicio"
             >
                 <img
                     src={Logo}
@@ -32,7 +46,31 @@ export default function ApplicationLogo({
                     </h1>
                 )}
             </button>
-            <Link href="/"></Link>
+
+            {/*  Modal para salir de la página */}
+            <Dialog
+                open={open}
+                onClose={() => setOpen(false)}
+                maxWidth="xs"
+                TransitionComponent={Transition}
+            >
+                <DialogTitle>
+                    <ErrorOutlineIcon color="warning" className="mr-2" />
+                    ¿Estás seguro de esta acción?
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Serás redireccionado a la página principal, ¿seguro de
+                        querer hacer esto?
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions className="gap-3">
+                    <Button onClick={() => setOpen(false)}>Cancelar</Button>
+                    <Link href="/">
+                        <Button variant="contained">Continuar</Button>
+                    </Link>
+                </DialogActions>
+            </Dialog>
         </div>
     );
 }
