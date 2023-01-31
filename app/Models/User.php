@@ -49,7 +49,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'is_active' => 'boolean',
-        'fist_name' => DatabaseString::class,
+        'first_name' => DatabaseString::class,
         'middle_name' => DatabaseString::class,
         'first_surname' => DatabaseString::class,
         'middle_surname' => DatabaseString::class,
