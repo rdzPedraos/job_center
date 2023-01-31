@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('middle_name', 30)->nullable();
             $table->string('first_surname', 30);
             $table->string('middle_surname', 30)->nullable();
-            $table->string('phone_number', 15)->unique();
+            #$table->string('phone_number', 15)->unique();
+            $table->string('phone_number', 15);
             $table->boolean('is_active')->default(true);
         });
     }
