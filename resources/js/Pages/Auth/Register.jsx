@@ -1,28 +1,17 @@
-import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, useForm, usePage } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 
-import { USER_INPUTS } from "../../../models/userInputs.enum";
-import MultiInput from "@/Components/MultiInput";
+import { CREATE_USER_INPUTS } from "../../models/CreateUserInput.enum";
+import MultiInput from "@/Components/form/MultiInput";
+import { useFormData } from "@/Hooks/useFormData";
 
 import SendIcon from "@mui/icons-material/Send";
 import { Button } from "@mui/material";
 
+import SnackBarComponent from "@/Components/alerts/SnackBar";
+
 export default function Register() {
-    USER_INPUTS.document_type_id.options = usePage().props.documentTypes;
-    const INPUT_KEYS = Object.keys(USER_INPUTS);
-
-    const { data, setData, post, errors } = useForm(
-        Object.fromEntries(INPUT_KEYS.map((key) => [key, ""]))
-    );
-
-    const onHandleChange = (event) => {
-        setData(
-            event.target.name,
-            event.target.type === "checkbox"
-                ? event.target.checked
-                : event.target.value
-        );
-    };
+    const { data, post, errors, processing, onHandleChange, Inputs } =
+        useFormData(CREATE_USER_INPUTS);
 
     const submit = (e) => {
         e.preventDefault();
@@ -30,34 +19,44 @@ export default function Register() {
     };
 
     return (
-        <GuestLayout>
+        <>
             <Head title="Registro" />
+            <SnackBarComponent open={processing} />
 
             <form onSubmit={submit} className="mt-8">
-                <div className="grid grid-cols-2 gap-6">
-                    {INPUT_KEYS.map((key) => (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {Inputs.map((input) => (
                         <MultiInput
-                            key={key}
-                            id={key}
-                            input={USER_INPUTS[key]}
-                            error={errors[key]}
-                            value={data[key] ?? ""}
+                            key={input.id}
+                            input={input}
+                            error={errors[input.id]}
+                            value={data[input.id]}
                             onHandleChange={onHandleChange}
                         />
                     ))}
                 </div>
 
-                <div className="float-right mt-8">
+                <div className="flex justify-between items-end mt-8">
+                    <p>
+                        Ya tienes un usuario?
+                        <Link
+                            href={route("login")}
+                            className="ml-1 underline text-secondary hover:text-primary"
+                        >
+                            Click Aqui
+                        </Link>
+                    </p>
                     <Button
                         variant="contained"
                         color="primary"
                         endIcon={<SendIcon />}
                         onClick={submit}
+                        disabled={processing}
                     >
                         Crear usuario
                     </Button>
                 </div>
             </form>
-        </GuestLayout>
+        </>
     );
 }

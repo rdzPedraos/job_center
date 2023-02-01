@@ -6,50 +6,61 @@ import {
     Key,
 } from "@mui/icons-material";
 
-export const USER_INPUTS = {
-    document_type_id: {
+export const CREATE_USER_INPUTS = [
+    {
+        id: "document_type_id",
         label: "Documento de identidad",
         type: "select",
+        id_options: "documentTypes",
     },
-    document_number: {
+    {
+        id: "document_number",
         label: "Número de documento",
         type: "number",
         icon: ContactEmergency,
     },
-    first_name: {
+    {
+        id: "first_name",
         label: "Primer nombre",
         icon: DriveFileRenameOutline,
     },
-    middle_name: {
+    {
+        id: "middle_name",
         label: "Segundo nombre",
         icon: DriveFileRenameOutline,
     },
-    first_surname: {
+    {
+        id: "first_surname",
         label: "Primer apellido",
         icon: DriveFileRenameOutline,
     },
-    middle_surname: {
+    {
+        id: "middle_surname",
         label: "Segundo apellido",
         icon: DriveFileRenameOutline,
     },
-    phone_number: {
+    {
+        id: "phone_number",
         label: "Número de teléfono",
         type: "phone",
         icon: Phone,
     },
-    email: {
+    {
+        id: "email",
         label: "Correo electrónico",
         type: "email",
         icon: Email,
     },
-    password: {
+    {
+        id: "password",
         label: "Contraseña",
         type: "password",
         icon: Key,
     },
-    password_confirmation: {
+    {
+        id: "password_confirmation",
         label: "Vuelva a ingresar la contraseña",
         type: "password",
         icon: Key,
     },
-};
+];
