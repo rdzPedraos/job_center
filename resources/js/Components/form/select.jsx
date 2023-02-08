@@ -18,7 +18,7 @@ const SelectInputComponent = ({
     onHandleChange,
 }) => {
     return (
-        <FormControl error={!!error} variant={variant}>
+        <FormControl error={!!error} variant={variant} fullWidth>
             <InputLabel>{label}</InputLabel>
             <Select
                 name={id}

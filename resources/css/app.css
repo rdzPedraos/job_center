@@ -4,12 +4,20 @@
 
 @layer base {
     :root {
-        --base-white: 243 244 246;
-        --primary-color: 3 186 155;
-        --secondary-color: 77 87 101;
-        --info-color: 243 244 246;
-        --error-color: 255 88 90;
-        --success-color: 82 196 26;
+        --base-white: 243, 244, 246;
+        --primary-color: 49, 121, 109;
+        --secondary-color: 77, 87, 101;
+        --info-color: 2, 136, 209;
+        --error-color: 255, 88, 90;
+        --success-color: 82, 196, 26;
+        --contrast-text: 255, 255, 255;
+
+        --_base-white: 243 244 246;
+        --_primary-color: 49 121 109;
+        --_secondary-color: 77 87 101;
+        --_info-color: 243 244 246;
+        --_error-color: 255 88 90;
+        --_success-color: 82 196 26;
     }
 }
 

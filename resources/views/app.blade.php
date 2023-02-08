@@ -9,6 +9,9 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        <!-- styles -->
+        <link rel="stylesheet" href="@sweetalert2/theme-material-ui/material-ui.css">
+
         <!-- Scripts -->
         @routes
         @viteReactRefresh
@@ -21,4 +24,5 @@
         
         @inertia
     </body>
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
 </html>

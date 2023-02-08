@@ -1,12 +1,13 @@
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
+import GuestLayout from "@/Layouts/GuestLayout";
+import { Head, Link, useForm } from "@inertiajs/react";
+import SnackBarComponent from "@/Components/alerts/SnackBar";
+import MultiInput from "@/Components/form/MultiInput";
+import { Email, MarkEmailRead, Send } from "@mui/icons-material";
+import { Alert, Button } from "@mui/material";
 
 export default function ForgotPassword({ status }) {
     const { data, setData, post, processing, errors } = useForm({
-        email: '',
+        email: "",
     });
 
     const onHandleChange = (event) => {
@@ -15,40 +16,58 @@ export default function ForgotPassword({ status }) {
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('password.email'));
+        post(route("password.email"));
     };
 
     return (
-        <GuestLayout>
-            <Head title="Forgot Password" />
+        <>
+            <Head title="Recuperar contraseña" />
+            <SnackBarComponent open={processing} />
 
-            <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                Forgot your password? No problem. Just let us know your email address and we will email you a password
-                reset link that will allow you to choose a new one.
-            </div>
-
-            {status && <div className="mb-4 font-medium text-sm text-green-600 dark:text-green-400">{status}</div>}
+            {status ? (
+                <Alert severity="success" sx={{ marginY: "1.5rem" }}>
+                    {status}
+                </Alert>
+            ) : (
+                <div className="my-6 text-sm text-secondary text-justify">
+                    Has olvidado tú contraseña? No hay problema! Nosotros te
+                    enviaremos por correo electrónico un link de acceso para que
+                    actualices tú contraseña.
+                </div>
+            )}
 
             <form onSubmit={submit}>
-                <TextInput
-                    id="password"
-                    type="email"
-                    name="email"
-                    value={data.email}
-                    className="mt-1 block w-full"
-                    isFocused={true}
-                    handleChange={onHandleChange}
+                <MultiInput
+                    input={{
+                        id: "email",
+                        label: "Email",
+                        icon: Email,
+                    }}
+                    error={errors["email"]}
+                    value={data["email"]}
+                    onHandleChange={onHandleChange}
                 />
 
-                <InputError message={errors.email} className="mt-2" />
+                <div className="flex float-right gap-4 mt-4">
+                    <Link href={route("login")}>
+                        <Button>Volver</Button>
+                    </Link>
 
-                <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ml-4" processing={processing}>
-                        Email Password Reset Link
-                    </PrimaryButton>
+                    <Button
+                        disabled={processing}
+                        onClick={submit}
+                        variant="contained"
+                        size="medium"
+                        endIcon={<Send />}
+                    >
+                        Enviar correo
+                    </Button>
                 </div>
             </form>
-        </GuestLayout>
+        </>
     );
 }
+
+ForgotPassword.layout = (content) => (
+    <GuestLayout children={content} width="w-full sm:max-w-lg" />
+);

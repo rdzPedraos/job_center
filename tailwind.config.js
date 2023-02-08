@@ -16,12 +16,12 @@ module.exports = {
             },
 
             colors: {
-                base_white: "rgb( var(--base-white) / <alpha-value> )",
-                primary: "rgb( var(--primary-color) / <alpha-value> )",
-                secondary: "rgb( var(--secondary-color) / <alpha-value> )",
-                info: "rgb( var(--info-color) / <alpha-value> )",
-                error: "rgb( var(--error-color) / <alpha-value> )",
-                success: "rgb( var(--success-color) / <alpha-value> )",
+                base_white: "rgb( var(--_base-white) / <alpha-value> )",
+                primary: "rgb( var(--_primary-color) / <alpha-value> )",
+                secondary: "rgb( var(--_secondary-color) / <alpha-value> )",
+                info: "rgb( var(--_info-color) / <alpha-value> )",
+                error: "rgb( var(--_error-color) / <alpha-value> )",
+                success: "rgb( var(--_success-color) / <alpha-value> )",
             },
         },
     },

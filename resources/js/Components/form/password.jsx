@@ -15,8 +15,26 @@ const PasswordInputComponent = ({
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+    const InputProps = {
+        endAdornment: (
+            <InputAdornment position="end">
+                <IconButton onClick={handleClickShowPassword}>
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+            </InputAdornment>
+        ),
+    };
+
+    if (IconDetail)
+        InputProps.startAdornment = (
+            <InputAdornment position="start">
+                <IconDetail color={error ? "error" : "gray"} />
+            </InputAdornment>
+        );
+
     return (
         <TextField
+            fullWidth
             name={id}
             label={label}
             value={value}
@@ -25,23 +43,7 @@ const PasswordInputComponent = ({
             helperText={error}
             onChange={onHandleChange}
             type={showPassword ? "text" : "password"}
-            InputProps={{
-                endAdornment: (
-                    <InputAdornment position="end">
-                        <IconButton onClick={handleClickShowPassword}>
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                    </InputAdornment>
-                ),
-
-                startAdornment: IconDetail ? (
-                    <InputAdornment position="start">
-                        <IconDetail color={error ? "error" : "gray"} />
-                    </InputAdornment>
-                ) : (
-                    <></>
-                ),
-            }}
+            InputProps={InputProps}
         />
     );
 };

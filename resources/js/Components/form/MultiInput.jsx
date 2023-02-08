@@ -7,6 +7,8 @@ import CheckboxInputComponent from "./checkbox";
 
 function MultiInput({ input, error, value, onHandleChange }) {
     switch (input.type) {
+        case null:
+            return <></>;
         case "select":
             return (
                 <SelectInputComponent
@@ -49,6 +51,7 @@ function MultiInput({ input, error, value, onHandleChange }) {
             return (
                 <TextInputComponent
                     id={input.id}
+                    type={input.type}
                     label={input.label}
                     value={value}
                     variant={input.variant}

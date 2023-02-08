@@ -1,20 +1,22 @@
 import SnackBarComponent from "@/Components/alerts/SnackBar";
 import MultiInput from "@/Components/form/MultiInput";
-import Guest from "@/Layouts/GuestLayout";
+import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { Email, Key, LoginOutlined } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const Inputs = {
     email: {
         id: "email",
-        label: "Correo electrónico*",
+        label: "Correo electrónico",
         type: "email",
         icon: Email,
     },
     password: {
         id: "password",
-        label: "Contraseña*",
+        label: "Contraseña",
         type: "password",
         icon: Key,
     },
@@ -25,8 +27,10 @@ const Inputs = {
     },
 };
 
-export default function Login({ status, canResetPassword }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
+//status
+export default function Login({ canResetPassword }) {
+    const MySwal = withReactContent(Swal);
+    const { data, setData, post, processing, errors } = useForm({
         email: "",
         password: "",
         remember: "",
@@ -40,18 +44,34 @@ export default function Login({ status, canResetPassword }) {
                 : event.target.value
         );
     };
+    MySwal.fire({
+        title: "Cargando...",
+        didOpen() {
+            MySwal.showLoading();
+        },
+    });
 
     const submit = (e) => {
         e.preventDefault();
-        post(route("login"));
+
+        post(route("login"), {
+            onStart: () =>
+                MySwal.fire({
+                    title: "Cargando...",
+                    didOpen() {
+                        MySwal.showLoading();
+                    },
+                }),
+            onFinish: () => MySwal.close(),
+        });
     };
 
     return (
         <>
             <Head title="Ingresar" />
-            <SnackBarComponent open={processing} />
+            {/* <SnackBarComponent open={processing} /> */}
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit} className="mt-8">
                 <div className="flex flex-col gap-9">
                     <MultiInput
                         input={Inputs.email}
@@ -86,17 +106,17 @@ export default function Login({ status, canResetPassword }) {
                     )}
                 </div>
 
-                <div className="flex flex-col mt-8">
-                    <Button
-                        variant="contained"
-                        onClick={submit}
-                        startIcon={<LoginOutlined />}
-                        disabled={processing}
-                        size="large"
-                    >
-                        Ingresar
-                    </Button>
-                </div>
+                <Button
+                    fullWidth
+                    sx={{ marginTop: "1rem" }}
+                    variant="contained"
+                    onClick={submit}
+                    startIcon={<LoginOutlined />}
+                    disabled={processing}
+                    size="large"
+                >
+                    Ingresar
+                </Button>
 
                 <p className="mt-6 text-sm">
                     Puedes
@@ -113,5 +133,5 @@ export default function Login({ status, canResetPassword }) {
 }
 
 Login.layout = (content) => (
-    <Guest children={content} width="w-full sm:max-w-lg" />
+    <GuestLayout children={content} width="w-full sm:max-w-lg" />
 );

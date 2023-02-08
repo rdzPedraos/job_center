@@ -1,4 +1,5 @@
 import { useForm, usePage } from "@inertiajs/react";
+import PropTypes from "prop-types";
 import React from "react";
 
 const useFormData = (inputConfig, inputData = {}) => {
@@ -42,5 +43,10 @@ const useFormData = (inputConfig, inputData = {}) => {
         Inputs: inputConfig,
     };
 };
+
+/* useFormData.propTypes = {
+    inputConfig: PropTypes.array.isRequired,
+    inputData: PropTypes.object,
+}; */
 
 export { useFormData };

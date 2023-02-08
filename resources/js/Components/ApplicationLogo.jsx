@@ -22,11 +22,12 @@ export default function ApplicationLogo({
     txtSize = "2xl",
     imgSize = "10",
     gapSize = "3",
+    justify = "center",
 }) {
     const [open, setOpen] = React.useState(false);
 
     return (
-        <div className="flex justify-center">
+        <div className={`flex justify-${justify} px-10`}>
             {/* Logo */}
             <button
                 onClick={() => setOpen(true)}
@@ -81,4 +82,5 @@ ApplicationLogo.propTypes = {
     imgSize: PropTypes.string,
     gapSize: PropTypes.string,
     handleClick: PropTypes.func,
+    justify: PropTypes.oneOf(["center", "end", "start"]),
 };

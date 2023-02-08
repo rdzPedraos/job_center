@@ -1,94 +1,80 @@
-import { useEffect } from 'react';
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
+import { useEffect } from "react";
+import GuestLayout from "@/Layouts/GuestLayout";
+import InputError from "@/Components/InputError";
+import InputLabel from "@/Components/InputLabel";
+import PrimaryButton from "@/Components/PrimaryButton";
+import TextInput from "@/Components/TextInput";
+import { Head, useForm } from "@inertiajs/react";
+import { useFormData } from "@/Hooks/useFormData";
+import MultiInput from "@/Components/form/MultiInput";
+import { Button } from "@mui/material";
+import { Email, Key } from "@mui/icons-material";
+import SnackBarComponent from "@/Components/alerts/SnackBar";
+
+const INPUTS_CONFIG = [
+    {
+        id: "token",
+        type: null,
+    },
+    {
+        id: "email",
+        label: "Email",
+        type: "email",
+        icon: Email,
+    },
+    {
+        id: "password",
+        label: "Contraseña",
+        type: "password",
+        icon: Key,
+    },
+    {
+        id: "password_confirmation",
+        label: "Confirma la contraseña",
+        type: "password",
+        icon: Key,
+    },
+];
 
 export default function ResetPassword({ token, email }) {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        token: token,
-        email: email,
-        password: '',
-        password_confirmation: '',
-    });
-
-    useEffect(() => {
-        return () => {
-            reset('password', 'password_confirmation');
-        };
-    }, []);
-
-    const onHandleChange = (event) => {
-        setData(event.target.name, event.target.value);
-    };
+    const { data, onHandleChange, post, processing, errors, Inputs } =
+        useFormData(INPUTS_CONFIG, { token, email });
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route('password.store'));
+        post(route("password.store"));
     };
 
     return (
-        <GuestLayout>
-            <Head title="Reset Password" />
+        <>
+            <Head title="Restaurar contraseña" />
+            <SnackBarComponent open={processing} />
 
             <form onSubmit={submit}>
-                <div>
-                    <InputLabel forInput="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        handleChange={onHandleChange}
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
+                <div className="flex flex-col gap-9 my-12">
+                    {Inputs.map((input) => (
+                        <MultiInput
+                            key={input.id}
+                            input={input}
+                            error={errors[input.id]}
+                            value={data[input.id]}
+                            onHandleChange={onHandleChange}
+                        />
+                    ))}
                 </div>
-
-                <div className="mt-4">
-                    <InputLabel forInput="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        isFocused={true}
-                        handleChange={onHandleChange}
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel forInput="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        handleChange={onHandleChange}
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <PrimaryButton className="ml-4" processing={processing}>
-                        Reset Password
-                    </PrimaryButton>
-                </div>
+                <Button
+                    sx={{ float: "right" }}
+                    variant="contained"
+                    onClick={submit}
+                    disabled={processing}
+                >
+                    Restaurar contraseña
+                </Button>
             </form>
-        </GuestLayout>
+        </>
     );
 }
+
+ResetPassword.layout = (content) => (
+    <GuestLayout children={content} width="w-full sm:max-w-lg" />
+);

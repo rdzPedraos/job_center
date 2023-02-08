@@ -22,7 +22,10 @@ const opts = {
     randomOffset: 0.42,
 };
 
-export default function Guest({ children, width = "w-full sm:max-w-4xl" }) {
+export default function GuestLayout({
+    children,
+    width = "w-full sm:max-w-4xl",
+}) {
     //?doc: https://github.com/gVguy/nice-waves#nice-waves
     useEffect(() => {
         waves(opts).mount();
@@ -38,7 +41,6 @@ export default function Guest({ children, width = "w-full sm:max-w-4xl" }) {
                     overflow-hidden rounded-lg z-50`}
             >
                 <ApplicationLogo />
-                <br className="mb-4" />
                 {children}
             </div>
 
