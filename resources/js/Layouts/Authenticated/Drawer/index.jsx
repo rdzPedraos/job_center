@@ -32,10 +32,10 @@ const MainDrawer = ({ open, handleDrawerToggle, className }) => {
                 </Drawer>
             ) : (
                 open && (
-                    <div>
+                    <>
                         {drawerHeader}
                         {drawerContent}
-                    </div>
+                    </>
                 )
             )}
         </div>

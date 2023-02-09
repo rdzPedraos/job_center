@@ -27,6 +27,7 @@
         "@mui/material": "^5.11.5",
         "@mui/styled-engine-sc": "^5.11.0",
         "nice-waves": "^1.0.1",
+        "npm-check-updates": "^16.6.5",
         "styled-components": "^5.3.6"
     }
 }

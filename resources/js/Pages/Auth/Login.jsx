@@ -3,7 +3,7 @@ import MultiInput from "@/Components/form/MultiInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { Email, Key, LoginOutlined } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import SpinnerComponent from "@/Components/spinner";
+import SnackBarComponent from "@/Components/alerts/SnackBar";
 
 const Inputs = {
     email: {
@@ -44,20 +44,14 @@ export default function Login({ canResetPassword }) {
 
     const submit = (e) => {
         e.preventDefault();
-
-        post(route("login"), {
-            onStart: () => {
-                alert("cargando");
-            },
-
-            onFinish: () => alert("proceso finalizado"),
-        });
+        post(route("login"));
     };
 
     return (
         <>
             <Head title="Ingresar" />
-            <SpinnerComponent />
+            <SnackBarComponent open={processing} />
+
             <form onSubmit={submit} className="mt-8">
                 <div className="flex flex-col gap-9">
                     <MultiInput
