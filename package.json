@@ -26,10 +26,7 @@
         "@mui/icons-material": "^5.11.0",
         "@mui/material": "^5.11.5",
         "@mui/styled-engine-sc": "^5.11.0",
-        "@sweetalert2/theme-material-ui": "^5.0.15",
         "nice-waves": "^1.0.1",
-        "styled-components": "^5.3.6",
-        "sweetalert2": "^11.7.1",
-        "sweetalert2-react-content": "^5.0.7"
+        "styled-components": "^5.3.6"
     }
 }

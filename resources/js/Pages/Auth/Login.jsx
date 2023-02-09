@@ -1,11 +1,9 @@
-import SnackBarComponent from "@/Components/alerts/SnackBar";
-import MultiInput from "@/Components/form/MultiInput";
 import GuestLayout from "@/Layouts/GuestLayout";
+import MultiInput from "@/Components/form/MultiInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { Email, Key, LoginOutlined } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
+import SpinnerComponent from "@/Components/spinner";
 
 const Inputs = {
     email: {
@@ -29,7 +27,6 @@ const Inputs = {
 
 //status
 export default function Login({ canResetPassword }) {
-    const MySwal = withReactContent(Swal);
     const { data, setData, post, processing, errors } = useForm({
         email: "",
         password: "",
@@ -44,33 +41,23 @@ export default function Login({ canResetPassword }) {
                 : event.target.value
         );
     };
-    MySwal.fire({
-        title: "Cargando...",
-        didOpen() {
-            MySwal.showLoading();
-        },
-    });
 
     const submit = (e) => {
         e.preventDefault();
 
         post(route("login"), {
-            onStart: () =>
-                MySwal.fire({
-                    title: "Cargando...",
-                    didOpen() {
-                        MySwal.showLoading();
-                    },
-                }),
-            onFinish: () => MySwal.close(),
+            onStart: () => {
+                alert("cargando");
+            },
+
+            onFinish: () => alert("proceso finalizado"),
         });
     };
 
     return (
         <>
             <Head title="Ingresar" />
-            {/* <SnackBarComponent open={processing} /> */}
-
+            <SpinnerComponent />
             <form onSubmit={submit} className="mt-8">
                 <div className="flex flex-col gap-9">
                     <MultiInput
