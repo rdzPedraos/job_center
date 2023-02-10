@@ -27,7 +27,7 @@ export default function ApplicationLogo({
     const [open, setOpen] = React.useState(false);
 
     return (
-        <div className={`flex justify-${justify} px-10`}>
+        <div className={`flex justify-${justify}`}>
             {/* Logo */}
             <button
                 onClick={() => setOpen(true)}

@@ -8,6 +8,8 @@
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+      
 
         <!-- Scripts -->
         @routes
@@ -17,7 +19,7 @@
     </head>
     <body class="font-sans antialiased">
         <!-- Para que el preprocesador de tailwind descargue algunos estilos en for o condicionales -->
-        <div class="w-10 text-xl text-2xl gap-3"> </div>
+        <div class="w-10 text-xl text-2xl gap-3 "> </div>
         
         @inertia
     </body>

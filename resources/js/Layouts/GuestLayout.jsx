@@ -1,6 +1,6 @@
 import ApplicationLogo from "@/Components/ApplicationLogo";
 import waves from "nice-waves";
-import { createElement, useEffect } from "react";
+import { useEffect } from "react";
 
 const opts = {
     fills: [
