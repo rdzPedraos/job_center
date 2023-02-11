@@ -5,12 +5,9 @@ export default function SpinnerComponent() {
     const [active, setActive] = useState(false);
 
     useEffect(() => {
-        setTimeout(() => {
-            setActive(true);
-        }, 1);
+        setActive(true);
     }, []);
-
-    setTimeout(() => setActive(!active), 3500);
+    setTimeout(() => setActive(!active), 3000);
 
     return (
         <div className="wrapper">
