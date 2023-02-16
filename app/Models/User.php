@@ -30,6 +30,7 @@ class User extends Authenticatable
         'document_number',
         'phone_number',
     ];
+    protected $appends = ['name'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -55,9 +56,11 @@ class User extends Authenticatable
         'middle_surname' => DatabaseString::class,
     ];
 
-    public function getFullName(): string
+    public function getNameAttribute(): string
     {
-        return $this->first_name . ' ' . $this->first_surname;
+        $n = $this->first_name . ($this->middle_name?' ':'').$this->middle_name;
+        $n .= ' ' . $this->first_surname . ($this->middle_surname?' ':'' ).$this->middle_surname;
+        return $n;
     }
 
     /**

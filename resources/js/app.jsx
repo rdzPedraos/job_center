@@ -6,7 +6,7 @@ import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 
 import GuestLayout from "./Layouts/GuestLayout";
-import AuthenticatedLayout from "./Layouts/Authenticated";
+import AuthenticatedLayout from "./Layouts/AuthenticatedLayout";
 
 //Fuentes roboto
 import "@fontsource/roboto/300.css";
