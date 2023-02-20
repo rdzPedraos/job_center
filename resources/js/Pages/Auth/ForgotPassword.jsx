@@ -1,6 +1,6 @@
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head, Link, useForm } from "@inertiajs/react";
-import SnackBarComponent from "@/Components/alerts/SnackBar";
+import SnackBarComponent from "@/Components/SnackBar";
 import MultiInput from "@/Components/form/MultiInput";
 import { Email, MarkEmailRead, Send } from "@mui/icons-material";
 import { Alert, Button } from "@mui/material";

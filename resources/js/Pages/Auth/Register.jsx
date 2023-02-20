@@ -2,7 +2,7 @@ import { Head, Link } from "@inertiajs/react";
 
 import { Button } from "@mui/material";
 
-import SnackBarComponent from "@/Components/alerts/SnackBar";
+import SnackBarComponent from "@/Components/SnackBar";
 
 import MultiInput from "@/Components/form/MultiInput";
 import { useFormData } from "@/Hooks/useFormData";

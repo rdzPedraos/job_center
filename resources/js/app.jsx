@@ -6,7 +6,7 @@ import { createInertiaApp } from "@inertiajs/react";
 import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
 
 import GuestLayout from "./Layouts/GuestLayout";
-import AuthenticatedLayout from "./Layouts/AuthenticatedLayout";
+import ParticipantLayout from "./Layouts/ParticipantLayout";
 
 //Fuentes roboto
 import "@fontsource/roboto/300.css";
@@ -30,9 +30,12 @@ createInertiaApp({
 
         page.then((module) => {
             if (module.default.layout === undefined) {
-                const Component = name.startsWith("Auth/")
-                    ? GuestLayout
-                    : AuthenticatedLayout;
+                let Component = <></>;
+
+                if (name.startsWith("Auth/")) Component = GuestLayout;
+                else if (name.startsWith("Admin/")) Component = <></>;
+                else Component = ParticipantLayout;
+
                 module.default.layout = (page) => <Component children={page} />;
             }
         });

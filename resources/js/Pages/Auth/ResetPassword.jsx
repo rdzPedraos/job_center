@@ -9,7 +9,7 @@ import { useFormData } from "@/Hooks/useFormData";
 import MultiInput from "@/Components/form/MultiInput";
 import { Button } from "@mui/material";
 import { Email, Key } from "@mui/icons-material";
-import SnackBarComponent from "@/Components/alerts/SnackBar";
+import SnackBarComponent from "@/Components/SnackBar";
 
 const INPUTS_CONFIG = [
     {

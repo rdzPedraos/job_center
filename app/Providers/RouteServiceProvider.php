@@ -35,6 +35,14 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+            
+            //TODO: Crear un middleware para que solo los usuarios que tengan asociado un perifl de participante puedan acceder.
+            #Route::middleware('web', 'auth')->prefix('user')->name('participant.')->group(base_path('routes/participant.php'));
+            Route::group([
+                'middleware'=>['web', 'auth'], 
+                #'prefix'=>'u', 
+                'as'=>'participant.'
+            ], base_path('routes/participant.php'));
         });
     }
 

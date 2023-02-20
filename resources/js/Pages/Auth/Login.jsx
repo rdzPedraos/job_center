@@ -3,7 +3,7 @@ import MultiInput from "@/Components/form/MultiInput";
 import { Head, Link, useForm } from "@inertiajs/react";
 import { Email, Key, LoginOutlined } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import SnackBarComponent from "@/Components/alerts/SnackBar";
+import SnackBarComponent from "@/Components/SnackBar";
 
 const Inputs = {
     email: {
