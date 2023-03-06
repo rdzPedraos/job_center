@@ -11,20 +11,23 @@ import {
 const SelectInputComponent = ({
     id,
     label,
-    value,
     options,
     variant = "outlined",
     error,
     onHandleChange,
+    ...otherProps
 }) => {
+    if (options.length == 0) {
+        otherProps.value = "";
+    }
     return (
         <FormControl error={!!error} variant={variant} fullWidth>
             <InputLabel>{label}</InputLabel>
             <Select
                 name={id}
                 label={label}
-                value={value}
                 onChange={onHandleChange}
+                {...otherProps}
             >
                 <MenuItem value="">SELECCIONE UNA OPCIÓN</MenuItem>
                 {options.map((option) => (

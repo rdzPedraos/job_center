@@ -1,6 +1,6 @@
 import { createTheme } from "@mui/material";
 
-const theme = createTheme({
+let theme = createTheme({
     palette: {
         primary: {
             main: "rgb(var(--primary-color))",

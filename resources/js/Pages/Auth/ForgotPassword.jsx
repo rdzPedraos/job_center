@@ -1,23 +1,18 @@
 import GuestLayout from "@/Layouts/GuestLayout";
-import { Head, Link, useForm } from "@inertiajs/react";
+import { Head, Link } from "@inertiajs/react";
 import SnackBarComponent from "@/Components/SnackBar";
-import MultiInput from "@/Components/form/MultiInput";
-import { Email, MarkEmailRead, Send } from "@mui/icons-material";
+import { Send } from "@mui/icons-material";
 import { Alert, Button } from "@mui/material";
+import { getInputs } from "@/Config/userForm";
+import utilInput from "@/Components/form/utilInput";
 
 export default function ForgotPassword({ status }) {
-    const { data, setData, post, processing, errors } = useForm({
-        email: "",
-    });
-
-    const onHandleChange = (event) => {
-        setData(event.target.name, event.target.value);
-    };
-
-    const submit = (e) => {
-        e.preventDefault();
-        post(route("password.email"));
-    };
+    const { processing, handleSubmit, Inputs } = utilInput(
+        getInputs("forgotPassword"),
+        {},
+        route("password.email"),
+        "post"
+    );
 
     return (
         <>
@@ -36,17 +31,8 @@ export default function ForgotPassword({ status }) {
                 </div>
             )}
 
-            <form onSubmit={submit}>
-                <MultiInput
-                    input={{
-                        id: "email",
-                        label: "Email",
-                        icon: Email,
-                    }}
-                    error={errors["email"]}
-                    value={data["email"]}
-                    onHandleChange={onHandleChange}
-                />
+            <form onSubmit={handleSubmit}>
+                {Object.values(Inputs)}
 
                 <div className="flex float-right gap-4 mt-4">
                     <Link href={route("login")}>
@@ -55,7 +41,7 @@ export default function ForgotPassword({ status }) {
 
                     <Button
                         disabled={processing}
-                        onClick={submit}
+                        onClick={handleSubmit}
                         variant="contained"
                         size="medium"
                         endIcon={<Send />}

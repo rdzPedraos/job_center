@@ -4,7 +4,7 @@
  * W. https://svgartista.net
  **************************************************/
 .wrapper {
-    z-index: 2;
+    z-index: 100000;
     position: absolute;
     top: 0;
     left: 0;

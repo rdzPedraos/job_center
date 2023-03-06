@@ -68,7 +68,12 @@ export default function ApplicationLogo({
                 <DialogActions className="gap-3">
                     <Button onClick={() => setOpen(false)}>Cancelar</Button>
                     <Link href="/">
-                        <Button variant="contained">Continuar</Button>
+                        <Button
+                            variant="contained"
+                            onClick={() => setOpen(false)}
+                        >
+                            Continuar
+                        </Button>
                     </Link>
                 </DialogActions>
             </Dialog>

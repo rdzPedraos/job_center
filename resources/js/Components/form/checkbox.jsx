@@ -5,22 +5,25 @@ import { Checkbox, FormControlLabel } from "@mui/material";
 
 const CheckboxInputComponent = ({
     id,
-    label,
-    Icon = FavoriteBorder,
-    CheckedIcon = Favorite,
-    isChecked,
+    value,
     onHandleChange,
+    icon = FavoriteBorder,
+    checkedIcon = Favorite,
+    ...otherProps
 }) => {
+    const Icon = icon;
+    const CheckedIcon = checkedIcon;
+
     return (
         <FormControlLabel
-            label={label}
+            {...otherProps}
             control={
                 <Checkbox
                     name={id}
                     icon={<Icon />}
                     checkedIcon={<CheckedIcon />}
                     onChange={onHandleChange}
-                    checked={!!isChecked}
+                    checked={!!value}
                 />
             }
         />
@@ -29,10 +32,9 @@ const CheckboxInputComponent = ({
 
 CheckboxInputComponent.propTypes = {
     id: PropTypes.string,
-    label: PropTypes.string,
-    Icon: PropTypes.element,
-    CheckedIcon: PropTypes.element,
     onHandleChange: PropTypes.func,
+    icon: PropTypes.element,
+    checkedIcon: PropTypes.element,
 };
 
 export default CheckboxInputComponent;

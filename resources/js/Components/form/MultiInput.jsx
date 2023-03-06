@@ -5,62 +5,36 @@ import PasswordInputComponent from "./password";
 import SelectInputComponent from "./select";
 import CheckboxInputComponent from "./checkbox";
 
-function MultiInput({ input, error, value, onHandleChange }) {
-    switch (input.type) {
-        case null:
-            return <></>;
-        case "select":
-            return (
-                <SelectInputComponent
-                    id={input.id}
-                    label={input.label}
-                    value={value}
-                    options={input.options}
-                    variant={input.variant}
-                    error={error}
-                    onHandleChange={onHandleChange}
-                />
-            );
+function MultiInput({ input, error, value, onHandleChange, disabled = false }) {
+    delete input.value;
+    const { id, label, type, ...otherProps } = input;
 
-        case "password":
-            return (
-                <PasswordInputComponent
-                    id={input.id}
-                    label={input.label}
-                    value={value}
-                    variant={input.variant}
-                    error={error}
-                    onHandleChange={onHandleChange}
-                    IconDetail={input.icon}
-                />
-            );
-
-        case "checkbox":
-            return (
-                <CheckboxInputComponent
-                    id={input.id}
-                    label={input.label}
-                    isChecked={value}
-                    onHandleChange={onHandleChange}
-                    Icon={input.Icon}
-                    CheckedIcon={input.CheckedIcon}
-                />
-            );
-
-        default:
-            return (
-                <TextInputComponent
-                    id={input.id}
-                    type={input.type}
-                    label={input.label}
-                    value={value}
-                    variant={input.variant}
-                    error={error}
-                    onHandleChange={onHandleChange}
-                    IconDetail={input.icon}
-                />
-            );
+    if (disabled) {
+        otherProps.variant = "filled";
+        otherProps.disabled = true;
     }
+
+    const Component = {
+        noDisplay: null,
+        select: SelectInputComponent,
+        password: PasswordInputComponent,
+        checkbox: CheckboxInputComponent,
+        text: TextInputComponent,
+        disabled: TextInputComponent,
+    }[type ?? "text"];
+
+    return !!Component ? (
+        <Component
+            id={id}
+            label={label}
+            value={value}
+            error={error}
+            onHandleChange={onHandleChange}
+            {...otherProps}
+        />
+    ) : (
+        <></>
+    );
 }
 
 MultiInput.propTypes = {

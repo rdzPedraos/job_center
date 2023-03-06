@@ -5,12 +5,10 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const PasswordInputComponent = ({
     id,
-    label,
-    value,
-    IconDetail,
-    variant = "outlined",
+    icon,
     error,
     onHandleChange,
+    ...otherProps
 }) => {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -25,23 +23,23 @@ const PasswordInputComponent = ({
         ),
     };
 
-    if (IconDetail)
+    if (icon) {
+        const Icon = icon;
         InputProps.startAdornment = (
             <InputAdornment position="start">
-                <IconDetail color={error ? "error" : "gray"} />
+                <Icon color={error ? "error" : "gray"} />
             </InputAdornment>
         );
+    }
 
     return (
         <TextField
             fullWidth
             name={id}
-            label={label}
-            value={value}
-            variant={variant}
             error={!!error}
             helperText={error}
             onChange={onHandleChange}
+            {...otherProps}
             type={showPassword ? "text" : "password"}
             InputProps={InputProps}
         />
@@ -50,10 +48,6 @@ const PasswordInputComponent = ({
 
 PasswordInputComponent.propTypes = {
     id: PropTypes.string,
-    label: PropTypes.string,
-    value: PropTypes.string,
-    icon: PropTypes.element,
-    variant: PropTypes.oneOf(["outlined", "filled", "standard"]),
     error: PropTypes.string,
     onHandleChange: PropTypes.func,
 };
