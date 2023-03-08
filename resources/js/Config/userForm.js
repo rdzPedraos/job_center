@@ -17,12 +17,14 @@ const inputs = {
         id: "document_number",
         format: "number",
         label: "Número de documento",
+        placeholder: "1000000001",
         icon: ContactEmergency,
     },
     first_name: {
         id: "first_name",
         label: "Primer nombre",
         icon: DriveFileRenameOutline,
+        placeholder: "Pepito",
     },
     middle_name: {
         id: "middle_name",
@@ -33,6 +35,7 @@ const inputs = {
         id: "first_surname",
         label: "Primer apellido",
         icon: DriveFileRenameOutline,
+        placeholder: "Diaz",
     },
     middle_surname: {
         id: "middle_surname",
@@ -44,63 +47,103 @@ const inputs = {
         format: "number",
         label: "Número de teléfono",
         icon: Phone,
+        placeholder: "3121234567",
     },
     email: {
         id: "email",
         format: "email",
         label: "Correo electrónico",
         icon: Email,
+        placeholder: "ejem@plo.com",
+    },
+    password_current: {
+        id: "password_current",
+        type: "password",
+        label: "Contraseña Actual",
+        icon: Key,
+        placeholder: "*******",
     },
     password: {
         id: "password",
         type: "password",
-        label: "Contraseña",
+        label: "Nueva contraseña",
         icon: Key,
+        placeholder: "*******",
     },
     password_confirmation: {
         id: "password_confirmation",
         type: "password",
         label: "Vuelva a ingresar la contraseña",
         icon: Key,
+        placeholder: "*******",
     },
     remember: {
         id: "remember",
         label: "Recuérdame",
         type: "checkbox",
     },
+    token: {
+        id: "token",
+        type: "noDisplay",
+    },
 };
 
-export const getInputs = (page) => {
+export const getInputs = (page, showIcon = true) => {
     const data = Object.assign({}, inputs);
+    const ids = [];
 
     switch (page) {
-        case "login":
-            return [data.email, data.password, data.remember];
-
         case "register":
-            delete data.remember;
-            return Object.values(data);
+            ids.push(
+                "document_type_id",
+                "document_number",
+                "first_name",
+                "middle_name",
+                "first_surname",
+                "middle_surname",
+                "phone_number",
+                "email",
+                "password",
+                "password_confirmation"
+            );
+            break;
+
+        case "login":
+            ids.push("email", "password", "remember");
+            break;
 
         case "updateProfile":
-            delete data.password;
-            delete data.password_confirmation;
-            delete data.remember;
-            return Object.values(data);
+            ids.push(
+                "document_type_id",
+                "document_number",
+                "first_name",
+                "middle_name",
+                "first_surname",
+                "middle_surname",
+                "phone_number"
+            );
+            break;
 
         case "updatePassword":
-            return [data.password, data.password_confirmation];
+            ids.push("password_current", "password", "password_confirmation");
+            break;
 
+        case "updateEmail":
         case "forgotPassword":
-            return [data.email];
+            ids.push("email");
+            break;
 
         case "resetPassword":
-            data.password.label = "Nueva contraseña";
-            return [
-                data.email,
-                data.password,
-                data.password_confirmation,
-                { id: "token", type: "noDisplay" },
-            ];
+            ids.push("email", "password", "password_confirmation", "token");
+            break;
     }
+
+    const response = [];
+    ids.forEach((id) => {
+        if (!showIcon) data[id].icon = null;
+        return response.push(data[id]);
+    });
+
+    return response;
 };
 export default [];

@@ -24,9 +24,6 @@ const useFormData = (inputs, inputsData = {}, route = null, method = null) => {
 
         input.value ??= inputsData[id] || "";
 
-        /* if (!!input.id_options) {
-            
-        } */
         if (input.id_options) {
             const id_op = input.id_options;
             input.options = inputsData[id_op] ?? pageData[id_op] ?? [];
@@ -34,12 +31,12 @@ const useFormData = (inputs, inputsData = {}, route = null, method = null) => {
         formData[id] = input.value;
     }
 
-    const { data, setData, post, get, put, patch, errors, processing } =
+    const { data, setData, errors, processing, post, get, put, patch, reset } =
         useForm(formData);
 
     const handleSubmit =
         Boolean(route) && Boolean(method)
-            ? (e) => {
+            ? (e, successAction = () => {}, errorAction = () => {}) => {
                   e.preventDefault();
                   const methods = {
                       post,
@@ -47,7 +44,15 @@ const useFormData = (inputs, inputsData = {}, route = null, method = null) => {
                       put,
                       patch,
                   };
-                  methods[method](route);
+                  methods[method](route, {
+                      onSuccess() {
+                          reset();
+                          successAction();
+                      },
+                      onError() {
+                          errorAction();
+                      },
+                  });
               }
             : null;
 
@@ -76,6 +81,7 @@ const useFormData = (inputs, inputsData = {}, route = null, method = null) => {
                   get,
                   put,
                   patch,
+                  reset,
               }),
     };
 };

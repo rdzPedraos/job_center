@@ -7,30 +7,27 @@ import MultiInput from "@/Components/form/MultiInput";
 import { useState } from "react";
 import { Button } from "@mui/material";
 
-function ProfileUpdate({ previusData }) {
+function ProfileUpdate({ user, documentTypes, onFinish }) {
     const [editMode, setEditMode] = useState(false);
-    const { inputs, data, errors, handleSubmit, processing, handleChangeInp } =
+
+    const { inputs, errors, data, processing, handleChangeInp, handleSubmit } =
         useFormData(
             getInputs("updateProfile"),
-            previusData,
-            route("login"),
-            "post"
+            { ...user, documentTypes },
+            route("profile.update"),
+            "patch"
         );
 
-    const handleEditMode = () => setEditMode((prev) => !prev);
+    const handleEditMode = (e) => {
+        e.preventDefault();
+        if (editMode) {
+            handleSubmit(e, onFinish);
+        } else setEditMode(true);
+    };
 
     return (
-        <form onSubmit={handleSubmit} className="relative">
-            <div className="absolute -top-16 right-0">
-                <Button
-                    onClick={handleEditMode}
-                    variant="contained"
-                    disabled={processing}
-                >
-                    {editMode ? "Guardar" : "Editar"}
-                </Button>
-            </div>
-            <div className="w-full grid grid-cols-2 gap-5">
+        <form onSubmit={handleEditMode}>
+            <div className="grid gap-5">
                 {inputs.map((inp) => {
                     const id = inp.id;
                     return (
@@ -45,12 +42,23 @@ function ProfileUpdate({ previusData }) {
                     );
                 })}
             </div>
+
+            <div className="flex justify-center mt-5">
+                <Button
+                    type="submit"
+                    variant={editMode ? "contained" : "text"}
+                    disabled={processing}
+                >
+                    {editMode ? "Guardar" : "Editar"}
+                </Button>
+            </div>
         </form>
     );
 }
 
 ProfileUpdate.propTypes = {
-    previusData: PropTypes.array,
+    user: PropTypes.object,
+    documentTypes: PropTypes.array,
 };
 
 export default ProfileUpdate;

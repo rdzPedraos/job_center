@@ -3,7 +3,7 @@ import SpinnerComponent from "@/Components/welcome";
 import { useMediaQuery } from "@mui/material";
 import { useState } from "react";
 import MenuComponent from "./MenuComponent";
-import ProfileComponent from "../Profile";
+import ProfileMenu from "../Profile";
 
 export default function ParticipantLayout({ children }) {
     const LGScreen = useMediaQuery("(min-width:1020px)");
@@ -19,7 +19,7 @@ export default function ParticipantLayout({ children }) {
                     <ApplicationLogo txtSize="xl" imgSize="7" />
                 </div>
                 {LGScreen && <MenuComponent />}
-                <ProfileComponent />
+                <ProfileMenu />
             </header>
 
             <main className="min-h-screen bg-base_white">{children}</main>

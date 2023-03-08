@@ -5,20 +5,21 @@ import SettingsComponent from "./Settings";
 import { ExpandLess } from "@mui/icons-material";
 import { Avatar, Badge, Drawer } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
-import UpdateProfileComponent from "./update";
+import ProfileComponent from "./update";
 import { useEffect } from "react";
 
-export default function ProfileComponent() {
+export default function ProfileMenu() {
     const [open, setOpen] = useState(false);
     const [showDrawer, setShowDrawer] = useState(false);
+
     const [documentTypes, setDocumentTypes] = useState([]);
 
-    const handleShowDrawer = (val) => {
+    const handleDrawer = (val) => {
         setShowDrawer((prev) => val ?? !prev);
         setOpen(false);
     };
 
-    const user = usePage().props.auth.user;
+    const { user } = usePage().props.auth;
     useEffect(() => {
         axios
             .get("api/documentTypes")
@@ -67,9 +68,7 @@ export default function ProfileComponent() {
                         exit={{ maxHeight: 0 }}
                         className="absolute top-24 right-0 bg-white shadow-md rounded-lg overflow-hidden"
                     >
-                        <SettingsComponent
-                            handleShowProfile={handleShowDrawer}
-                        />
+                        <SettingsComponent handleShowProfile={handleDrawer} />
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -77,11 +76,12 @@ export default function ProfileComponent() {
             <Drawer
                 anchor="right"
                 open={showDrawer}
-                onClose={() => handleShowDrawer(false)}
+                onClose={() => handleDrawer(false)}
             >
-                <UpdateProfileComponent
+                <ProfileComponent
                     user={user}
                     documentTypes={documentTypes}
+                    onFinish={() => handleDrawer(false)}
                 />
             </Drawer>
         </section>
