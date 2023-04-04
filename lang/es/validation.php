@@ -173,6 +173,37 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'document_type_id' => 'tipo de documento',
+        'document_number' => 'número de documento',
+        'first_name' => 'primer nombre',
+        'middle_name' => 'segundo nombre',
+        'first_surname' => 'primer apellido',
+        'middle_surname' => 'segundo apellido',
+        'phone_number' => 'número telefónico',
+        'email' => 'correo electrónico',
+        'current_password' => 'contraseña actual',
+        'password' => 'nueva contraseña',
+        'password_confirmation' => 'confirmación de contraseña',
+        'remember' => 'recordar',
+
+        'biografy_title' => 'titulo de biografia',
+        'biografy_content' => 'contenido de biografía',
+
+        'company_name' => 'nombre de la empresa',
+        'company_city_id' => 'ciudad de la empresa',
+        'position' => 'cargo ocupado',
+        'description' => 'descripción',
+        'start_date' => 'fecha de inicio',
+        'start_end' => 'fecha de terminación',
+
+        'education_level_id' => 'nivel de educación',
+        'degree' => 'titulo académico',
+        'institution_name' => 'institución educativa',
+        'record_number' => 'número de registro',
+        'professional_card_number' => 'número de tarjeta profesional',
+
+        'file' => ' '
+    ],
 
 ];

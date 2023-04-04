@@ -1,12 +1,13 @@
 import GuestLayout from "@/Layouts/GuestLayout";
 import { Head } from "@inertiajs/react";
-import { Button } from "@mui/material";
 import SnackBarComponent from "@/Components/SnackBar";
+
 import { getInputs } from "@/Config/userForm";
 import utilInput from "@/Components/form/utilInput";
+import { Button } from "@mui/material";
 
 export default function ResetPassword({ token, email }) {
-    const { processing, handleSubmit, Inputs } = utilInput(
+    const { processing, handleSubmit, inputs } = utilInput(
         getInputs("resetPassword"),
         { email, token },
         route("password.store"),
@@ -20,7 +21,7 @@ export default function ResetPassword({ token, email }) {
 
             <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-9 my-12">
-                    {Object.values(Inputs)}
+                    {Object.values(inputs)}
                 </div>
                 <Button
                     sx={{ float: "right" }}

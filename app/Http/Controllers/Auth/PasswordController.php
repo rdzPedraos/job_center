@@ -24,6 +24,6 @@ class PasswordController extends Controller
             'password' => Hash::make($validated['password']),
         ]);
 
-        return back();
+        return redirect()->back()->with('msg', ['status'=>'success', 'content'=>'Contraseña cambiada']);
     }
 }

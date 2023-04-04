@@ -56,8 +56,8 @@ const inputs = {
         icon: Email,
         placeholder: "ejem@plo.com",
     },
-    password_current: {
-        id: "password_current",
+    current_password: {
+        id: "current_password",
         type: "password",
         label: "Contraseña Actual",
         icon: Key,
@@ -125,7 +125,7 @@ export const getInputs = (page, showIcon = true) => {
             break;
 
         case "updatePassword":
-            ids.push("password_current", "password", "password_confirmation");
+            ids.push("current_password", "password", "password_confirmation");
             break;
 
         case "updateEmail":

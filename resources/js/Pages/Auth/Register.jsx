@@ -8,11 +8,12 @@ import { Button } from "@mui/material";
 import utilInput from "@/Components/form/utilInput";
 
 export default function Register() {
-    const { processing, handleSubmit, Inputs } = utilInput(
+    const { processing, handleSubmit, inputs } = utilInput(
         getInputs("register"),
         {},
         route("register"),
-        "post"
+        "post",
+        true
     );
 
     return (
@@ -22,7 +23,7 @@ export default function Register() {
 
             <form onSubmit={handleSubmit} className="mt-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {Object.values(Inputs)}
+                    {Object.values(inputs)}
                 </div>
 
                 <div className="flex justify-between items-end mt-8">
@@ -36,6 +37,7 @@ export default function Register() {
                         </Link>
                     </p>
                     <Button
+                        type="submit"
                         variant="contained"
                         color="primary"
                         endIcon={<Send />}

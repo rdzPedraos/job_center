@@ -41,6 +41,8 @@ class ApplicantFactory extends Factory
             'family_contact_name' => fake()->name(),
             'family_contact_phone' => fake()->numberBetween(1000000, 9999999),
             'family_contact_relationship' => fake()->randomElement(['PADRE', 'MADRE', 'HERMANO', 'HERMANA', 'TIO', 'TIA', 'ABUELO', 'ABUELA', 'OTRO']),
+            'biografy_title' => fake()->text(50),
+            'biografy_content' => fake()->text(1000)
         ];
     }
 }

@@ -1,14 +1,14 @@
 export default [
     {
         description: "Encontrar trabajo",
-        route: "participant.searchJob",
+        route: "applicant.searchJob",
     },
     {
         description: "Mis postulaciones",
-        route: "participant.postulations",
+        route: "applicant.postulations",
     },
     {
         description: "Mi Hoja de Vida",
-        route: "participant.cv",
+        route: "applicant.cv",
     },
 ];

@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "@inertiajs/react";
+
+import { ProfileMenuContext } from "./MenuContext";
+
 import { Logout, SettingsOutlined } from "@mui/icons-material";
 
-export default function SettingsComponent({ handleShowProfile }) {
+export default function SettingsComponent() {
+    const { setShowProfileDrawer } = useContext(ProfileMenuContext);
+
     const items = [
         {
             description: "Configuración",
             icon: SettingsOutlined,
-            action: () => handleShowProfile(true),
+            action: () => setShowProfileDrawer(true),
         },
         {
             description: "Salir",

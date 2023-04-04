@@ -1,4 +1,5 @@
 import { useForm, usePage } from "@inertiajs/react";
+import { toast } from "react-toastify";
 
 /**
  * Setea la lógica de un formulario
@@ -6,6 +7,7 @@ import { useForm, usePage } from "@inertiajs/react";
  * @param {object|null} inputsData Objeto clave(id)-valor(default) para setear un valor por defecto en los campos
  * @param {string|null} route Ruta donde se enviará la información
  * @param {string|null} method Método que usará
+ * @param {boolean} resetform Si desea que el método se resetee marque True
  * @returns {object}
  *      Retorna arreglo con la siguiente información:
  *      "data" <- Objeto clave-valor con la información predefinida o que tendrán los inputs por cada cambio.
@@ -15,7 +17,13 @@ import { useForm, usePage } from "@inertiajs/react";
  *      "handleChangeInp"(id, value), <- Función para cambiar un campo.
  *      "inputs", <- Información del campo para mostrar html(lo traido en inputs más algunas operaciones lógicas)
  */
-const useFormData = (inputs, inputsData = {}, route = null, method = null) => {
+const useFormData = (
+    inputs,
+    inputsData = {},
+    route = null,
+    method = null,
+    resetform = false
+) => {
     const pageData = usePage().props;
     const formData = {};
 
@@ -31,35 +39,52 @@ const useFormData = (inputs, inputsData = {}, route = null, method = null) => {
         formData[id] = input.value;
     }
 
-    const { data, setData, errors, processing, post, get, put, patch, reset } =
-        useForm(formData);
+    const form = useForm(formData);
+    const { setData, errors, post, get, put, patch, reset } = form;
 
-    const handleSubmit =
-        Boolean(route) && Boolean(method)
-            ? (e, successAction = () => {}, errorAction = () => {}) => {
-                  e.preventDefault();
-                  const methods = {
-                      post,
-                      get,
-                      put,
-                      patch,
-                  };
-                  methods[method](route, {
-                      onSuccess() {
-                          reset();
-                          successAction();
-                      },
-                      onError() {
-                          errorAction();
-                      },
-                  });
-              }
-            : null;
+    const handleSubmit = (e, onSucces = () => {}, onError = () => {}) => {
+        if (e) {
+            e.preventDefault();
+        }
+
+        const methods = {
+            post,
+            get,
+            put,
+            patch,
+        };
+
+        methods[method](route, {
+            preserveScroll: true,
+            onSuccess({ props: { flash } }) {
+                if (flash.msg) {
+                    const {
+                        msg: { content, status },
+                    } = flash;
+                    toast[status](content, {
+                        position: "bottom-left",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+                if (resetform) reset();
+                onSucces();
+            },
+            onError() {
+                onError();
+            },
+        });
+    };
 
     //Evento para cuando se actualice la información de un input:
     const handleChangeInp = (event) => {
         const name = event.target.name;
-        errors[name] = "";
+        delete errors[name];
         setData(
             name,
             event.target.type === "checkbox"
@@ -69,20 +94,11 @@ const useFormData = (inputs, inputsData = {}, route = null, method = null) => {
     };
 
     return {
-        data,
-        errors,
-        processing,
+        ...form,
         inputs,
         handleChangeInp,
-        ...(!!route && !!method
-            ? { handleSubmit }
-            : {
-                  post,
-                  get,
-                  put,
-                  patch,
-                  reset,
-              }),
+        handleSubmit,
     };
 };
+
 export { useFormData };

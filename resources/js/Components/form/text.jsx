@@ -2,39 +2,37 @@ import React from "react";
 import PropTypes from "prop-types";
 import { InputAdornment, TextField } from "@mui/material";
 
-const TextInputComponent = ({
+function TextInputComponent({
     id,
+    value,
     icon,
     format = "text",
     error,
     onHandleChange,
     ...otherProps
-}) => {
+}) {
     const Icon = icon;
 
     return (
         <TextField
             fullWidth
             name={id}
+            value={value ?? ""}
             type={format}
             error={!!error}
             helperText={error}
             onChange={onHandleChange}
             {...otherProps}
-            InputProps={
-                Icon
-                    ? {
-                          startAdornment: (
-                              <InputAdornment position="start">
-                                  <Icon color={error ? "error" : "gray"} />
-                              </InputAdornment>
-                          ),
-                      }
-                    : {}
-            }
+            InputProps={{
+                startAdornment: Icon ? (
+                    <InputAdornment position="start">
+                        <Icon color={error ? "error" : "gray"} />
+                    </InputAdornment>
+                ) : null,
+            }}
         />
     );
-};
+}
 
 TextInputComponent.propTypes = {
     id: PropTypes.string,

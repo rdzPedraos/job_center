@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicantStudy extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'education_level_id',
+        'degree',
+        'institution_name',
+        'record_number',
+        'professional_card_number',
+        'start_date',
+        'end_date'
+    ];
 
     /**
      * Retrieve the documents uploaded as part of the studies of the applicant

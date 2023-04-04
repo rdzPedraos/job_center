@@ -30,7 +30,7 @@ class User extends Authenticatable
         'document_number',
         'phone_number',
     ];
-    protected $appends = ['name'];
+    protected $appends = ['name', 'document_type_info'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -58,9 +58,16 @@ class User extends Authenticatable
 
     public function getNameAttribute(): string
     {
-        $n = $this->first_name . ($this->middle_name?' ':'').$this->middle_name;
-        $n .= ' ' . $this->first_surname . ($this->middle_surname?' ':'' ).$this->middle_surname;
+        $n = $this->first_name . ($this->middle_name ? ' ' : '') . $this->middle_name;
+        $n .= ' ' . $this->first_surname . ($this->middle_surname ? ' ' : '') . $this->middle_surname;
         return $n;
+    }
+
+    public function getDocumentTypeInfoAttribute()
+    {
+        $res = clone $this->documentType;
+        $res->str = $res->acronym . '. ' . $this->document_number;
+        return $res;
     }
 
     /**

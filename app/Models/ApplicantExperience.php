@@ -9,6 +9,14 @@ class ApplicantExperience extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'company_name',
+        'position',
+        'start_date',
+        'end_date'
+    ];
+
+
     /**
      * Retrieve the documents uploaded as part of the experience of the applicant
      */

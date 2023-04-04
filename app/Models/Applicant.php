@@ -9,6 +9,13 @@ class Applicant extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'biografy_title',
+        'biografy_content',
+        'cv_url'
+    ];
+
+
     /**
      * Retrieve the user associated with the applicant.
      */

@@ -12,6 +12,8 @@ import {
 } from "@mui/material";
 import { Link } from "@inertiajs/react";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
+import { useState } from "react";
+import Modal from "./Modal";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Zoom ref={ref} {...props} />;
@@ -24,7 +26,7 @@ export default function ApplicationLogo({
     gapSize = "3",
     justify = "center",
 }) {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     return (
         <div className={`flex justify-${justify}`}>
@@ -49,34 +51,26 @@ export default function ApplicationLogo({
             </button>
 
             {/*  Modal para salir de la página */}
-            <Dialog
-                open={open}
-                onClose={() => setOpen(false)}
-                maxWidth="xs"
-                TransitionComponent={Transition}
-            >
-                <DialogTitle>
-                    <ErrorOutlineIcon color="warning" className="mr-2" />
-                    ¿Estás seguro de esta acción?
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        Serás redireccionado a la página principal, ¿seguro de
-                        querer hacer esto?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions className="gap-3">
-                    <Button onClick={() => setOpen(false)}>Cancelar</Button>
-                    <Link href="/">
-                        <Button
-                            variant="contained"
-                            onClick={() => setOpen(false)}
-                        >
-                            Continuar
-                        </Button>
-                    </Link>
-                </DialogActions>
-            </Dialog>
+            <Modal
+                useOpen={[open, setOpen]}
+                modalStatus="warning"
+                title="¿Estás seguro de esta acción?"
+                content="Serás redireccionado a la página principal, ¿seguro de
+                        querer hacer esto?"
+                dialogActions={
+                    <>
+                        <Button onClick={() => setOpen(false)}>Cancelar</Button>
+                        <Link href="/">
+                            <Button
+                                variant="contained"
+                                onClick={() => setOpen(false)}
+                            >
+                                Continuar
+                            </Button>
+                        </Link>
+                    </>
+                }
+            />
         </div>
     );
 }

@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import { Checkbox, FormControlLabel } from "@mui/material";
 
-const CheckboxInputComponent = ({
+function CheckboxInputComponent({
     id,
     value,
     onHandleChange,
     icon = FavoriteBorder,
     checkedIcon = Favorite,
     ...otherProps
-}) => {
+}) {
     const Icon = icon;
     const CheckedIcon = checkedIcon;
 
@@ -28,7 +28,7 @@ const CheckboxInputComponent = ({
             }
         />
     );
-};
+}
 
 CheckboxInputComponent.propTypes = {
     id: PropTypes.string,

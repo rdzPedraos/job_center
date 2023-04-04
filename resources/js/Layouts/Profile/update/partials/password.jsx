@@ -2,21 +2,24 @@ import React from "react";
 import utilInput from "@/Components/form/utilInput";
 import { Button } from "@mui/material";
 import { getInputs } from "@/Config/userForm";
+import { LockResetOutlined } from "@mui/icons-material";
 
 function PasswordUpdate() {
-    const { processing, handleSubmit, Inputs } = utilInput(
+    const { processing, handleSubmit, inputs } = utilInput(
         getInputs("updatePassword", false),
         {},
         route("password.update"),
-        "put"
+        "put",
+        true
     );
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="grid gap-5">{Object.values(Inputs)}</div>
+            <div className="grid gap-5">{Object.values(inputs)}</div>
             <div className="float-right mt-5">
                 <Button type="submit" variant="contained" disabled={processing}>
-                    Cambiar contraseña
+                    <LockResetOutlined />
+                    <span className="ml-1">Cambiar contraseña</span>
                 </Button>
             </div>
         </form>

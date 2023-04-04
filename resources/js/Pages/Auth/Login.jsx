@@ -8,11 +8,12 @@ import utilInput from "@/Components/form/utilInput";
 
 //status
 export default function Login({ canResetPassword }) {
-    const { processing, handleSubmit, Inputs } = utilInput(
+    const { processing, handleSubmit, inputs } = utilInput(
         getInputs("login"),
         {},
         route("login"),
-        "post"
+        "post",
+        true
     );
 
     return (
@@ -22,12 +23,12 @@ export default function Login({ canResetPassword }) {
 
             <form onSubmit={handleSubmit} className="mt-8">
                 <div className="flex flex-col gap-9">
-                    {Inputs.email}
-                    {Inputs.password}
+                    {inputs.email}
+                    {inputs.password}
                 </div>
 
                 <div className="flex justify-between items-center my-4">
-                    {Inputs.remember}
+                    {inputs.remember}
 
                     {canResetPassword && (
                         <Link
@@ -47,6 +48,7 @@ export default function Login({ canResetPassword }) {
                     startIcon={<LoginOutlined />}
                     disabled={processing}
                     size="large"
+                    type="submit"
                 >
                     Ingresar
                 </Button>

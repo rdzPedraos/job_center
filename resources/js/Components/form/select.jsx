@@ -8,15 +8,16 @@ import {
     Select,
 } from "@mui/material";
 
-const SelectInputComponent = ({
+function SelectInputComponent({
     id,
     label,
+    value,
     options,
     variant = "outlined",
     error,
     onHandleChange,
     ...otherProps
-}) => {
+}) {
     if (options.length == 0) {
         otherProps.value = "";
     }
@@ -26,10 +27,11 @@ const SelectInputComponent = ({
             <Select
                 name={id}
                 label={label}
+                value={value ?? ""}
                 onChange={onHandleChange}
                 {...otherProps}
             >
-                <MenuItem value="">SELECCIONE UNA OPCIÓN</MenuItem>
+                <MenuItem value={undefined}>SELECCIONE UNA OPCIÓN</MenuItem>
                 {options.map((option) => (
                     <MenuItem key={option.id} value={option.id}>
                         {option.name}
@@ -39,7 +41,7 @@ const SelectInputComponent = ({
             <FormHelperText>{error}</FormHelperText>
         </FormControl>
     );
-};
+}
 
 SelectInputComponent.propTypes = {
     id: PropTypes.string,

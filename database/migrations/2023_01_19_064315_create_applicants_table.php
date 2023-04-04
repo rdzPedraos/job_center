@@ -18,6 +18,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('id', true);
             $table->unsignedBigInteger('user_id')->unique()->comment('Llave foránea de la tabla users');
+
             $table->unsignedSmallInteger('birth_place_id')->nullable();
             $table->date('birth_date')->nullable();
             $table->unsignedSmallInteger('document_issue_city_id')->nullable();
@@ -34,6 +35,10 @@ return new class extends Migration
             $table->string('family_contact_phone', 15)->nullable();
             $table->string('family_contact_relationship', 50)->nullable();
             $table->timestamps();
+            $table->string('biografy_title', 100)->nullable();
+            $table->string('biografy_content', 1000)->nullable();
+
+            $table->text('cv_url')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('birth_place_id')->references('id')->on('cities');

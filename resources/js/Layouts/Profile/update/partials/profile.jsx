@@ -2,54 +2,44 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { getInputs } from "@/Config/userForm";
-import { useFormData } from "@/Hooks/useFormData";
-import MultiInput from "@/Components/form/MultiInput";
-import { useState } from "react";
 import { Button } from "@mui/material";
+import utilInput from "@/Components/form/utilInput";
+import { Save, Settings } from "@mui/icons-material";
 
-function ProfileUpdate({ user, documentTypes, onFinish }) {
-    const [editMode, setEditMode] = useState(false);
-
-    const { inputs, errors, data, processing, handleChangeInp, handleSubmit } =
-        useFormData(
+function ProfileUpdate({ user, documentTypes }) {
+    const { processing, inputs, handleSubmitWithEditMode, isDisabled } =
+        utilInput(
             getInputs("updateProfile"),
             { ...user, documentTypes },
             route("profile.update"),
-            "patch"
+            "patch",
+            false,
+            true
         );
 
-    const handleEditMode = (e) => {
-        e.preventDefault();
-        if (editMode) {
-            handleSubmit(e, onFinish);
-        } else setEditMode(true);
-    };
-
     return (
-        <form onSubmit={handleEditMode}>
-            <div className="grid gap-5">
-                {inputs.map((inp) => {
-                    const id = inp.id;
-                    return (
-                        <MultiInput
-                            key={id}
-                            input={inp}
-                            disabled={!editMode}
-                            error={errors[id]}
-                            value={data[id]}
-                            onHandleChange={handleChangeInp}
-                        />
-                    );
-                })}
-            </div>
+        <form onSubmit={handleSubmitWithEditMode}>
+            <div className="grid gap-5">{Object.values(inputs)}</div>
 
             <div className="flex justify-center mt-5">
                 <Button
                     type="submit"
-                    variant={editMode ? "contained" : "text"}
+                    variant={isDisabled ? "text" : "contained"}
                     disabled={processing}
                 >
-                    {editMode ? "Guardar" : "Editar"}
+                    <span className="flex items-center">
+                        {isDisabled ? (
+                            <>
+                                <Settings style={{ marginRight: "5px" }} />
+                                Editar
+                            </>
+                        ) : (
+                            <>
+                                <Save style={{ marginRight: "5px" }} />
+                                Guardar
+                            </>
+                        )}
+                    </span>
                 </Button>
             </div>
         </form>

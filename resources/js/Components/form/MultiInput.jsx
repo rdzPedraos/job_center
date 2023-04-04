@@ -4,9 +4,12 @@ import TextInputComponent from "./text";
 import PasswordInputComponent from "./password";
 import SelectInputComponent from "./select";
 import CheckboxInputComponent from "./checkbox";
+import DateInputComponent from "./date";
+import AutoCompleteInputComponent from "./autocomplete";
 
 function MultiInput({ input, error, value, onHandleChange, disabled = false }) {
     delete input.value;
+
     const { id, label, type, ...otherProps } = input;
 
     if (disabled) {
@@ -14,13 +17,22 @@ function MultiInput({ input, error, value, onHandleChange, disabled = false }) {
         otherProps.disabled = true;
     }
 
+    if (type == "textarea") {
+        otherProps.multiline = true;
+    }
+
     const Component = {
-        noDisplay: null,
+        noDisplay: ({ id, value }) => (
+            <input name={id} value={value} type="hidden" />
+        ),
         select: SelectInputComponent,
         password: PasswordInputComponent,
         checkbox: CheckboxInputComponent,
         text: TextInputComponent,
+        textarea: TextInputComponent,
         disabled: TextInputComponent,
+        date: DateInputComponent,
+        autocomplete: AutoCompleteInputComponent,
     }[type ?? "text"];
 
     return !!Component ? (

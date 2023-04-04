@@ -7,7 +7,7 @@ import { getInputs } from "@/Config/userForm";
 import utilInput from "@/Components/form/utilInput";
 
 export default function ForgotPassword({ status }) {
-    const { processing, handleSubmit, Inputs } = utilInput(
+    const { processing, handleSubmit, inputs } = utilInput(
         getInputs("forgotPassword"),
         {},
         route("password.email"),
@@ -32,7 +32,7 @@ export default function ForgotPassword({ status }) {
             )}
 
             <form onSubmit={handleSubmit}>
-                {Object.values(Inputs)}
+                {Object.values(inputs)}
 
                 <div className="flex float-right gap-4 mt-4">
                     <Link href={route("login")}>

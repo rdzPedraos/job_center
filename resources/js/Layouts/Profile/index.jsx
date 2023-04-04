@@ -1,30 +1,18 @@
 import React from "react";
-import { useState } from "react";
-import { usePage } from "@inertiajs/react";
+import { useState, useContext } from "react";
+import { ProfileMenuContext } from "./MenuContext";
+
 import SettingsComponent from "./Settings";
+import ProfileComponent from "./update";
+
 import { ExpandLess } from "@mui/icons-material";
 import { Avatar, Badge, Drawer } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
-import ProfileComponent from "./update";
-import { useEffect } from "react";
 
 export default function ProfileMenu() {
     const [open, setOpen] = useState(false);
-    const [showDrawer, setShowDrawer] = useState(false);
-
-    const [documentTypes, setDocumentTypes] = useState([]);
-
-    const handleDrawer = (val) => {
-        setShowDrawer((prev) => val ?? !prev);
-        setOpen(false);
-    };
-
-    const { user } = usePage().props.auth;
-    useEffect(() => {
-        axios
-            .get("api/documentTypes")
-            .then((res) => setDocumentTypes(res.data));
-    }, []);
+    const { user, showProfileDrawer, setShowProfileDrawer } =
+        useContext(ProfileMenuContext);
 
     return (
         <section className="flex relative h-full gap-6 items-center">
@@ -68,21 +56,17 @@ export default function ProfileMenu() {
                         exit={{ maxHeight: 0 }}
                         className="absolute top-24 right-0 bg-white shadow-md rounded-lg overflow-hidden"
                     >
-                        <SettingsComponent handleShowProfile={handleDrawer} />
+                        <SettingsComponent />
                     </motion.div>
                 )}
             </AnimatePresence>
 
             <Drawer
                 anchor="right"
-                open={showDrawer}
-                onClose={() => handleDrawer(false)}
+                open={showProfileDrawer}
+                onClose={() => setShowProfileDrawer(false)}
             >
-                <ProfileComponent
-                    user={user}
-                    documentTypes={documentTypes}
-                    onFinish={() => handleDrawer(false)}
-                />
+                <ProfileComponent />
             </Drawer>
         </section>
     );

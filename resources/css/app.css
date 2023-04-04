@@ -8,7 +8,7 @@
         --primary-color: 49, 121, 109;
         --secondary-color: 77, 87, 101;
         --info-color: 157, 224, 246;
-        --error-color: 255, 88, 90;
+        --error-color: 217, 78, 78;
         --success-color: 82, 196, 26;
         --contrast-text: 255, 255, 255;
 
@@ -16,7 +16,7 @@
         --_primary-color: 49 121 109;
         --_secondary-color: 77 87 101;
         --_info-color: 157 224 246;
-        --_error-color: 255 88 90;
+        --_error-color: 217 78 78;
         --_success-color: 82 196 26;
     }
 }
@@ -25,6 +25,7 @@
     font-family: Roboto, Nunito, sans-serif;
 }
 
-input:focus {
-    box-shadow: none !important;
+input:focus,
+textarea.MuiInputBase-inputMultiline:focus {
+    box-shadow: inherit !important;
 }

@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-const PasswordInputComponent = ({
+function PasswordInputComponent({
     id,
+    value,
     icon,
     error,
     onHandleChange,
     ...otherProps
-}) => {
+}) {
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -36,6 +37,7 @@ const PasswordInputComponent = ({
         <TextField
             fullWidth
             name={id}
+            value={value ?? ""}
             error={!!error}
             helperText={error}
             onChange={onHandleChange}
@@ -44,7 +46,7 @@ const PasswordInputComponent = ({
             InputProps={InputProps}
         />
     );
-};
+}
 
 PasswordInputComponent.propTypes = {
     id: PropTypes.string,
