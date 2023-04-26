@@ -1,19 +1,17 @@
 <?php
 
+use App\Http\Controllers\applicant\CurriculumController;
+use App\Http\Controllers\Applicant\UploadFileController;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+
 /**
  * Aqui están todas las rutas relacionadas al usuario "applicante"
  * este usuario hace referencia a quien se postula a una convocatoria.
  * 
- * Todas las rutas tienen como url antecedido applicante/
+ * As: applicant.
+ * Middlewares: Auth
  */
-
-use App\Http\Controllers\applicant\CurriculumController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
-
-//Routes for applicant, begining with:
-//Name: applicant.{name}
-//Middlewares: Auth
 
 Route::get('/bolsa-de-empleo', function () {
     return Inertia::render('Applicant/SearchJob');
@@ -23,10 +21,14 @@ Route::get('/mis-postulaciones', function () {
     return Inertia::render('Applicant/SeePostulations');
 })->name('postulations');
 
+Route::as('cv.')->group(function () {
+    Route::controller(CurriculumController::class)->group(function () {
+        Route::get('/mi-hv', 'index')->name('index');
+        Route::patch('/mi-hv', 'update')->name('update');
+    });
 
-Route::controller(CurriculumController::class)->group(function () {
-    Route::get('/mi-hv', 'index')->name('cv');
-    Route::patch('/mi-hv', 'update')->name('update');
-    Route::post('/upload-hv', 'uploadCv')->name('cv.upload');
-    Route::get('/download-hv', 'downloadCv')->name('cv.download');
+    Route::controller(UploadFileController::class)->group(function () {
+        Route::post('/subir-hv', 'uploadCv')->name('upload');
+        Route::get('/ver-hv', 'downloadCv')->name('download');
+    });
 });

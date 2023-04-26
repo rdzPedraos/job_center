@@ -29,6 +29,7 @@ class User extends Authenticatable
         'document_type_id',
         'document_number',
         'phone_number',
+        'photo_url',
     ];
     protected $appends = ['name', 'document_type_info'];
 

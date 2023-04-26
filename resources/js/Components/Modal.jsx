@@ -1,13 +1,6 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
-import { useState, forwardRef } from "react";
-import {
-    DoneAll,
-    ErrorOutlineOutlined,
-    LightbulbCircleOutlined,
-    LightbulbOutlined,
-    WarningAmberOutlined,
-} from "@mui/icons-material";
+
 import {
     Dialog,
     DialogActions,
@@ -16,6 +9,13 @@ import {
     DialogTitle,
     Zoom,
 } from "@mui/material";
+
+import {
+    DoneAll,
+    ErrorOutlineOutlined,
+    LightbulbOutlined,
+    WarningAmberOutlined,
+} from "@mui/icons-material";
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Zoom ref={ref} {...props} />;

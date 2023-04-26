@@ -21,6 +21,11 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "dayjs/locale/en-gb";
 
+const pdfjs = await import("pdfjs-dist/build/pdf");
+const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.entry");
+pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+window.PDFJS = pdfjs;
+
 const appName =
     window.document.getElementsByTagName("title")[0]?.innerText || "Laravel";
 

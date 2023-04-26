@@ -13,7 +13,7 @@ function Biografy({ applicant, className }) {
     const { inputs, handleSubmit, processing } = utilInput(
         BiografyInputs,
         applicant,
-        route("applicant.update"),
+        route("applicant.cv.update"),
         "patch"
     );
 

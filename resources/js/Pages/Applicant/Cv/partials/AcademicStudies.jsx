@@ -15,7 +15,7 @@ function AcademicStudies({ academicStudies }) {
         utilInput(
             AcademicStudiesInputs,
             {},
-            route("applicant.update"),
+            route("applicant.cv.update"),
             "patch"
         );
 

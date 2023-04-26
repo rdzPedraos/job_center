@@ -1,10 +1,11 @@
-import { Head } from "@inertiajs/react";
 import React from "react";
-import BasicInformation from "./partials/BasicInformation";
-import Biografy from "./partials/Biografy";
-import ProfessionalExperience from "./partials/ProfessionalExperience";
-import AcademicStudies from "./partials/AcademicStudies";
+import { Head } from "@inertiajs/react";
+
 import UploadCv from "./partials/UploadCv";
+import Biografy from "./partials/Biografy";
+import AcademicStudies from "./partials/AcademicStudies";
+import BasicInformation from "./partials/BasicInformation";
+import ProfessionalExperience from "./partials/ProfessionalExperience";
 
 export default function Cv({ applicant, experience, academicStudies, cities }) {
     return (

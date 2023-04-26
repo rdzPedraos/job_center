@@ -1,9 +1,8 @@
-import UploadFile from "@/Components/form/UploadFile";
-import PropTypes from "prop-types";
 import React from "react";
+import PropTypes from "prop-types";
+import VisualizeFile from "@/Components/VisualizeFile";
 
-function UploadCv({ url }) {
-    console.log(url);
+function UploadCv() {
     return (
         <div className="bg-white py-7 px-5 shadow-lg rounded-md">
             <p className="text-xl text-primary font-bold mb-4">Sube tú CV</p>
@@ -12,20 +11,10 @@ function UploadCv({ url }) {
                 Por favor, sube aquí tú hoja de vida
             </p>
 
-            <UploadFile
-                text="Cargar hoja de vida"
-                route={route("applicant.cv.upload")}
-                method="post"
+            <VisualizeFile
+                fileUrl={route("applicant.cv.download")}
+                upload={route("applicant.cv.upload")}
             />
-
-            {url && (
-                <a
-                    href={route("applicant.cv.download")}
-                    className="italic font-light underline mx-auto"
-                >
-                    Ver hoja de vida
-                </a>
-            )}
         </div>
     );
 }

@@ -1,35 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Logo from "../../img/logo.png";
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    Zoom,
-} from "@mui/material";
+import React, { useState } from "react";
 import { Link } from "@inertiajs/react";
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import { useState } from "react";
-import Modal from "./Modal";
+import Logo from "@/../img/logo.png";
+import PropTypes from "prop-types";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-    return <Zoom ref={ref} {...props} />;
-});
+import Modal from "./Modal";
+import { Button } from "@mui/material";
 
 export default function ApplicationLogo({
     justIcon = false,
     txtSize = "2xl",
     imgSize = "10",
     gapSize = "3",
-    justify = "center",
+    className,
 }) {
     const [open, setOpen] = useState(false);
 
     return (
-        <div className={`flex justify-${justify}`}>
+        <div className={"flex " + className}>
             {/* Logo */}
             <button
                 onClick={() => setOpen(true)}
@@ -55,7 +42,7 @@ export default function ApplicationLogo({
                 useOpen={[open, setOpen]}
                 modalStatus="warning"
                 title="¿Estás seguro de esta acción?"
-                content="Serás redireccionado a la página principal, ¿seguro de
+                content="Serás redireccionado a la página principal ¿seguro de
                         querer hacer esto?"
                 dialogActions={
                     <>
@@ -80,6 +67,5 @@ ApplicationLogo.propTypes = {
     txtSize: PropTypes.string,
     imgSize: PropTypes.string,
     gapSize: PropTypes.string,
-    handleClick: PropTypes.func,
-    justify: PropTypes.oneOf(["center", "end", "start"]),
+    className: PropTypes.string,
 };

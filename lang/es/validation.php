@@ -203,7 +203,8 @@ return [
         'record_number' => 'número de registro',
         'professional_card_number' => 'número de tarjeta profesional',
 
-        'file' => ' '
+        'file' => ' ',
+        'image' => 'imágen'
     ],
 
 ];

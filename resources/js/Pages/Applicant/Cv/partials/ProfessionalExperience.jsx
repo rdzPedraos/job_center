@@ -16,7 +16,7 @@ function ProfessionalExperience({ experiences }) {
         utilInput(
             LaboralExperienciesInputs,
             {},
-            route("applicant.update"),
+            route("applicant.cv.update"),
             "patch"
         );
 

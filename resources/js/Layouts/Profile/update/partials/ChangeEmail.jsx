@@ -1,27 +1,25 @@
+import React, { useState } from "react";
+import { Link, usePage } from "@inertiajs/react";
+
 import utilInput from "@/Components/form/utilInput";
 import { getInputs } from "@/Config/userForm";
-import { Link, usePage } from "@inertiajs/react";
+
 import { Edit, Send } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import React from "react";
-import "react-toastify/dist/ReactToastify.css";
 
 function ChangeEmail({ user }) {
-    const { processing, inputs, handleSubmitWithEditMode, isDisabled } =
-        utilInput(
-            getInputs("updateEmail", false),
-            { ...user },
-            route("profile.update"),
-            "patch",
-            false,
-            true
-        );
-
     const { status } = usePage().props.flash;
+
+    const { processing, inputs, handleSubmit } = utilInput(
+        getInputs("updateEmail", false),
+        { ...user },
+        route("profile.update"),
+        "patch"
+    );
 
     return (
         <section className="grid gris-rows-3 gap-5">
-            <form onSubmit={handleSubmitWithEditMode} className="relative">
+            <form onSubmit={handleSubmit} className="relative">
                 {Object.values(inputs)}
 
                 <div className="absolute right-0 top-2">
@@ -31,7 +29,7 @@ function ChangeEmail({ user }) {
                         disabled={processing}
                         color="secondary"
                     >
-                        {isDisabled ? <Edit /> : <Send />}
+                        <Send />
                     </Button>
                 </div>
 

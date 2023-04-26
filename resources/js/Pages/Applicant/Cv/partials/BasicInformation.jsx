@@ -1,6 +1,6 @@
 //Lugar de nacimiento, lugar de expediciion, fechas
 import React, { useContext } from "react";
-import { ProfileMenuContext } from "@/Layouts/Profile/MenuContext";
+import { ProfileMenuContext } from "@/Context/ProfileContext";
 import { Button } from "@mui/material";
 import { EditOutlined } from "@mui/icons-material";
 
@@ -17,7 +17,7 @@ function BasicInformation() {
 
             <div className="flex gap-10 items-center">
                 <img
-                    src="/storage/profile-img/trevor.jpg"
+                    src={"storage/" + user.photo_url}
                     className="w-[150px] h-[150px] object-cover object-center"
                     style={{
                         borderRadius: " 116px 100px 116px 8px",

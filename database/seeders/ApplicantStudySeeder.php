@@ -15,6 +15,6 @@ class ApplicantStudySeeder extends Seeder
      */
     public function run()
     {
-        ApplicantStudy::factory(10)->create();
+        ApplicantStudy::factory(2)->create();
     }
 }

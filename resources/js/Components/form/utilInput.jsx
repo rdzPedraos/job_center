@@ -17,18 +17,14 @@ import { useFormData } from "../../Hooks/useFormData";
         -Inputs: Campos a imprimir
         -setDisabledInputs: Si desea utilizar un estado para habilitar y deshabilitar los inputs, use este estado.
         -handleSubmitAndEditMode: Si desea un manejo abstracto del submit, de tal forma que una vez se envíe el formulario los inputs se deshabiliten, y al dar submit se habilite nuevamente los inputs
-        -isDisabled: te permite saber el estado actual de los inputs
  */
 function utilInput(
     inputTemplates,
     inputsData,
     route,
     method,
-    resetform = false,
-    disabled = false
+    resetform = false
 ) {
-    const [isDisabled, setDisabledInputs] = useState(disabled);
-
     const form = useFormData(
         inputTemplates,
         inputsData,
@@ -37,14 +33,7 @@ function utilInput(
         resetform
     );
 
-    const { inputs, data, errors, handleChangeInp, handleSubmit } = form;
-
-    const handleSubmitWithEditMode = (e) => {
-        e.preventDefault();
-        if (!isDisabled) {
-            handleSubmit(e, () => setDisabledInputs(true));
-        } else setDisabledInputs(false);
-    };
+    const { inputs, data, errors, handleChangeInp } = form;
 
     const values = [];
     inputs.forEach((Inp) => {
@@ -55,7 +44,6 @@ function utilInput(
                 input={Inp}
                 error={errors[id]}
                 value={data[id]}
-                disabled={isDisabled}
                 onHandleChange={handleChangeInp}
             />
         );
@@ -64,9 +52,6 @@ function utilInput(
     return {
         ...form,
         inputs: values,
-
-        isDisabled,
-        handleSubmitWithEditMode,
     };
 }
 

@@ -8,34 +8,33 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Auth\UploadImageController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
     Route::get('registro', [RegisteredUserController::class, 'create'])
         ->name('register');
-
     Route::post('registro', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
-
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
-    Route::get('recuperar-password', [PasswordResetLinkController::class, 'create'])
+    Route::get('recuperar-contrasenia', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
-
-    Route::post('recuperar-password', [PasswordResetLinkController::class, 'store'])
+    Route::post('recuperar-contrasenia', [PasswordResetLinkController::class, 'store'])
         ->name('password.email');
 
-    Route::get('cambiar-password/{token}', [NewPasswordController::class, 'create'])
+    Route::get('cambiar-contrasenia/{token}', [NewPasswordController::class, 'create'])
         ->name('password.reset');
-
-    Route::post('cambiar-password', [NewPasswordController::class, 'store'])
+    Route::post('cambiar-contrasenia', [NewPasswordController::class, 'store'])
         ->name('password.store');
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('subir-foto', [UploadImageController::class, '__invoke'])->name('auth.upload.image');
+
     Route::get('verificar-email', [EmailVerificationPromptController::class, '__invoke'])
         ->name('verification.notice');
 

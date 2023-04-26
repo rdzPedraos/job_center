@@ -10,7 +10,6 @@ use App\Models\EducationLevel;
 use App\Rules\onlyAlphaAndSpace;
 use App\Rules\text;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -43,7 +42,7 @@ class CurriculumController extends Controller
         $applicant = $request->user()->applicant;
         $applicant->update($validated); //$request->only('biografy_title', 'biografy_content')
 
-        redirect()->route('applicant.cv');
+        redirect()->route('applicant.cv.index');
     }
 
     protected function setExperiencie(Request $request)
@@ -63,7 +62,6 @@ class CurriculumController extends Controller
             ApplicantExperience::where('id', $validated['id'])->update($validated);
         } else {
             $validated['applicant_id'] = $request->user()->applicant->id;
-
             ApplicantExperience::insert($validated);
         }
     }
@@ -89,27 +87,6 @@ class CurriculumController extends Controller
         }
     }
 
-    protected function uploadCv(Request $request)
-    {
-        $request->validate([
-            'file' => ['required', 'file', 'mimes:pdf']
-        ]);
-
-        $user = $request->user();
-        $fileName = "cv_" . date('dmY') . '.' . $request->file->extension();
-
-        $request->file('file')->storeAs($user->document_number, $fileName, 'applicant');
-        $user->applicant->update(['cv_url' => "$user->document_number/$fileName"]);
-
-        return redirect()->route('applicant.cv')->with('msg', ['status' => 'success', 'content' => 'Hoja de vida cargada con éxito']);
-    }
-
-    protected function downloadCv(Request $request)
-    {
-        $fileName = $request->user()->applicant->cv_url;
-        return Storage::download(config('filesystems.disks.applicant._base') . "/$fileName");
-    }
-
     public function update(Request $request)
     {
         $request->validate(['info_to_update' => ['required', 'in:biografy,laboral_experiencie,academic_studies']]);
@@ -125,6 +102,6 @@ class CurriculumController extends Controller
                 break;
         }
 
-        redirect()->route('applicant.cv')->with('msg', ['status' => 'success', 'content' => 'Información actualizada con éxito']);
+        redirect()->route('applicant.cv.index')->with('msg', ['status' => 'success', 'content' => 'Información actualizada con éxito']);
     }
 }
