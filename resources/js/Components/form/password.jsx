@@ -39,7 +39,7 @@ function PasswordInputComponent({
             name={id}
             value={value ?? ""}
             error={!!error}
-            helperText={error}
+            helperText={error ? error + "*" : ""}
             onChange={onHandleChange}
             {...otherProps}
             type={showPassword ? "text" : "password"}

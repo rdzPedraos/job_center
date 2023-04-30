@@ -21,7 +21,7 @@ class UploadFileController extends Controller
         $validated['file']->storeAs($path, $fileName, 'applicant');
         $user->applicant->update(['cv_url' => "$path/$fileName"]);
 
-        return redirect()->route('applicant.cv.index')->with('msg', ['status' => 'success', 'content' => 'Hoja de vida cargada con éxito']);
+        return redirect()->route('applicant.cv.index')->with('alert', ['status' => 'success', 'content' => 'Hoja de vida cargada con éxito']);
     }
 
     protected function downloadCv(Request $request)

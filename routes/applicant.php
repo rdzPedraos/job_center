@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\applicant\CurriculumController;
+use App\Http\Controllers\Applicant\JobOfferController;
 use App\Http\Controllers\Applicant\UploadFileController;
+use App\Models\JobOffer;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -13,13 +15,20 @@ use Inertia\Inertia;
  * Middlewares: Auth
  */
 
-Route::get('/bolsa-de-empleo', function () {
-    return Inertia::render('Applicant/SearchJob');
-})->name('searchJob');
-
 Route::get('/mis-postulaciones', function () {
     return Inertia::render('Applicant/SeePostulations');
 })->name('postulations');
+
+
+Route::as('job.')->group(function () {
+    Route::group([
+        'as' => 'offer.',
+        'controller' => JobOfferController::class
+    ], function () {
+        Route::get('/bolsa-de-empleo', 'index')->name('index');
+        Route::post('/bolsa-de-empleo', 'filter')->name('filter');
+    });
+});
 
 Route::as('cv.')->group(function () {
     Route::controller(CurriculumController::class)->group(function () {

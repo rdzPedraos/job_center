@@ -20,7 +20,7 @@ class ProfileController extends Controller
         }
 
         $request->user()->save();
-        return redirect()->back()->with('msg', ['status'=>'success', 'content'=>'Usuario actualizado con éxito!']);
+        return redirect()->back()->with('alert', ['status' => 'success', 'content' => 'Usuario actualizado con éxito!']);
     }
 
     /**

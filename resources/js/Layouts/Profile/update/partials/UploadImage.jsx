@@ -12,7 +12,7 @@ function UploadImage({ url }) {
     useEffect(() => {
         if (data.image) {
             post(route("auth.upload.image"), {
-                onSuccess: () => window.location.reload(),
+                preserveScroll: true,
             });
         }
     }, [data.image]);
@@ -37,7 +37,8 @@ function UploadImage({ url }) {
 
                 <img
                     className="w-full h-full rounded-full object-cover object-center"
-                    src={"storage/" + url}
+                    src={"storage/" + url + "?" + new Date().getTime()}
+                    alt="Imágen de perfil"
                 />
 
                 <AddCircleOutline

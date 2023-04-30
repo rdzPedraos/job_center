@@ -21,6 +21,6 @@ class UploadImageController extends Controller
         $validated['image']->storeAs($path, $file_name, 'public');
         $user->update(['photo_url' => "$path/$file_name"]);
 
-        return redirect()->back()->with('msg', ['status' => 'success', 'content' => 'Imágen actualizada con éxito']);
+        return redirect()->back()->with('alert', ['status' => 'success', 'content' => 'Imágen actualizada con éxito']);
     }
 }

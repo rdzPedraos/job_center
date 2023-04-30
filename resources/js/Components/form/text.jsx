@@ -12,7 +12,6 @@ function TextInputComponent({
     ...otherProps
 }) {
     const Icon = icon;
-
     return (
         <TextField
             fullWidth
@@ -20,7 +19,7 @@ function TextInputComponent({
             value={value ?? ""}
             type={format}
             error={!!error}
-            helperText={error}
+            helperText={error ? error + "*" : ""}
             onChange={onHandleChange}
             {...otherProps}
             InputProps={{

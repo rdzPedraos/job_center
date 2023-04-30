@@ -17,7 +17,10 @@ function BasicInformation() {
 
             <div className="flex gap-10 items-center">
                 <img
-                    src={"storage/" + user.photo_url}
+                    alt="Tú imágen"
+                    src={
+                        "storage/" + user.photo_url + "?" + new Date().getTime()
+                    }
                     className="w-[150px] h-[150px] object-cover object-center"
                     style={{
                         borderRadius: " 116px 100px 116px 8px",

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import SpinnerComponent from "@/Components/welcome";
 import ProfileMenuProvider from "@/Context/ProfileContext";
@@ -16,7 +17,7 @@ export default function ApplicantLayout({ children }) {
 
             <ProfileMenuProvider>
                 <Header />
-                <main className="mt-10">{children}</main>
+                <main className="py-10">{children}</main>
             </ProfileMenuProvider>
 
             <ToastContainer />

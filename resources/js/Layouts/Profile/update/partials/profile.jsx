@@ -20,11 +20,9 @@ function ProfileUpdate({ user, documentTypes }) {
             <div className="grid gap-5">{Object.values(inputs)}</div>
 
             <div className="flex justify-center mt-5">
-                <Button type="submit" disabled={processing}>
-                    <span className="flex items-center">
-                        <Save style={{ marginRight: "5px" }} />
-                        Guardar
-                    </span>
+                <Button type="submit" variant="contained" disabled={processing}>
+                    <Save style={{ marginRight: "5px" }} />
+                    Guardar
                 </Button>
             </div>
         </form>

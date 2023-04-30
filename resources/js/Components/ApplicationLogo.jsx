@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "@inertiajs/react";
-import Logo from "@/../img/logo.png";
 import PropTypes from "prop-types";
 
 import Modal from "./Modal";
@@ -14,7 +13,6 @@ export default function ApplicationLogo({
     className,
 }) {
     const [open, setOpen] = useState(false);
-
     return (
         <div className={"flex " + className}>
             {/* Logo */}
@@ -24,7 +22,7 @@ export default function ApplicationLogo({
                 title="Ir al inicio"
             >
                 <img
-                    src={Logo}
+                    src="storage/img/logo.png"
                     className={`w-${imgSize}`}
                     alt="Escudo Universitario"
                 />
@@ -32,7 +30,7 @@ export default function ApplicationLogo({
                     <h1
                         className={`text-gray-600 font-extrabold text-${txtSize}`}
                     >
-                        Unitrópico
+                        Logo
                     </h1>
                 )}
             </button>

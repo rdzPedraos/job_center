@@ -27,16 +27,23 @@ const useFormData = (
     const pageData = usePage().props;
     const formData = {};
 
-    for (const input of inputs) {
+    for (const _id in inputs) {
+        //Is better to do cycle with "in" for accept objects and arrays iterables.
+        const input = inputs[_id];
         const id = input.id;
 
+        //Assign value from second param if not exist by default.
         input.value ??= inputsData[id] || "";
 
+        //Set options if had an id options.
         if (input.id_options) {
             const id_op = input.id_options;
             input.options = inputsData[id_op] ?? pageData[id_op] ?? [];
         }
-        formData[id] = input.value;
+
+        if (input.value) {
+            formData[id] = input.value;
+        }
     }
 
     const form = useForm(formData);
@@ -54,29 +61,28 @@ const useFormData = (
             patch,
         };
 
+        document.body.style.cursor = "wait";
         methods[method](route, {
             preserveScroll: true,
             onSuccess({ props: { flash } }) {
-                if (flash.msg) {
+                if (flash.alert) {
                     const {
-                        msg: { content, status },
+                        alert: { content, status },
                     } = flash;
                     toast[status](content, {
                         position: "bottom-left",
                         autoClose: 5000,
-                        hideProgressBar: false,
                         closeOnClick: true,
                         pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
                     });
                 }
                 if (resetform) reset();
                 onSucces();
+                document.body.style.cursor = "default";
             },
             onError() {
                 onError();
+                document.body.style.cursor = "default";
             },
         });
     };

@@ -36,7 +36,7 @@ function AutoCompleteInputComponent({
                     {...otherProps}
                     label={label}
                     error={!!error}
-                    helperText={error}
+                    helperText={error ? error + "*" : ""}
                     onChange={(e) => handleChange(e, e.target.value)}
                     InputProps={{
                         ...params.InputProps,

@@ -3,7 +3,7 @@ import { HistoryEdu, ListAlt, WorkOutline } from "@mui/icons-material";
 export default [
     {
         description: "Encontrar trabajo",
-        route: "applicant.searchJob",
+        route: "applicant.job.offer.index",
         icon: WorkOutline,
     },
     {

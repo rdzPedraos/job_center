@@ -38,7 +38,7 @@ function SelectInputComponent({
                     </MenuItem>
                 ))}
             </Select>
-            <FormHelperText>{error}</FormHelperText>
+            <FormHelperText>{error ? error + "*" : ""}</FormHelperText>
         </FormControl>
     );
 }

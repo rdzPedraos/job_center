@@ -30,7 +30,7 @@ function DateInputComponent({
                 textField: {
                     name: id,
                     error: !!error,
-                    helperText: error,
+                    helperText: error ? error + "*" : "",
                     fullWidth: true,
                     ...otherProps,
                 },

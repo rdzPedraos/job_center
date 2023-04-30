@@ -44,13 +44,18 @@ export default function ProfileMenu({ addOptions = [] }) {
                     },
                 }}
             >
-                <Avatar alt="Tú foto" src={"storage/" + user.photo_url} />
+                <Avatar
+                    alt="Tú foto"
+                    src={
+                        "storage/" + user.photo_url + "?" + new Date().getTime()
+                    }
+                />
             </Badge>
 
             <AnimatePresence>
                 {open && (
                     <motion.div
-                        className="absolute top-24 right-0 bg-white shadow-md rounded-lg overflow-hidden"
+                        className="absolute z-10 top-20 right-0 bg-white shadow-md rounded-lg overflow-hidden"
                         initial={{ height: 0, translateY: -10 }}
                         animate={{
                             height: "auto",

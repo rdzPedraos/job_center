@@ -64,7 +64,7 @@ class User extends Authenticatable
         return $n;
     }
 
-    public function getDocumentTypeInfoAttribute()
+    public function getDocumentTypeInfoAttribute(): string
     {
         $res = clone $this->documentType;
         $res->str = $res->acronym . '. ' . $this->document_number;

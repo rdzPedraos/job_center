@@ -19,7 +19,10 @@
     </head>
     <body class="font-sans antialiased overflow-x-hidden">
         <!-- Para que el preprocesador de tailwind descargue algunos estilos en for o condicionales -->
-        <div class="w-10 text-xl text-2xl gap-3 w-7"> </div>
+        <div class="
+            w-10 text-xl text-2xl gap-3 w-7
+            bg-[#18c27a] bg-[#C51E3A] bg-[#2d7fdf] bg-[#00563B] bg-[#50C878] bg-[#B284BE]
+        "> </div>
         
         @inertia
     </body>

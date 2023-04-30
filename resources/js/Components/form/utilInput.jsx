@@ -36,7 +36,7 @@ function utilInput(
     const { inputs, data, errors, handleChangeInp } = form;
 
     const values = [];
-    inputs.forEach((Inp) => {
+    Object.values(inputs).forEach((Inp) => {
         const id = Inp.id;
         values[id] = (
             <MultiInput

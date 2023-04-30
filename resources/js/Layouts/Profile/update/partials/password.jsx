@@ -1,7 +1,9 @@
 import React from "react";
+
 import utilInput from "@/Components/form/utilInput";
-import { Button } from "@mui/material";
 import { getInputs } from "@/Config/userForm";
+
+import { Button } from "@mui/material";
 import { LockResetOutlined } from "@mui/icons-material";
 
 function PasswordUpdate() {

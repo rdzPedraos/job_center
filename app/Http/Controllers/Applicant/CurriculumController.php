@@ -102,6 +102,6 @@ class CurriculumController extends Controller
                 break;
         }
 
-        redirect()->route('applicant.cv.index')->with('msg', ['status' => 'success', 'content' => 'Información actualizada con éxito']);
+        redirect()->route('applicant.cv.index')->with('alert', ['status' => 'success', 'content' => 'Información actualizada con éxito']);
     }
 }

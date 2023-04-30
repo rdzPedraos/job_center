@@ -18,8 +18,10 @@ return new class extends Migration
 
             $table->unsignedMediumInteger('id', true);
             $table->unsignedTinyInteger('academic_program_id')->comment('Programa al que va dirigida la oferta');
-            $table->unsignedSmallInteger('contract_type_id')->comment('Tipo de contrato que tomará de base (dedicación y vinculación que hay)');;
+            $table->unsignedSmallInteger('contract_type_id')->comment('Tipo de contrato que tomará de base (dedicación y vinculación que hay)');
+            $table->char('title', 100)->comment('Titutlo o encabezado de la oferta laboral.');
             $table->text('description')->comment('Descripción de la oferta laboral.');
+            $table->unsignedSmallInteger('vacancies')->comment('Número de vacantes de la oferta laboral.')->nullable();
 
             $table->unsignedDecimal('monthly_salary', 10)->nullable()->comment('Salario a devengar mensualmente (si hay)');
 
