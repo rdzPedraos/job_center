@@ -1,11 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import TextInputComponent from "./text";
 import PasswordInputComponent from "./password";
 import SelectInputComponent from "./select";
 import CheckboxInputComponent from "./checkbox";
 import DateInputComponent from "./date";
 import AutoCompleteInputComponent from "./autocomplete";
+import SliderComponent from "./slider";
+import RadioGroupComponent from "./radio_group";
+import CheckBoxGroupComponent from "./checkbox_group";
 
 function MultiInput({ input, error, value, onHandleChange, disabled = false }) {
     delete input.value;
@@ -25,14 +29,17 @@ function MultiInput({ input, error, value, onHandleChange, disabled = false }) {
         noDisplay: ({ id, value }) => (
             <input name={id} value={value} type="hidden" />
         ),
-        select: SelectInputComponent,
-        password: PasswordInputComponent,
-        checkbox: CheckboxInputComponent,
-        text: TextInputComponent,
-        textarea: TextInputComponent,
         disabled: TextInputComponent,
+        text: TextInputComponent,
+        password: PasswordInputComponent,
+        textarea: TextInputComponent,
         date: DateInputComponent,
+        select: SelectInputComponent,
         autocomplete: AutoCompleteInputComponent,
+        checkbox: CheckboxInputComponent,
+        checkbox_group: CheckBoxGroupComponent,
+        radio_group: RadioGroupComponent,
+        slider: SliderComponent,
     }[type ?? "text"];
 
     return !!Component ? (

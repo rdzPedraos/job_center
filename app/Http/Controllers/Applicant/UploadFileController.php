@@ -11,7 +11,7 @@ class UploadFileController extends Controller
     protected function uploadCv(Request $request)
     {
         $validated = $request->validate([
-            'file' => ['required', 'file', 'mimes:pdf']
+            'file' => ['required', 'file', 'mimes:pdf'] //5MB
         ]);
 
         $user = $request->user();

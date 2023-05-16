@@ -1,69 +1,92 @@
-import React, { createContext } from "react";
-import { usePage } from "@inertiajs/react";
-
-import { INPUTS } from "@/Config/offerFilterForm";
-import utilInput from "@/Components/form/utilInput";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-import { useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
+import { INPUTS } from "@/Config/offerFilterForm";
+import MultiInput from "@/Components/form/MultiInput";
+import { usePage } from "@inertiajs/react";
+
 export const JobOfferFiltersContext = createContext();
+
 export function JobOfferFiltersProvider({ children }) {
-    const [isClean, setIsClean] = useState(false);
-    const { filters, errors } = usePage().props;
-    const { inputs, data, setData, handleSubmit } = utilInput(
-        INPUTS,
-        filters,
-        route("applicant.job.offer.index"),
-        "get"
-    );
+    const inputs = [];
 
-    /* useEffect(() => {
-        if (isClean) {
-            handleSubmit();
-            setIsClean(false);
+    const [filters, setFilters] = useState({});
+    const [jobs, setJobs] = useState([]);
+    const [errors, setErrors] = useState({});
+    const [pagination, setPagination] = useState({
+        per_page: 5,
+        page: 1,
+    });
+
+    INPUTS.forEach((input) => {
+        const { id } = input;
+
+        if (input.id_options) {
+            input.options = usePage().props[input.id_options];
         }
-    }, [data, isClean]); */
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await axios.post(
-                route("applicant.job.offer.filter")
-            );
-            console.log(response);
-        };
+        if (input.set_limits) {
+            const limits = usePage().props[input.set_limits];
+            input.min = parseInt(limits.min);
+            input.max = parseInt(limits.max);
+        }
 
-        fetchData();
-    }, []);
+        inputs[id] = (
+            <MultiInput
+                input={input}
+                value={filters[id]}
+                error={errors[id]}
+                onHandleChange={(e) => {
+                    const { name, value } = e.target;
+                    delete errors[id];
+                    setFilters({ ...filters, [name]: value });
+                    setErrors(errors);
+                }}
+            />
+        );
+    });
 
-    const cleanData = () => {
-        setIsClean(true);
-        setData({});
+    const cleanFilters = () => {
+        setFilters({});
+        setErrors({});
     };
 
-    for (const id in errors) {
-        const str = () => (
-            <>
-                <b>{id}: </b>
-                <span>{errors[id]}</span>
-            </>
-        );
-        toast.error(str(), {
-            position: "bottom-left",
-            autoClose: 5000,
-            closeOnClick: true,
-            pauseOnHover: true,
-        });
-    }
+    const onSubmit = ({ page, per_page } = pagination) => {
+        axios
+            .post(route("applicant.job.offer.filter"), {
+                ...filters,
+                page,
+                per_page,
+            })
+            .then(({ data: { data, current_page, total, per_page } }) => {
+                setJobs(data);
+                setPagination({
+                    page: current_page,
+                    total,
+                    per_page,
+                });
+            })
+            .catch(({ response: { data } }) => {
+                setErrors(
+                    Object.keys(data.errors).reduce((acc, key) => {
+                        acc[key] = data.errors[key].join(" y ");
+                        return acc;
+                    }, {})
+                );
+            });
+    };
+    useEffect(onSubmit, [filters]);
 
     return (
         <JobOfferFiltersContext.Provider
             value={{
+                pagination,
+                jobs,
                 inputs,
-                filters: data,
-                onSubmit: handleSubmit,
-                cleanData,
+                filters,
+                setFilters,
+                cleanFilters,
+                onSubmit,
             }}
         >
             {children}

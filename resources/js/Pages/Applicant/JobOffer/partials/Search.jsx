@@ -2,30 +2,28 @@ import React, { useContext } from "react";
 
 import { JobOfferFiltersContext } from "@/Context/FilterContext";
 
-import { Button } from "@mui/material";
-import { SearchTwoTone } from "@mui/icons-material";
+import { Clear } from "@mui/icons-material";
 
 function Search() {
     const {
         inputs: { title },
-        onSubmit,
+        filters,
+        setFilters,
     } = useContext(JobOfferFiltersContext);
 
     return (
-        <form onSubmit={onSubmit}>
-            <div className="grid grid-cols-[1fr_auto] gap-5">
-                {title}
+        <div className="relative">
+            {title}
 
-                <Button
-                    variant="contained"
-                    type="submit"
-                    className="flex gap-2"
+            {filters.title && (
+                <div
+                    className="grid absolute top-0 right-0 h-full pr-3 place-items-center cursor-pointer"
+                    onClick={() => setFilters({ ...filters, title: "" })}
                 >
-                    <SearchTwoTone />
-                    BUSCAR
-                </Button>
-            </div>
-        </form>
+                    <Clear />
+                </div>
+            )}
+        </div>
     );
 }
 

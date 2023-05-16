@@ -9,7 +9,9 @@ import Header from "./Header";
 
 export default function ApplicantLayout({ children }) {
     const [loading, setLoading] = useState(false);
-    //useEffect(() => setTimeout(() => setLoading(false), 3000), []);
+    /* useEffect(() => {
+        setTimeout(() => setLoading(false), 3000);
+    }, []); */
 
     return (
         <div className="bg-base_white min-h-screen">
@@ -17,7 +19,7 @@ export default function ApplicantLayout({ children }) {
 
             <ProfileMenuProvider>
                 <Header />
-                <main className="py-10">{children}</main>
+                <main className="py-2 md:py-10">{children}</main>
             </ProfileMenuProvider>
 
             <ToastContainer />

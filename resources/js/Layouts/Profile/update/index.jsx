@@ -28,61 +28,57 @@ export default function ProfileComponent() {
     };
 
     return (
-        <div className="min-h-full lg:w-[600px] overflow-y-scroll overflow-x-hidden">
-            <div className="flex flex-col gap-4 p-5 lg:px-10">
-                <UploadImage url={user.photo_url} />
+        <div className="flex flex-col gap-4">
+            <UploadImage url={user.photo_url} />
 
-                <p className="font-bold text-2xl text-center">{user.name}</p>
+            <p className="font-bold text-2xl text-center">{user.name}</p>
 
-                {/* Navegación */}
-                <BottomNavigation
-                    value={opt}
-                    onChange={(ev, newVal) =>
-                        setOption((prev) => [opt, newVal])
-                    }
-                >
-                    <BottomNavigationAction
-                        label="Perfil"
-                        icon={<AccountBalanceOutlined />}
-                    />
-                    <BottomNavigationAction
-                        label="Cambiar correo"
-                        icon={<EmailOutlined />}
-                    />
-                    <BottomNavigationAction
-                        label="Contraseña"
-                        icon={<KeyOutlined />}
-                    />
-                </BottomNavigation>
+            {/* Navegación */}
+            <BottomNavigation
+                value={opt}
+                onChange={(ev, newVal) => setOption((prev) => [opt, newVal])}
+            >
+                <BottomNavigationAction
+                    label="Perfil"
+                    icon={<AccountBalanceOutlined />}
+                />
+                <BottomNavigationAction
+                    label="Cambiar correo"
+                    icon={<EmailOutlined />}
+                />
+                <BottomNavigationAction
+                    label="Contraseña"
+                    icon={<KeyOutlined />}
+                />
+            </BottomNavigation>
 
-                {/* Contenido a mostrar: */}
-                <AnimatePresence>
-                    {opt == 0 && (
-                        <motion.div {...motionPresenceAttr}>
-                            <ProfileUpdate
-                                user={user}
-                                documentTypes={documentTypes}
-                            />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+            {/* Contenido a mostrar: */}
+            <AnimatePresence>
+                {opt == 0 && (
+                    <motion.div {...motionPresenceAttr}>
+                        <ProfileUpdate
+                            user={user}
+                            documentTypes={documentTypes}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-                <AnimatePresence>
-                    {opt == 1 && (
-                        <motion.div {...motionPresenceAttr}>
-                            <ChangeEmail user={user} />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+            <AnimatePresence>
+                {opt == 1 && (
+                    <motion.div {...motionPresenceAttr}>
+                        <ChangeEmail user={user} />
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
-                <AnimatePresence>
-                    {opt == 2 && (
-                        <motion.div {...motionPresenceAttr}>
-                            <PasswordUpdate />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </div>
+            <AnimatePresence>
+                {opt == 2 && (
+                    <motion.div {...motionPresenceAttr}>
+                        <PasswordUpdate />
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }

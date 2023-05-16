@@ -8,7 +8,7 @@ export default [
     },
     {
         description: "Mis postulaciones",
-        route: "applicant.postulations",
+        route: "applicant.job.applications.index",
         icon: ListAlt,
     },
     {

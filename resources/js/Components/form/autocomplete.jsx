@@ -23,13 +23,20 @@ function AutoCompleteInputComponent({
         });
     };
 
+    const fixedOptions = [];
+    for (const option of options) {
+        if (typeof option === "object") {
+            fixedOptions.push(option.name);
+        } else fixedOptions.push(option);
+    }
+
     return (
         <Autocomplete
             freeSolo
             name={id}
             value={value ?? ""}
             onChange={handleChange}
-            options={options}
+            options={fixedOptions}
             renderInput={(params) => (
                 <TextField
                     {...params}

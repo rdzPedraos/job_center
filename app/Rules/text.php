@@ -18,7 +18,7 @@ class text implements InvokableRule
     {
         $regex = '/^[áéíóúÁÉÍÓÚñÑa-zA-Z0-9-.,;\'\"\n ]*$/';
         if (!preg_match($regex, $value)) {
-            $fail('El :attribute debe contener únicamente letras, espacios, números, puntos, comas o comillas');
+            $fail('El campo :attribute debe contener únicamente letras, espacios, números, puntos, comas o comillas');
         }
     }
 }

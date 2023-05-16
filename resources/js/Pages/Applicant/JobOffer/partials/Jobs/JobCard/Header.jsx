@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Bookmark, BookmarkBorder, Favorite } from "@mui/icons-material";
 import { timeDifference } from "@/Utils/TimeDifference";
-import { useState } from "react";
+import { Bookmark, BookmarkBorder, Favorite } from "@mui/icons-material";
 
 function Header({ job, className, ...props }) {
     const offerTimeSince = timeDifference(new Date(job.job_offer_start_date));
@@ -43,7 +42,7 @@ function Header({ job, className, ...props }) {
             <div className="row-span-2">
                 <div
                     className={
-                        "p-2 rounded-md border-2 transition-all " +
+                        "p-2 rounded-md border-2 transition-all cursor-pointer " +
                         (false
                             ? "text-yellow-500 bg-white hover:text-gray-300 hover:bg-transparent hover:scale-95"
                             : "hover:text-yellow-500 hover:bg-white hover:scale-105")

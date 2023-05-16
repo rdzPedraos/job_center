@@ -8,7 +8,7 @@ import Filters from "./partials/Filters";
 import Search from "./partials/Search";
 import Jobs from "./partials/Jobs";
 
-export default function SearchJob({ JobOffers }) {
+export default function SearchJob() {
     return (
         <>
             <Head title="Bolsa de empleo" />
@@ -32,7 +32,7 @@ export default function SearchJob({ JobOffers }) {
 
                     <div>
                         <BoxComponent className="py-7 px-7">
-                            <Jobs jobs={JobOffers} />
+                            <Jobs />
                         </BoxComponent>
                     </div>
                 </JobOfferFiltersProvider>

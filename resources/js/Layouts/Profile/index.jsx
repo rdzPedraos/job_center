@@ -1,11 +1,13 @@
 import React, { useState, useContext } from "react";
 import { ProfileMenuContext } from "@/Context/ProfileContext";
 
+import DrawerComponent from "@/Components/Drawer";
+
 import SettingsComponent from "./Settings";
 import ProfileComponent from "./update";
 
 import { ExpandLess } from "@mui/icons-material";
-import { Avatar, Badge, Drawer } from "@mui/material";
+import { Avatar, Badge } from "@mui/material";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function ProfileMenu({ addOptions = [] }) {
@@ -68,13 +70,12 @@ export default function ProfileMenu({ addOptions = [] }) {
                 )}
             </AnimatePresence>
 
-            <Drawer
-                anchor="right"
+            <DrawerComponent
                 open={showProfileDrawer}
                 onClose={() => setShowProfileDrawer(false)}
             >
                 <ProfileComponent />
-            </Drawer>
+            </DrawerComponent>
         </section>
     );
 }

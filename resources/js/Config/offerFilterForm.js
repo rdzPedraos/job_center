@@ -5,40 +5,56 @@ export const INPUTS = [
         placeholder: "Busca una palabra clave...",
         format: "text",
     },
-
     {
         id: "faculty",
         type: "autocomplete",
-        label: "Seleccione la facultad",
+        label: "Ingrese la facultad",
         placeholder: "Facultad...",
-        id_options: "faculties",
+        id_options: "academicFaculties",
     },
 
     {
         id: "academic_program",
         type: "autocomplete",
-        label: "Seleccione el programa académico",
+        label: "Ingrese el programa académico",
         placeholder: "Carrera...",
-        id_options: "academic_programs",
+        id_options: "academicPrograms",
     },
 
     {
         id: "salary",
+        type: "slider",
+        set_limits: "salaryLimits",
+        step: 1000,
     },
 
-    {
+    /* {
         id: "laboral_experience",
+        type: "checkbox_group",
+        options: [
+            "Sin Experiencia",
+            "1-2 años de experiencia",
+            "3-5 años de experiencia",
+            "+5 años de experiencia",
+        ],
     },
 
     {
         id: "academic_experience",
-    },
+        type: "checkbox_group",
+        id_options: "vinculationTypes",
+        options: ["Bachiller", "Pregrado", "Posgrado"],
+    }, */
 
     {
-        id: "contract_type",
+        id: "vinculation_type",
+        type: "checkbox_group",
+        id_options: "vinculationTypes",
     },
 
     {
         id: "dedication_time",
+        type: "checkbox_group",
+        id_options: "dedicationTimes",
     },
 ];

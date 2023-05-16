@@ -3,59 +3,142 @@
 namespace App\Http\Controllers\Applicant;
 
 use App\Http\Controllers\Controller;
+use App\Models\AcademicFaculty;
+use App\Models\AcademicProgram;
+use App\Models\DedicationTime;
 use App\Models\JobOffer;
-use App\Models\JobOfferStatus;
+use App\Models\VinculationType;
+use App\Rules\onlyAlphaAndSpace;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class JobOfferController extends Controller
 {
-    protected function filters($filters, &$sql)
-    {
-        if (!empty($filters)) {
-            $sql->where('title', 'LIKE', '%' . $filters['title'] . '%');
-        }
-
-        return $sql;
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request): Response
+    public function index(): Response
     {
-        $filters = $request->validate([
-            'title' => ['nullable', 'alpha']
-        ]);
+        $academicPrograms = AcademicProgram::all();
+        $academicFaculties = AcademicFaculty::all();
+        $vinculationTypes = VinculationType::all();
+        $dedicationTimes = DedicationTime::all();
 
-        $sql = JobOffer::with('academicProgram:id,name,academic_faculty_id', 'academicProgram.academicFaculty:id,name,color')
-            ->select('id', 'title', 'description', 'vacancies', 'monthly_salary', 'job_offer_start_date', 'job_offer_end_date', 'job_start_date', 'job_end_date', 'academic_program_id')
-            ->where('job_offer_end_date', '>=', now());
-        $this->filters($filters, $sql);
+        $jobOffers = JobOffer::where('job_offer_end_date', '>=', now());
+        $salaryLimits = [
+            'min' => $jobOffers->min('monthly_salary'),
+            'max' => $jobOffers->max('monthly_salary')
+        ];
 
-        $jobs = $sql->take(5)->get();
-        return Inertia::render('Applicant/JobOffer/index', ['JobOffers' => $jobs, 'filters' => $filters]);
+        return Inertia::render('Applicant/JobOffer/index', compact(
+            'academicPrograms',
+            'academicFaculties',
+            'salaryLimits',
+            'vinculationTypes',
+            'dedicationTimes'
+        ));
     }
 
     public function filter(Request $request)
     {
-        return ['hola' => 'hola'];
+        $filters = $request->validate([
+            'title' => ['nullable', new onlyAlphaAndSpace],
+            'faculty' => ['nullable', new onlyAlphaAndSpace],
+            'academic_program' => ['nullable', new onlyAlphaAndSpace],
+            'salary' => ['nullable'],
+            'laboral_experience' => ['nullable'],
+            'academic_experience' => ['nullable'],
+            'vinculation_type' => ['nullable'],
+            'dedication_time' => ['nullable'],
+        ]);
+
+        $pagination = $request->validate([
+            'page' => ['required', 'integer'],
+            'per_page' => ['required', 'integer']
+        ]);
+
+        //? Todo lo que deseamos traer de la base de datos:
+        $sql = JobOffer::with(
+            'academicProgram:id,name,academic_faculty_id',
+            'academicProgram.academicFaculty:id,name,color'
+        )
+            ->select('job_offers.id', 'title', 'job_offers.description', 'vacancies', 'monthly_salary', 'job_offer_start_date', 'job_offer_end_date', 'job_start_date', 'job_end_date', 'academic_program_id')
+            ->join('contract_types', 'job_offers.contract_type_id', '=', 'contract_types.id')
+            ->orderBy('job_offer_end_date', 'desc')
+            ->where('job_offer_end_date', '>=', now());
+
+        /**
+         * Aqui se parametriza cada uno de los filtros posibles.
+         * id => 'Nombre del filtro',
+         * value => función anónima con dos parametros ($query, $valores del filtro)
+         */
+        $params = [
+            'title' => fn (&$q, $v) => $q->where('title', 'LIKE', '%' . $v . '%'),
+            'faculty' => fn (&$q, $v) => $q->whereHas('academicProgram.academicFaculty', fn ($q) => $q->where('name', 'LIKE', '%' . $v . '%')),
+            'academic_program' => fn (&$q, $v) => $q->whereHas('academicProgram', fn ($q) => $q->where('name', 'LIKE', '%' . $v . '%')),
+            'salary' => fn (&$q, $v) => $q->where([
+                ['monthly_salary', '>', $v[0]],
+                ['monthly_salary', '<', $v[1]]
+            ]),
+            /* 'laboral_experience' => fn() => 1,
+            'academic_experience' => fn()=>1,*/
+
+            'vinculation_type' => fn (&$q, $v) => $q->where(
+                function ($query) use ($v) {
+                    foreach ($v as $_v) $query->orWhere('contract_types.vinculation_type_id', '=', $_v);
+                }
+            ),
+
+            'dedication_time' => fn (&$q, $v) => $q->where(
+                function ($query) use ($v) {
+                    foreach ($v as $_v) $query->orWhere('contract_types.dedication_time_id', '=', $_v);
+                }
+            )
+        ];
+
+        if (!empty($filters)) {
+            foreach ($params as $f => $condition) {
+                if (isset($filters[$f])) {
+                    $condition($sql, $filters[$f]);
+                }
+            }
+        }
+
+        $data = $sql->paginate($pagination['per_page'], ['*'], 'page', $pagination['page']);
+        return response()->json($data);
     }
 
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function show(JobOffer $job)
     {
-        //
-    }
+        $job = JobOffer::select(
+            'id',
+            'title',
+            'description',
+            'vacancies',
+            'monthly_salary',
+            'job_start_date',
+            'job_end_date',
+            'job_offer_start_date',
+            'job_offer_end_date',
 
+            'academic_program_id',
+            'contract_type_id',
+        )->find($job->id)
+            ->load(
+                'contractType',
+                'contractType.vinculationType',
+                'contractType.dedicationTime',
+                'academicProgram',
+                'academicProgram.academicFaculty',
+                'details',
+            );
+        return response()->json($job);
+    }
 
     /**
      * Store a newly created resource in storage.

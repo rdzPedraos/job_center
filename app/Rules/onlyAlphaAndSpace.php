@@ -18,7 +18,7 @@ class onlyAlphaAndSpace implements InvokableRule
     {
         $regex = '/^[áéíóúÁÉÍÓÚñÑa-zA-Z ]*$/';
         if (!preg_match($regex, $value)) {
-            $fail('El :attribute debe contener únicamente letras y espacios');
+            $fail('El campo :attribute debe contener únicamente letras y espacios');
         }
     }
 }

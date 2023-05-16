@@ -3,7 +3,7 @@
 use App\Http\Controllers\applicant\CurriculumController;
 use App\Http\Controllers\Applicant\JobOfferController;
 use App\Http\Controllers\Applicant\UploadFileController;
-use App\Models\JobOffer;
+use App\Http\Controllers\Applicant\JobApplicationController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -27,6 +27,16 @@ Route::as('job.')->group(function () {
     ], function () {
         Route::get('/bolsa-de-empleo', 'index')->name('index');
         Route::post('/bolsa-de-empleo', 'filter')->name('filter');
+        Route::post('/bolsa-de-empleo/{job}', 'show')->name('show');
+    });
+
+    Route::group([
+        'as' => 'applications.',
+        'controller' => JobApplicationController::class
+    ], function () {
+        Route::get('/mis-postulaciones', 'index')->name('index');
+        Route::post('/add-postulation', 'store')->name('add');
+        Route::post('/remove-postulation', 'destroy')->name('remove');
     });
 });
 
