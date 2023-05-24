@@ -27,6 +27,7 @@ Route::as('job.')->group(function () {
     ], function () {
         Route::get('/bolsa-de-empleo', 'index')->name('index');
         Route::post('/bolsa-de-empleo', 'filter')->name('filter');
+        Route::post('/bolsa-de-empleo/inscribirse', 'store')->name('store');
         Route::post('/bolsa-de-empleo/{job}', 'show')->name('show');
     });
 

@@ -60,7 +60,7 @@ function Jobs() {
                 open={jobInfo !== null}
                 onClose={() => setJobInfo(null)}
             >
-                {jobInfo && <JobDrawer job={jobInfo} />}
+                {jobInfo && <JobDrawer job={jobInfo} setJob={setJobInfo} />}
             </DrawerComponent>
         </>
     );

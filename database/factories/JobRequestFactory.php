@@ -19,9 +19,10 @@ class JobRequestFactory extends Factory
      */
     public function definition()
     {
+
         return [
             'applicant_id' => Applicant::all()->random()->id,
-            'job_offer_id' => JobOffer::all()->random()->id,
+            'job_offer_id' => fake()->unique()->randomElement(JobOffer::all()->pluck('id')),
             'job_request_status_id' => JobRequestStatus::all()->random()->id,
             'applicant_history' => json_encode([
                 'test_history' => 'test_history',

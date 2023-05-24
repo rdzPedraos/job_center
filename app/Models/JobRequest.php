@@ -9,6 +9,12 @@ class JobRequest extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'applicant_id',
+        'job_offer_id',
+        'job_request_status_id'
+    ];
+
     public $timestamps = false;
 
     /**

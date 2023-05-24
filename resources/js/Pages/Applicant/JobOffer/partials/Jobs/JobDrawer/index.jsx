@@ -10,7 +10,7 @@ import { Diversity1, Style } from "@mui/icons-material";
 import TimelineComponent from "@/Components/TimelineComponent";
 import { Button } from "@mui/material";
 
-function JobDrawer({ job }) {
+function JobDrawer({ job, setJob }) {
     const request = [];
     const functions = [];
 
@@ -21,6 +21,18 @@ function JobDrawer({ job }) {
         if (detail_type == "R") request.push(element);
         else if (detail_type == "F") functions.push(element);
     });
+
+    const onApply = (e) => {
+        e.preventDefault();
+        axios
+            .post(route("applicant.job.offer.store"), { id: job.id })
+            .then((data) => {
+                setJob((prev) => ({ ...prev, is_registered: true }));
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
 
     return (
         <div className="grid gap-5 relative">
@@ -78,13 +90,24 @@ function JobDrawer({ job }) {
                 <TimelineComponent items={request} />
             )}
 
-            <Button variant="contained" fullWidth size="large">
-                aplicar
-            </Button>
+            <form onSubmit={onApply}>
+                <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    size="large"
+                    disabled={job.is_registered}
+                >
+                    {job.is_registered ? "Ya has aplicado" : "aplicar"}
+                </Button>
+            </form>
         </div>
     );
 }
 
-JobDrawer.propTypes = {};
+JobDrawer.propTypes = {
+    job: PropTypes.object,
+    setJob: PropTypes.func,
+};
 
 export default JobDrawer;

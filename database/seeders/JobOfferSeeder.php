@@ -15,6 +15,6 @@ class JobOfferSeeder extends Seeder
      */
     public function run()
     {
-        JobOffer::factory(15)->create();
+        JobOffer::factory(30)->create();
     }
 }

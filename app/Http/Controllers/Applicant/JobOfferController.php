@@ -7,6 +7,7 @@ use App\Models\AcademicFaculty;
 use App\Models\AcademicProgram;
 use App\Models\DedicationTime;
 use App\Models\JobOffer;
+use App\Models\JobRequest;
 use App\Models\VinculationType;
 use App\Rules\onlyAlphaAndSpace;
 use Illuminate\Http\Request;
@@ -136,7 +137,12 @@ class JobOfferController extends Controller
                 'academicProgram',
                 'academicProgram.academicFaculty',
                 'details',
+                'requests'
             );
+
+        $job['is_registered'] = $job->requests->pluck('applicant_id')->contains(Auth()->user()->applicant->id);
+        unset($job['requests']);
+
         return response()->json($job);
     }
 
@@ -148,6 +154,38 @@ class JobOfferController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = Validator::validate($request->all(), [
+            'id' => [
+                'required', 'exists:job_offers,id',
+                function ($attribute, $value, $fail) use ($request) {
+                    $job = JobOffer::find($value);
+
+                    if (!$job) {
+                        $fail("El ID proporcionado no existe.");
+                    } else {
+                        if ($job->requests->pluck('applicant_id')->contains($request->user()->applicant->id)) {
+                            $fail('El usuario ya se encuentra postulado.');
+                        }
+
+                        // Aplicar las reglas de fecha al modelo existente
+                        if ($job->job_offer_start_date > now()) {
+                            $fail("La fecha de inicio debe ser menor o igual a la fecha actual.");
+                        }
+
+                        if ($job->job_offer_end_date < now()) {
+                            $fail("La fecha de finalización debe ser mayor o igual a la fecha actual");
+                        }
+                    }
+                },
+            ],
+        ]);
+
+        JobRequest::create([
+            'applicant_id' => $request->user()->applicant->id,
+            'job_offer_id' => $validated['id'],
+            'job_request_status_id' => 1 #SIN REVISAR 
+        ]);
+
+        return response('success');
     }
 }
