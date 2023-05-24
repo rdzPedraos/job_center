@@ -2,7 +2,7 @@
 import React, { useContext } from "react";
 import { ProfileMenuContext } from "@/Context/ProfileContext";
 import { Button } from "@mui/material";
-import { EditOutlined } from "@mui/icons-material";
+import { EditOutlined, Person } from "@mui/icons-material";
 
 function BasicInformation() {
     const { setShowProfileDrawer, user } = useContext(ProfileMenuContext);
@@ -16,16 +16,25 @@ function BasicInformation() {
             </div>
 
             <div className="flex gap-10 items-center">
-                <img
-                    alt="Tú imágen"
-                    src={
-                        "storage/" + user.photo_url + "?" + new Date().getTime()
-                    }
-                    className="w-[150px] h-[150px] object-cover object-center"
-                    style={{
-                        borderRadius: " 116px 100px 116px 8px",
-                    }}
-                />
+                {user.photo_url ? (
+                    <img
+                        alt="Tú imágen"
+                        src={"storage/" + user.photo_url}
+                        className="w-[150px] h-[150px] object-cover object-center"
+                        style={{
+                            borderRadius: " 116px 100px 116px 8px",
+                        }}
+                    />
+                ) : (
+                    <div
+                        className="w-[150px] h-[150px] grid place-items-center bg-gray-300"
+                        style={{
+                            borderRadius: " 116px 100px 116px 8px",
+                        }}
+                    >
+                        <Person sx={{ fontSize: "100px", color: "white" }} />
+                    </div>
+                )}
 
                 <div>
                     <p className="text-2xl font-bold">{user.name}</p>

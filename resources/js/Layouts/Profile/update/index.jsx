@@ -29,7 +29,7 @@ export default function ProfileComponent() {
 
     return (
         <div className="flex flex-col gap-4">
-            <UploadImage url={user.photo_url} />
+            <UploadImage img={user.photo_url} />
 
             <p className="font-bold text-2xl text-center">{user.name}</p>
 

@@ -15,8 +15,20 @@ class UploadImageController extends Controller
         ]);
 
         $user = $request->user();
-        $file_name = $user->document_number . '.' . $request['image']->extension();
+
+        // Eliminar imagen existente si existe
+        if ($user->photo_url) {
+            $existingImagePath = public_path('storage/' . $user->photo_url);
+
+            // Verificar si el archivo existe y eliminarlo
+            if (file_exists($existingImagePath)) {
+                unlink($existingImagePath);
+            }
+        }
+
+        $file_name = $user->document_number . '_' . date('YmdHis') . '.' . $request['image']->extension();
         $path = 'profile_img';
+
 
         $validated['image']->storeAs($path, $file_name, 'public');
         $user->update(['photo_url' => "$path/$file_name"]);

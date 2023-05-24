@@ -22,7 +22,7 @@ return new class extends Migration
             #$table->string('phone_number', 15)->unique();
             $table->string('phone_number', 15);
             $table->boolean('is_active')->default(true);
-            $table->string('photo_url')->default('/storage/profile-img/trevor.jpg');
+            $table->string('photo_url')->nullable();
         });
     }
 

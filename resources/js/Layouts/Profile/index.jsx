@@ -48,9 +48,7 @@ export default function ProfileMenu({ addOptions = [] }) {
             >
                 <Avatar
                     alt="Tú foto"
-                    src={
-                        "storage/" + user.photo_url + "?" + new Date().getTime()
-                    }
+                    src={user.photo_url ? "storage/" + user.photo_url : ""}
                 />
             </Badge>
 

@@ -2,10 +2,10 @@ import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
 import { useForm } from "@inertiajs/react";
-import { AddCircleOutline } from "@mui/icons-material";
+import { AddCircleOutline, Person } from "@mui/icons-material";
 import { useEffect } from "react";
 
-function UploadImage({ url }) {
+function UploadImage({ img }) {
     const fileRef = useRef();
     const { setData, data, post, errors } = useForm({ image: null });
 
@@ -35,11 +35,17 @@ function UploadImage({ url }) {
                     onChange={(e) => setData("image", e.target.files[0])}
                 />
 
-                <img
-                    className="w-full h-full rounded-full object-cover object-center"
-                    src={"storage/" + url + "?" + new Date().getTime()}
-                    alt="Imágen de perfil"
-                />
+                {img ? (
+                    <img
+                        className="w-full h-full rounded-full object-cover object-center"
+                        src={"storage/" + img}
+                        alt="Imágen de perfil"
+                    />
+                ) : (
+                    <div className="w-full h-full rounded-full grid place-items-center bg-gray-300">
+                        <Person sx={{ fontSize: "100px", color: "white" }} />
+                    </div>
+                )}
 
                 <AddCircleOutline
                     className="absolute right-2 bottom-2 rounded-full bg-primary text-white"
@@ -53,7 +59,7 @@ function UploadImage({ url }) {
 }
 
 UploadImage.propTypes = {
-    url: PropTypes.string,
+    img: PropTypes.string,
 };
 
 export default UploadImage;
