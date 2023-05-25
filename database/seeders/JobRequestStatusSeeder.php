@@ -15,18 +15,23 @@ class JobRequestStatusSeeder extends Seeder
      */
     public function run()
     {
-        $statuses = [
-            'SIN REVISAR',
-            'SELECCIONADO',
-            'RECHAZADA',
-            'CANCELADA',
-        ];
-
-        JobRequestStatus::insert(
-            array_map(
-                fn ($status) => ['name' => $status],
-                $statuses
-            )
-        );
+        JobRequestStatus::insert([
+            [
+                'name' => 'PENDIENTE',
+                'description' => 'Aún no se revisa la postulación',
+            ],
+            [
+                'name' => 'SELECCIONADO',
+                'description' => 'Está formalmente postulado',
+            ],
+            [
+                'name' => 'RECHAZADO',
+                'description' => 'Ha sido rechazado para la vacante',
+            ],
+            [
+                'name' => 'APROBADO',
+                'description' => 'Ha sido aceptado para el cargo'
+            ]
+        ]);
     }
 }

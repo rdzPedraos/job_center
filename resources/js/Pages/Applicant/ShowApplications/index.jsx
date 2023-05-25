@@ -1,108 +1,69 @@
-import TimelineComponent from "@/Components/TimelineComponent";
-import TitleComponent from "@/Components/main/Title";
-import { Head } from "@inertiajs/react";
-import { Circle } from "@mui/icons-material";
-import { Card, CardContent, Chip } from "@mui/material";
-import React from "react";
-import { useState } from "react";
+import PropTypes from 'prop-types';
 
-export default function SeePostulations({ JobStatuses, JobRequests }) {
-    const [filter, setFilter] = useState(null);
+import { Head } from '@inertiajs/react';
+import { useState } from 'react';
+import Info from './partials/Info';
+import Filters from './partials/Filters';
+import List from './partials/List';
+
+function SeePostulations({ JobStatuses, JobRequests }) {
+    const [activeStatus, setActiveStatus] = useState(null);
+
+    // Filter only the job states that are in job requests:
+    const enableStatuses = JobStatuses.filter(({ id }) =>
+        JobRequests.some(({ job_request_status_id }) => job_request_status_id === id)
+    );
+
+    // Filter the jobs that have the activeStatus
+    const showJobs = JobRequests.filter(
+        ({ job_request_status_id }) =>
+            activeStatus === null || activeStatus === job_request_status_id
+    );
 
     return (
         <>
             <Head title="Mis postulaciones" />
 
             <div className="md:w-5/6 lg:w-5/6 xl:w-2/3 mx-auto">
-                <div className="flex gap-3 mt-10 mb-7">
-                    <Chip
-                        label="Todas"
-                        variant={filter === null ? "filled" : "outlined"}
-                        sx={{
-                            backgroundColor: filter === null ? "none" : "white",
-                        }}
-                        onClick={() => setFilter(null)}
-                    />
-                    {JobStatuses.map(({ id, name }) => {
-                        const label =
-                            name.charAt(0).toUpperCase() +
-                            name.slice(1).toLowerCase();
+                <Filters
+                    className="mt-10 mb-6"
+                    activeId={activeStatus}
+                    setActiveId={setActiveStatus}
+                    statuses={enableStatuses}
+                />
 
-                        const active = filter === id;
-
-                        return (
-                            <Chip
-                                label={label}
-                                sx={{
-                                    backgroundColor: active ? "none" : "white",
-                                }}
-                                onClick={() => setFilter(id)}
-                                variant={active ? "filled" : "outlined"}
-                            />
-                        );
-                    })}
-                </div>
-
-                <div className="grid grid-cols-[1fr_400px] gap-16">
-                    <div className="flex flex-col gap-5">
-                        {JobRequests.map(
-                            (request) =>
-                                (filter === null ||
-                                    filter ===
-                                        request.job_request_status_id) && (
-                                    <Card>
-                                        <CardContent>
-                                            <p className="text-lg">
-                                                {request.job.title}
-                                            </p>
-                                            <p className="lowercase first-letter:uppercase text-gray-400">
-                                                {
-                                                    request.job.academic_program
-                                                        .name
-                                                }
-                                            </p>
-                                        </CardContent>
-                                    </Card>
-                                )
-                        )}
-                    </div>
+                <div className="lg:grid lg:grid-cols-[1fr_400px] gap-8">
+                    <List jobRequests={showJobs} />
 
                     <div>
-                        <Card>
-                            <CardContent>
-                                <img
-                                    src="storage\img\focus-photo.png"
-                                    className="w-2/3 mx-auto"
-                                />
-
-                                <p className="my-4">
-                                    Estos son los estados en los que puede estar
-                                    tú postulación:
-                                </p>
-
-                                <ul>
-                                    {JobStatuses.map(({ id, name }) => (
-                                        <li className="flex gap-2">
-                                            <Circle
-                                                fontSize="small"
-                                                color={
-                                                    filter === id
-                                                        ? "primary"
-                                                        : "secondary"
-                                                }
-                                                className="drop-shadow"
-                                            />
-                                            <p className="lowercase first-letter:uppercase">
-                                                {name}
-                                            </p>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </CardContent>
-                        </Card>
+                        <Info activeId={activeStatus} statuses={JobStatuses} />
                     </div>
                 </div>
             </div>
         </>
     );
 }
+
+SeePostulations.propTypes = {
+    JobStatuses: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string,
+            description: PropTypes.string,
+        })
+    ),
+
+    JobRequests: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            job: PropTypes.shape({
+                name: PropTypes.string,
+            }),
+            academic_program: PropTypes.shape({
+                name: PropTypes.string,
+            }),
+        })
+    ),
+};
+
+export default SeePostulations;

@@ -13,7 +13,12 @@ class JobApplicationController extends Controller
     public function index()
     {
         $JobStatuses = JobRequestStatus::all();
-        $JobRequests = JobRequest::with('job:id,title,description,academic_program_id', 'job.academicProgram:id,name')
+        $JobRequests = JobRequest::select('id', 'job_offer_id', 'job_request_status_id')
+            ->with(
+                'job:id,title,description,academic_program_id',
+                'job.academicProgram:id,name,academic_faculty_id',
+                'job.academicProgram.academicFaculty:id,name,color'
+            )
             ->where('applicant_id', Auth()->user()->applicant->id)
             ->get();
 
