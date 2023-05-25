@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Applicant;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobRequest;
+use App\Models\JobRequestStatus;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -10,17 +12,11 @@ class JobApplicationController extends Controller
 {
     public function index()
     {
-        $participant = Auth()->user()->participant;
-        return Inertia::render('Applicant/ShowApplications/index', compact('participant'));
-    }
+        $JobStatuses = JobRequestStatus::all();
+        $JobRequests = JobRequest::with('job:id,title,description,academic_program_id', 'job.academicProgram:id,name')
+            ->where('applicant_id', Auth()->user()->applicant->id)
+            ->get();
 
-    public function store()
-    {
-        return 'hola';
-    }
-
-    public function destroy()
-    {
-        return 'mundo';
+        return Inertia::render('Applicant/ShowApplications/index', compact('JobStatuses', 'JobRequests'));
     }
 }

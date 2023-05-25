@@ -36,10 +36,9 @@ Route::as('job.')->group(function () {
         'controller' => JobApplicationController::class
     ], function () {
         Route::get('/mis-postulaciones', 'index')->name('index');
-        Route::post('/add-postulation', 'store')->name('add');
-        Route::post('/remove-postulation', 'destroy')->name('remove');
     });
 });
+
 
 Route::as('cv.')->group(function () {
     Route::controller(CurriculumController::class)->group(function () {
