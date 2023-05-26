@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
 use App\Http\Controllers\Controller;
+use App\Models\Applicant;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
@@ -48,6 +49,8 @@ class RegisteredUserController extends Controller
 
         $validated['password'] = Hash::make($validated['password']);
         $user = User::create($validated);
+        Applicant::create(['user_id' => $user['id']]);
+
         event(new Registered($user));
 
         Auth::login($user);

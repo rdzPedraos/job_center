@@ -10,6 +10,7 @@ class Applicant extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'biografy_title',
         'biografy_content',
         'cv_url'

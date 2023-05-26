@@ -1,55 +1,52 @@
-import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 
-import { uploadFiles } from "./upload";
+import { uploadFiles } from './upload';
 
-import {
-    FilePresent,
-    PictureAsPdf,
-    Upload,
-    UploadFile,
-} from "@mui/icons-material";
-import ErrorTextComponent from "../main/ErrorText";
+import { FilePresent, PictureAsPdf, Upload, UploadFile } from '@mui/icons-material';
+import ErrorTextComponent from '../main/ErrorText';
 
 function VisualizeFile({
     fileUrl,
     upload,
 
     name,
-    className = "",
-    uploadMethod = "post",
+    className = '',
+    uploadMethod = 'post',
 }) {
+    const [imgUrl, setImgUrl] = useState(null);
     const fileInputRef = useRef();
     const canvasRef = useRef();
-    const [imgUrl, setImgUrl] = useState(null);
+
     const { drag, dragAndDropEvents, errors, setData, data } = uploadFiles(
         upload,
         uploadMethod,
-        "file",
+        'file',
         false
     );
 
     useEffect(() => {
-        if (fileUrl) {
-            const document = PDFJS.getDocument({ url: fileUrl });
+        if (!fileUrl) return;
 
-            document.promise.then(async (doc) => {
-                const page = await doc.getPage(1);
-                const vwport = await page.getViewport({ scale: 1 });
+        // eslint-disable-next-line no-undef
+        const document = PDFJS.getDocument({ url: fileUrl });
 
-                const canvas = canvasRef.current;
-                canvas.width = vwport.width;
-                canvas.height = vwport.height;
+        document.promise.then(async doc => {
+            const page = await doc.getPage(1);
+            const vwport = await page.getViewport({ scale: 1 });
 
-                await page.render({
-                    canvasContext: canvas.getContext("2d"),
-                    viewport: vwport,
-                }).promise;
+            const canvas = canvasRef.current;
+            canvas.width = vwport.width;
+            canvas.height = vwport.height;
 
-                setImgUrl(canvas.toDataURL("image/png"));
-            });
-        }
-    }, [data]);
+            await page.render({
+                canvasContext: canvas.getContext('2d'),
+                viewport: vwport,
+            }).promise;
+
+            setImgUrl(canvas.toDataURL('image/png'));
+        });
+    }, [data, fileUrl]);
 
     const Icon = imgUrl ? PictureAsPdf : FilePresent;
 
@@ -57,8 +54,8 @@ function VisualizeFile({
         <>
             <div
                 className={
-                    "group/parent relative overflow-hidden rounded-lg cursor-pointer " +
-                    "bg-white text-gray-600 border-[1px] " +
+                    'group/parent relative overflow-hidden rounded-lg cursor-pointer ' +
+                    'bg-white text-gray-600 border-[1px] ' +
                     className
                 }
             >
@@ -66,9 +63,7 @@ function VisualizeFile({
                 <div
                     className="group/content"
                     onDoubleClick={() =>
-                        fileUrl
-                            ? window.open(fileUrl)
-                            : fileInputRef.current.click()
+                        fileUrl ? window.open(fileUrl) : fileInputRef.current.click()
                     }
                     {...dragAndDropEvents}
                 >
@@ -87,7 +82,7 @@ function VisualizeFile({
                             <img
                                 className="w-full h-full object-cover object-top"
                                 src={imgUrl}
-                                alt={imgUrl ? "Imágen de archivo " + name : ""}
+                                alt={imgUrl ? 'Imágen de archivo ' + name : ''}
                             />
                         )}
                     </div>
@@ -99,11 +94,7 @@ function VisualizeFile({
                         group-hover/content:bg-base_white
                         group-active/content:bg-blue-100 group-active/content:text-blue-600"
                     >
-                        <Icon
-                            className={
-                                imgUrl ? "text-red-500" : "text-blue-400"
-                            }
-                        />
+                        <Icon className={imgUrl ? 'text-red-500' : 'text-blue-400'} />
                         <span className="ml-2 overflow-hidden text-ellipsis select-none">
                             {name}
                         </span>
@@ -127,9 +118,9 @@ function VisualizeFile({
                         type="file"
                         className="hidden"
                         ref={fileInputRef}
-                        onChange={(e) => {
+                        onChange={e => {
                             if (e.target.files.length > 0) {
-                                setData("file", e.target.files[0]);
+                                setData('file', e.target.files[0]);
                             }
                         }}
                     />
@@ -143,7 +134,7 @@ function VisualizeFile({
 VisualizeFile.propTypes = {
     fileUrl: PropTypes.string,
     upload: PropTypes.string,
-    uploadMethod: PropTypes.oneOf(["get", "post", "put", "patch"]),
+    uploadMethod: PropTypes.oneOf(['get', 'post', 'put', 'patch']),
 
     name: PropTypes.string,
     type: PropTypes.string,

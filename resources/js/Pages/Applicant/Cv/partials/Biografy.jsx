@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-import { BiografyInputs } from "@/Config/applicantForm";
+import { BiografyInputs } from '@/Config/applicantForm';
 
-import utilInput from "@/Components/form/utilInput";
-import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
-import { ArrowBack, EditOutlined } from "@mui/icons-material";
+import utilInput from '@/Components/form/utilInput';
+import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material';
+import { ArrowBack, EditOutlined } from '@mui/icons-material';
 
 function Biografy({ applicant, className }) {
     const [showDialog, setShowDialog] = useState(false);
@@ -13,11 +13,11 @@ function Biografy({ applicant, className }) {
     const { inputs, handleSubmit, processing } = utilInput(
         BiografyInputs,
         applicant,
-        route("applicant.cv.update"),
-        "patch"
+        route('applicant.cv.update'),
+        'patch'
     );
 
-    const handlePreSubmit = (e) => {
+    const handlePreSubmit = e => {
         e.preventDefault();
         handleSubmit(e, () => setShowDialog(false));
     };
@@ -31,15 +31,13 @@ function Biografy({ applicant, className }) {
             </div>
 
             <h3 className="text-xl text-secondary font-bold mb-4">
-                {applicant.biografy_title}
+                {applicant.biografy_title ?? 'Biografía'}
             </h3>
-            <p className="font-light">{applicant.biografy_content}</p>
+            <p className="font-light">
+                {applicant.biografy_content ?? 'Ingresa aquí una descripción breve de ti...'}
+            </p>
 
-            <Dialog
-                open={showDialog}
-                onClose={() => setShowDialog(false)}
-                fullWidth
-            >
+            <Dialog open={showDialog} onClose={() => setShowDialog(false)} fullWidth>
                 <DialogTitle>
                     <div className="flex">
                         <Button onClick={() => setShowDialog(false)}>
@@ -57,11 +55,7 @@ function Biografy({ applicant, className }) {
                     <form onSubmit={handlePreSubmit}>
                         <div className="grid gap-5 py-5">
                             {Object.values(inputs)}
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                disabled={processing}
-                            >
+                            <Button type="submit" variant="contained" disabled={processing}>
                                 Guardar
                             </Button>
                         </div>
@@ -73,7 +67,11 @@ function Biografy({ applicant, className }) {
 }
 
 Biografy.propTypes = {
-    applicant: PropTypes.object,
+    applicant: PropTypes.shape({
+        biografy_title: PropTypes.string,
+        biografy_content: PropTypes.string,
+    }),
+    className: PropTypes.string,
 };
 
 export default Biografy;

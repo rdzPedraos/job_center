@@ -24,7 +24,7 @@ class UserFactory extends Factory
             'first_surname' => fake()->name(),
             'middle_surname' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'phone_number' => fake()->unique()->randomNumber(9, true),
+            'phone_number' => fake()->unique()->numerify('3#########'),
             'document_type_id' => DocumentType::all()->random()->id,
             'document_number' => fake()->unique()->randomNumber(8),
             'email_verified_at' => now(),

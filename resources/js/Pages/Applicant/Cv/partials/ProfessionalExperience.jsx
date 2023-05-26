@@ -1,24 +1,23 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-import { LaboralExperienciesInputs } from "@/Config/applicantForm";
-import utilInput from "@/Components/form/utilInput";
+import { LaboralExperienciesInputs } from '@/Config/applicantForm';
+import utilInput from '@/Components/form/utilInput';
 
-import TimelineComponent from "@/Components/TimelineComponent";
-import ShortText from "@/Components/main/ShortText";
+import TimelineComponent from '@/Components/TimelineComponent';
+import ShortText from '@/Components/main/ShortText';
 
-import { ArrowBack, EditOutlined } from "@mui/icons-material";
-import { Button, Dialog, DialogContent, DialogTitle } from "@mui/material";
+import { ArrowBack, EditOutlined } from '@mui/icons-material';
+import { Button, Dialog, DialogContent, DialogTitle } from '@mui/material';
 
 function ProfessionalExperience({ experiences }) {
     const [showDialog, setShowDialog] = useState(false);
-    const { inputs, handleSubmit, processing, setData, data, errors } =
-        utilInput(
-            LaboralExperienciesInputs,
-            {},
-            route("applicant.cv.update"),
-            "patch"
-        );
+    const { inputs, handleSubmit, processing, setData, data, errors } = utilInput(
+        LaboralExperienciesInputs,
+        {},
+        route('applicant.cv.update'),
+        'patch'
+    );
 
     const handleDialog = (show, item) => {
         if (item) {
@@ -34,13 +33,13 @@ function ProfessionalExperience({ experiences }) {
         setShowDialog(show);
     };
 
-    const _handleSubmit = (e) => {
+    const _handleSubmit = e => {
         e.preventDefault();
         handleSubmit(e, () => setShowDialog(false));
     };
 
-    const items = experiences.map((exp) => (
-        <div>
+    const items = experiences.map(exp => (
+        <div key={exp.id}>
             <div className="absolute right-0">
                 <Button onClick={() => handleDialog(true, exp)}>
                     <EditOutlined />
@@ -48,10 +47,7 @@ function ProfessionalExperience({ experiences }) {
             </div>
             <p className="text-md">{exp.position}</p>
             <p className="text-secondary text-sm mb-2">{exp.company_name}</p>
-            <ShortText
-                text={exp.description}
-                className="text-sm font-light mb-2"
-            />
+            <ShortText text={exp.description} className="text-sm font-light mb-2" />
             <p className="text-sm text-secondary opacity-50">
                 {exp.start_date} - {exp.end_date}
             </p>
@@ -69,17 +65,11 @@ function ProfessionalExperience({ experiences }) {
 
     return (
         <section>
-            <h3 className="text-xl text-secondary font-bold mb-4">
-                Experiencia Profesional
-            </h3>
+            <h3 className="text-xl text-secondary font-bold mb-4">Experiencia Profesional</h3>
 
             <TimelineComponent items={items} />
 
-            <Dialog
-                open={showDialog}
-                onClose={() => setShowDialog(false)}
-                fullWidth
-            >
+            <Dialog open={showDialog} onClose={() => setShowDialog(false)} fullWidth>
                 <DialogTitle>
                     <div className="flex">
                         <Button onClick={() => setShowDialog(false)}>
