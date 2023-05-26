@@ -1,4 +1,5 @@
-import React from "react";
+import PropTypes from 'prop-types';
+
 import {
     Timeline,
     TimelineConnector,
@@ -7,7 +8,7 @@ import {
     TimelineItem,
     timelineItemClasses,
     TimelineSeparator,
-} from "@mui/lab";
+} from '@mui/lab';
 
 function TimelineComponent({ items }) {
     const length = items.length;
@@ -37,5 +38,9 @@ function TimelineComponent({ items }) {
         </Timeline>
     );
 }
+
+TimelineComponent.propTypes = {
+    items: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.element, PropTypes.string])),
+};
 
 export default TimelineComponent;
