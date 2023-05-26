@@ -1,12 +1,12 @@
+import { useState } from 'react';
+import { Head } from '@inertiajs/react';
 import PropTypes from 'prop-types';
 
-import { Head } from '@inertiajs/react';
-import { useState } from 'react';
 import Info from './partials/Info';
 import Filters from './partials/Filters';
 import List from './partials/List';
 
-function SeePostulations({ JobStatuses, JobRequests }) {
+function SeePostulations({ JobStatuses, JobRequests, AcademicPrograms }) {
     const [activeStatus, setActiveStatus] = useState(null);
 
     // Filter only the job states that are in job requests:
@@ -26,14 +26,19 @@ function SeePostulations({ JobStatuses, JobRequests }) {
 
             <div className="md:w-5/6 lg:w-5/6 xl:w-2/3 mx-auto">
                 <Filters
-                    className="mt-10 mb-6"
+                    className="mb-6"
                     activeId={activeStatus}
                     setActiveId={setActiveStatus}
                     statuses={enableStatuses}
+                    jobRequestsSize={JobRequests.length}
                 />
 
                 <div className="lg:grid lg:grid-cols-[1fr_400px] gap-8">
-                    <List jobRequests={showJobs} />
+                    <List
+                        jobRequests={showJobs}
+                        jobStatuses={JobStatuses}
+                        academicPrograms={AcademicPrograms}
+                    />
 
                     <div>
                         <Info activeId={activeStatus} statuses={JobStatuses} />
@@ -59,9 +64,13 @@ SeePostulations.propTypes = {
             job: PropTypes.shape({
                 name: PropTypes.string,
             }),
-            academic_program: PropTypes.shape({
-                name: PropTypes.string,
-            }),
+        })
+    ),
+
+    AcademicPrograms: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string,
         })
     ),
 };

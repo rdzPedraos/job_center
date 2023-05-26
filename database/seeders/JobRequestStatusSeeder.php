@@ -16,21 +16,26 @@ class JobRequestStatusSeeder extends Seeder
     public function run()
     {
         JobRequestStatus::insert([
+
             [
                 'name' => 'PENDIENTE',
                 'description' => 'Aún no se revisa la postulación',
+                'color' => '#3b82f6'
             ],
             [
-                'name' => 'SELECCIONADO',
-                'description' => 'Está formalmente postulado',
+                'name' => 'REVISADO',
+                'description' => 'Su Postulación ha sido vista',
+                'color' => '#fb923c'
             ],
             [
                 'name' => 'RECHAZADO',
                 'description' => 'Ha sido rechazado para la vacante',
+                'color' => '#c51e3a'
             ],
             [
                 'name' => 'APROBADO',
-                'description' => 'Ha sido aceptado para el cargo'
+                'description' => 'Su postulación fue aceptada para el cargo',
+                'color' => '#18c27a'
             ]
         ]);
     }

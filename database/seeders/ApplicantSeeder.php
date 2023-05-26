@@ -18,6 +18,6 @@ class ApplicantSeeder extends Seeder
     public function run()
     {
         Applicant::factory(1)->create(['user_id' => User::all()->last()->id]);
-        //Applicant::factory(5)->create();
+        Applicant::factory(5)->create();
     }
 }

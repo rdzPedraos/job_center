@@ -1,12 +1,11 @@
-import React from "react";
-import { Head } from "@inertiajs/react";
+import { Head } from '@inertiajs/react';
 
-import BoxComponent from "@/Components/main/Box";
-import { JobOfferFiltersProvider } from "@/Context/FilterContext";
+import BoxComponent from '@/Components/main/Box';
+import { JobOfferFiltersProvider } from '@/Context/FilterContext';
 
-import Filters from "./partials/Filters";
-import Search from "./partials/Search";
-import Jobs from "./partials/Jobs";
+import Filters from './partials/Filters';
+import Search from './partials/Search';
+import Jobs from './partials/Jobs';
 
 export default function SearchJob() {
     return (

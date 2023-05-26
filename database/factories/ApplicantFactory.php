@@ -7,6 +7,7 @@ use App\Models\Eps;
 use App\Models\City;
 use App\Models\User;
 use App\Models\Address;
+use App\Models\Applicant;
 use App\Models\BloodType;
 use App\Models\PensionFund;
 use App\Models\MaritalStatus;
@@ -25,7 +26,6 @@ class ApplicantFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => fake()->unique()->randomElement(User::all()->pluck('id')),
             'birth_place_id' => City::all()->random()->id,
             'birth_date' => fake()->date(),
             'document_issue_city_id' => City::all()->random()->id,
@@ -42,7 +42,15 @@ class ApplicantFactory extends Factory
             'family_contact_phone' => fake()->numberBetween(1000000, 9999999),
             'family_contact_relationship' => fake()->randomElement(['PADRE', 'MADRE', 'HERMANO', 'HERMANA', 'TIO', 'TIA', 'ABUELO', 'ABUELA', 'OTRO']),
             'biografy_title' => fake()->text(50),
-            'biografy_content' => fake()->text(1000)
+            'biografy_content' => fake()->text(1000),
+            'user_id' => function () {
+                do {
+                    $user_id = fake()->unique()->randomElement(User::all()->pluck('id'));
+                    $exist_applicant = Applicant::where('user_id', $user_id)->exists();
+                } while ($exist_applicant);
+
+                return $user_id;
+            }
         ];
     }
 }

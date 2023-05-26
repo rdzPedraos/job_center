@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedTinyInteger('id', true);
             $table->string('name', 30);
             $table->text('description')->nullable();
+            $table->string('color', 7)->default('#fff');
         });
     }
 

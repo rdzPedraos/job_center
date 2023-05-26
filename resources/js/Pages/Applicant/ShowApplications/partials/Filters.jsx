@@ -1,11 +1,11 @@
-import Chip from '@/Components/main/Chip';
 import PropTypes from 'prop-types';
+import Chip from '@/Components/main/Chip';
 
-function Filters({ activeId, setActiveId, statuses, className }) {
+function Filters({ activeId, setActiveId, statuses, jobRequestsSize, className }) {
     return (
         <div className={`flex gap-3 ${className}`}>
             <Chip
-                text="Todas las postulaciones"
+                text={`Todas las postulaciones (${jobRequestsSize})`}
                 active={activeId === null}
                 onClick={() => setActiveId(null)}
             />
@@ -33,6 +33,7 @@ Filters.propTypes = {
             name: PropTypes.string,
         })
     ),
+    jobRequestsSize: PropTypes.number,
     className: PropTypes.string,
 };
 

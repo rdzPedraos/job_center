@@ -17,12 +17,12 @@ class AcademicFacultySeeder extends Seeder
     {
         $faculties = [
             ['FACULTAD DE INGENIERÍAS', '#18c27a'],
-            ['FACULTAD DE DERECHO Y CIENCIAS POLÍTICAS', '#C51E3A'],
+            ['FACULTAD DE DERECHO Y CIENCIAS POLÍTICAS', '#c51e3a'],
             ['FACULTAD DE CIENCIAS', '#2d7fdf'],
-            ['FACULTAD DE CIENCIAS ECONÓMICAS Y ADMINISTRATIVAS', '#007FFF'],
-            ['FACULTAD DE ARTES', '#00563B'],
-            ['ESCUELA DE CIENCIAS DEL LENGUAJE', '#50C878'],
-            ['ESCUELA DE CIENCIAS HUMANAS', '#B284BE'],
+            ['FACULTAD DE CIENCIAS ECONÓMICAS Y ADMINISTRATIVAS', '#007fff'],
+            ['FACULTAD DE ARTES', '#00563b'],
+            ['ESCUELA DE CIENCIAS DEL LENGUAJE', '#50c878'],
+            ['ESCUELA DE CIENCIAS HUMANAS', '#b284be'],
         ];
 
         AcademicFaculty::insert(array_map(fn ($f) => ['name' => $f[0], 'color' => $f[1]], $faculties));

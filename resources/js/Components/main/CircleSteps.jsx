@@ -9,11 +9,14 @@ function CircleSteps({
     strokeColor,
     activeSegmentColor,
     inactiveSegmentColor,
+    ...props
 }) {
     const svgSize = radius * 2 + strokeSize;
     const circumference = 2 * Math.PI * radius;
     const segmentSize = circumference / steps;
     const center = svgSize / 2;
+
+    inactiveSegmentColor ??= activeSegmentColor + '1f';
 
     const generalAttr = {
         r: radius,
@@ -49,7 +52,7 @@ function CircleSteps({
     }
 
     return (
-        <svg width={svgSize} height={svgSize}>
+        <svg width={svgSize} height={svgSize} {...props}>
             <g transform={`rotate(-90 ${center} ${center})`}>{segments}</g>
         </svg>
     );
@@ -73,7 +76,6 @@ CircleSteps.defaultProps = {
     spaceSize: 3,
     strokeColor: 'white',
     activeSegmentColor: '#1976d2',
-    inactiveSegmentColor: '#95b0eb',
 };
 
 export default CircleSteps;

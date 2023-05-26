@@ -24,7 +24,8 @@
     <div
         class="
             w-10 text-xl text-2xl gap-3 w-7
-            bg-[#18c27a] bg-[#C51E3A] bg-[#2d7fdf] bg-[#00563B] bg-[#50C878] bg-[#B284BE]
+            bg-[#18c27a]   bg-[#2d7fdf]   bg-[#00563b]   bg-[#50c878]   bg-[#b284be]    bg-[#fb923c]   bg-[#3b82f6]   bg-[#c51e3a]
+            text-[#18c27a] text-[#2d7fdf] text-[#00563b] text-[#50c878] text-[#b284be]  text-[#fb923c] text-[#3b82f6] text-[#c51e3a]
         ">
     </div>
 

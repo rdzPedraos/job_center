@@ -1,35 +1,24 @@
-import React, { useContext, useState } from "react";
-import axios from "axios";
+import { useContext, useState } from 'react';
+import axios from 'axios';
 
-import { JobOfferFiltersContext } from "@/Context/FilterContext";
+import { JobOfferFiltersContext } from '@/Context/FilterContext';
 
-import JobCard from "./JobCard";
-import JobDrawer from "./JobDrawer";
+import JobCard from './JobCard';
+import JobDrawer from './JobDrawer';
 
-import { TablePagination } from "@mui/material";
-import DrawerComponent from "@/Components/Drawer";
+import { TablePagination } from '@mui/material';
+import DrawerComponent from '@/Components/Drawer';
 
 function Jobs() {
-    const [jobInfo, setJobInfo] = useState(null);
+    const [jobId, setJobId] = useState(null);
     const { jobs, pagination, onSubmit } = useContext(JobOfferFiltersContext);
 
     const onPageChange = (ev, newPage) => {
         onSubmit({ page: newPage + 1, per_page: pagination.per_page });
     };
 
-    const onRowsPerPageChange = (ev) => {
+    const onRowsPerPageChange = ev => {
         onSubmit({ page: pagination.page, per_page: ev.target.value });
-    };
-
-    const onClickJob = (id) => {
-        axios
-            .post(route("applicant.job.offer.show", id))
-            .then(({ data }) => {
-                setJobInfo(data);
-            })
-            .catch(() => {
-                console.log("error");
-            });
     };
 
     return (
@@ -47,20 +36,13 @@ function Jobs() {
             )}
 
             <div className="flex flex-col gap-7 mt-5">
-                {jobs.map((job) => (
-                    <JobCard
-                        key={job.id}
-                        job={job}
-                        onClick={() => onClickJob(job.id)}
-                    />
+                {jobs.map(job => (
+                    <JobCard key={job.id} job={job} onClick={() => setJobId(job.id)} />
                 ))}
             </div>
 
-            <DrawerComponent
-                open={jobInfo !== null}
-                onClose={() => setJobInfo(null)}
-            >
-                {jobInfo && <JobDrawer job={jobInfo} setJob={setJobInfo} />}
+            <DrawerComponent open={jobId !== null} onClose={() => setJobId(null)}>
+                <JobDrawer jobId={jobId} />
             </DrawerComponent>
         </>
     );

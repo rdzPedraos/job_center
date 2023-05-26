@@ -1,6 +1,5 @@
-import BoxComponent from '@/Components/main/Box';
-import { Circle } from '@mui/icons-material';
 import PropTypes from 'prop-types';
+import BoxComponent from '@/Components/main/Box';
 
 function Info({ activeId, statuses }) {
     return (
@@ -10,11 +9,11 @@ function Info({ activeId, statuses }) {
             <p className="my-4">Estos son los estados en los que puede estar tú postulación:</p>
 
             <ul className="flex flex-col gap-4">
-                {statuses.map(({ id, name, description }) => {
+                {statuses.map(({ id, name, description, color }) => {
                     const active = activeId === id;
                     const [bgColor, textColor] = [
-                        active ? 'bg-primary' : 'bg-gray-400',
-                        active ? 'text-primary' : 'text-black text-opacity-40',
+                        active ? `bg-[${color}]` : 'bg-gray-400',
+                        active ? `text-[${color}]` : 'text-black text-opacity-40',
                     ];
 
                     return (
@@ -26,12 +25,8 @@ function Info({ activeId, statuses }) {
                             </div>
 
                             <span>
-                                <p className={`lowercase first-letter:uppercase ${textColor}`}>
-                                    {name}
-                                </p>
-                                <p className={`lowercase first-letter:uppercase ${textColor}`}>
-                                    {description}
-                                </p>
+                                <p className={textColor}>{name}</p>
+                                <p className={textColor}>{description}</p>
                             </span>
                         </li>
                     );
