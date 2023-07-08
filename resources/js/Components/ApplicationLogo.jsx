@@ -1,20 +1,22 @@
-import React, { useState } from "react";
-import { Link } from "@inertiajs/react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import { Link } from '@inertiajs/react';
+import PropTypes from 'prop-types';
 
-import Modal from "./Modal";
-import { Button } from "@mui/material";
+import Modal from './Modal';
+import { Button } from '@mui/material';
+
+const logoUrl = 'storage/images/logo.png';
 
 export default function ApplicationLogo({
     justIcon = false,
-    txtSize = "2xl",
-    imgSize = "10",
-    gapSize = "3",
+    txtSize = '2xl',
+    imgSize = '10',
+    gapSize = '3',
     className,
 }) {
     const [open, setOpen] = useState(false);
     return (
-        <div className={"flex " + className}>
+        <div className={'flex ' + className}>
             {/* Logo */}
             <button
                 onClick={() => setOpen(true)}
@@ -22,7 +24,7 @@ export default function ApplicationLogo({
                 title="Ir al inicio"
             >
                 <img
-                    src="storage/img/logo.png"
+                    src={logoUrl}
                     className={`w-${imgSize}`}
                     alt="Escudo Universitario"
                 />
