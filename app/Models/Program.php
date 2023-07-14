@@ -5,19 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JobOfferStatus extends Model
+class Program extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description'
+        'snies',
+        'academic_program_name',
+        'academic_faculty_name',
     ];
 
-    public $timestamps = false;
+    protected $timestamps = false;
 
     /**
-     * Retrieve the job offers associated with the status.
+     * Retrieve the job offers associated with the program.
      */
     public function jobOffers()
     {

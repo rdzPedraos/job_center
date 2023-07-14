@@ -20,18 +20,18 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'document_type_id',
+        'document_number',
+        'email',
+        'password',
         'first_name',
         'middle_name',
         'first_surname',
         'middle_surname',
-        'email',
-        'password',
-        'document_type_id',
-        'document_number',
         'phone_number',
         'photo_url',
     ];
-    protected $appends = ['name', 'document_type_info'];
+    protected $appends = ['name'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -64,20 +64,6 @@ class User extends Authenticatable
         return $n;
     }
 
-    public function getDocumentTypeInfoAttribute(): string
-    {
-        $res = clone $this->documentType;
-        $res->str = $res->acronym . '. ' . $this->document_number;
-        return $res;
-    }
-
-    /**
-     * Retrieve the document type associated with the user.
-     */
-    public function documentType()
-    {
-        return $this->belongsTo(DocumentType::class);
-    }
 
     /**
      * Retrieve the applicant associated with the user.
@@ -88,10 +74,32 @@ class User extends Authenticatable
     }
 
     /**
+     * Retrieve the documents type of the user.
+     */
+    public function documentType(){
+        return $this->belongsTo(DocumentType::class);
+    }
+
+    /**
      * Retrieve the observations made by the user.
      */
     public function observations()
     {
         return $this->hasMany(Observation::class);
+    }
+
+     /**
+     * Retrieve the applicants deleted by the user.
+     */
+    public function applicantsDeleted()
+    {
+        return $this->hasMany(Applicant::class, 'deleted_by');
+    }
+
+    /**
+     * Retrieve the documents deleted by the user.
+     */
+    public function documentsDeleted(){
+        return $this->hasMany(Document::class, 'deleted_by');
     }
 }

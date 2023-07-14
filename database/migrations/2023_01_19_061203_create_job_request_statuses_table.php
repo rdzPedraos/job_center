@@ -14,10 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('job_request_statuses', function (Blueprint $table) {
-            $table->unsignedTinyInteger('id', true);
+            $table->comment('Estados en los que puede estar una solicitud de trabajo');
+
+            $table->unsignedTinyInteger('id')->primary();
             $table->string('name', 30);
             $table->text('description')->nullable();
-            $table->string('color', 7)->default('#fff');
+            $table->string('color', 7)->default('#fff')->comment('Color en hexadecimal representativo. Con el se muestra en la web con color.');
+            $table->boolean('is_active')->default(true);
         });
     }
 

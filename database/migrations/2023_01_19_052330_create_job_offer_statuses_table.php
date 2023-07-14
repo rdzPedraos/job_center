@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('job_offer_statuses', function (Blueprint $table) {
-            $table->unsignedTinyInteger('id', true);
+            $table->unsignedTinyInteger('id')->primary();
             $table->string('name', 30)->unique();
             $table->string('description', 100)->nullable();
+            $table->boolean('is_active')->default(true);
         });
     }
 

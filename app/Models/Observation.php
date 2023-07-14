@@ -9,6 +9,12 @@ class Observation extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'job_offer_id',
+        'user_id',
+        'content',
+    ];
+
     public $timestamps = false;
 
     /**

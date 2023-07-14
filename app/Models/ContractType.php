@@ -9,6 +9,14 @@ class ContractType extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'dedication_time_id',
+        'vinculation_type_id',
+        'description',
+        'is_active'
+    ];
+
     public $timestamps = false;
 
     /**

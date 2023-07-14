@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('offer_details', function (Blueprint $table) {
-            $table->unsignedInteger('id', true);
-            $table->text('description');
+            $table->comment('Almacena los detalles de las ofertas laborales. Considerando los requisitos y funciones que se solicitan para el cargo.');
+            $table->unsignedInteger('id')->primary();
             $table->unsignedMediumInteger('job_offer_id');
+            $table->text('description');
             $table->enum('detail_type', ['R', 'F'])->comment('Almacena si el detalle es: R) Requisito para el cargo, F) Función del cargo');
 
             $table->foreign('job_offer_id')->references('id')->on('job_offers');

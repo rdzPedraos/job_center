@@ -10,13 +10,15 @@ class JobRequestStatus extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'is_active',
+        'color'
+    ];
+
     public $timestamps = false;
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'is_active' => 'boolean',
-        'name' => DatabaseString::class,
-    ];
 
     /**
      * Retrieve the requests associated with the status

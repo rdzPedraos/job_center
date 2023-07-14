@@ -9,6 +9,12 @@ class OfferDetail extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'job_offer_id',
+        'description',
+        'detail_type'
+    ];
+
     public $timestamps = false;
 
     /**

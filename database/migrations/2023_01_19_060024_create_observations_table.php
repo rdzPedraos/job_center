@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('observations', function (Blueprint $table) {
             $table->comment('Guarda las observaciones realizadas a una oferta laboral');
 
-            $table->unsignedMediumInteger('id', true);
+            $table->unsignedMediumInteger('id')->primary();
             $table->unsignedMediumInteger('job_offer_id');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedInteger('user_id');
             $table->text('content');
             $table->timestamp('created_at')->useCurrent();
 

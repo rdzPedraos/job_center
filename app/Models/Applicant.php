@@ -4,16 +4,26 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Applicant extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'user_id',
         'biografy_title',
         'biografy_content',
-        'cv_url'
+        'cv_url',
+        'birth_location_id',
+        'birth_date',
+        'document_expedition_location_id',
+        'document_expedition_date',
+        'address',
+        'gender',
+        'family_contact_name',
+        'family_contact_phone',
+        'family_contact_relationship',
+        //'deleted_by'
     ];
 
 
@@ -22,71 +32,29 @@ class Applicant extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'id');
     }
 
     /**
-     * Retrieve the blood type associated with the applicant.
+     * Retrieve the bith location associated with the applicant.
      */
-    public function bloodType()
-    {
-        return $this->belongsTo(BloodType::class);
+    public function birthLocation(){
+        return $this->belongsTo(Location::class, 'birth_location_id');
     }
 
     /**
-     * Retrieve the pension fund associated with the applicant.
+     * Retrieve the document expedition location associated with the applicant.
      */
-    public function pensionFund()
-    {
-        return $this->belongsTo(PensionFund::class);
+    public function documentExpeditionLocation(){
+        return $this->belongsTo(Location::class, 'document_expedition_location_id');
     }
 
     /**
-     * Retrieve the eps associated with the applicant.
-     */
-    public function eps()
-    {
-        return $this->belongsTo(Eps::class);
-    }
-
-    /**
-     * Retrieve the marital status associated with the applicant.
-     */
-    public function maritalStatus()
-    {
-        return $this->belongsTo(MaritalStatus::class);
-    }
-
-    /**
-     * Retrieve the arl associated with the applicant.
-     */
-    public function arl()
-    {
-        return $this->belongsTo(Arl::class);
-    }
-
-    /**
-     * Retrieve the requests made by the applicant.
+     * Retrieve the requests associated with the applicant.
      */
     public function requests()
     {
         return $this->hasMany(JobRequest::class, 'applicant_id');
-    }
-
-    /**
-     * Retrieve the vaccines associated with the applicant.
-     */
-    public function vaccines()
-    {
-        return $this->belongsToMany(Vaccine::class)->withPivot('vaccine_id');
-    }
-
-    /**
-     * Retrieve the children associated with the applicant.
-     */
-    public function children()
-    {
-        return $this->hasMany(ApplicantChild::class);
     }
 
     /**

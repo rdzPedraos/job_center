@@ -11,11 +11,11 @@ class JobRequest extends Model
 
     protected $fillable = [
         'applicant_id',
+        'job_request_status_id',
         'job_offer_id',
-        'job_request_status_id'
+        'applicant_history'
     ];
 
-    public $timestamps = false;
 
     /**
      * Retrieve the job offer associated with the request

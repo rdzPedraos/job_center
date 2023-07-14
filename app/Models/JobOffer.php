@@ -4,10 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class JobOffer extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'program_id',
+        'contract_type_id',
+        'title',
+        'description',
+        'vacancies',
+        'monthly_salary',
+        'job_start_date',
+        'job_end_date',
+        'job_offer_start_date',
+        'job_offer_end_date',
+        'host_user_id',
+        'job_offer_status_id',
+        'approver_user_id',
+        'approved_at',
+        'deleted_by'
+    ];
 
     /**
      * Retrieve the details associated wit the offer
@@ -52,9 +71,9 @@ class JobOffer extends Model
     /**
      * Retrieve the academic program associated with the offer
      */
-    public function academicProgram()
+    public function program()
     {
-        return $this->belongsTo(AcademicProgram::class);
+        return $this->belongsTo(Program::class);
     }
 
     /**

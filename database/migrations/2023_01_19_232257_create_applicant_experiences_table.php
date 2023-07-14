@@ -6,6 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    public $modalities = [
+        'TIEMPO COMPLETO',
+        'MEDIO TIEMPO',
+        'FREELANCE',
+        'PASANTÍA',
+        'VOLUNTARIADO',
+        'CONTRATO',
+        'OTRO',
+    ];
+
     /**
      * Run the migrations.
      *
@@ -16,11 +26,12 @@ return new class extends Migration
         Schema::create('applicant_experiences', function (Blueprint $table) {
             $table->comment('Almacena la información de las experiencias laborales de los solicitantes.');
 
-            $table->unsignedInteger('id', true);
-            $table->unsignedBigInteger('applicant_id');
-            $table->string('company_name');
-            $table->string('position');
-            $table->unsignedSmallInteger('company_city_id');
+            $table->unsignedInteger('id')->primary();
+            $table->unsignedInteger('applicant_id');
+            $table->string('company_name', 255);
+            $table->enum('modality', $this->modalities);
+            $table->unsignedInteger('location_id')->nullable();
+            $table->string('position', 255);
             $table->text('description')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
@@ -29,7 +40,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('applicant_id')->references('id')->on('applicants');
-            $table->foreign('company_city_id')->references('id')->on('cities');
+            $table->foreign('location_id')->references('id')->on('locations');
         });
     }
 

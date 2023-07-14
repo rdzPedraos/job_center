@@ -9,6 +9,13 @@ class VinculationType extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'acronym',
+        'description',
+        'is_active',
+    ];
+
     public $timestamps = false;
 
     /**
